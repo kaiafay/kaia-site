@@ -1,53 +1,80 @@
-"use client"
+"use client";
 
-import { useRef, useState } from "react"
-import { Github, Linkedin, Instagram, Loader2 } from "lucide-react"
-import { useInView } from "@/hooks/use-in-view"
-import { DropdownSelect } from "@/components/ui/dropdown-select"
+import { useRef, useState } from "react";
+import { Github, Linkedin, Instagram, Loader2 } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
+import { DropdownSelect } from "@/components/ui/dropdown-select";
 
 const INTEREST_OPTIONS = [
   { value: "software", label: "Software" },
   { value: "training", label: "Training" },
   { value: "both", label: "Both" },
-] as const
+] as const;
 
 export function Contact() {
-  const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref)
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [interest, setInterest] = useState("")
-  const [message, setMessage] = useState("")
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
-  const [errorMessage, setErrorMessage] = useState("")
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [interest, setInterest] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+
+  const clearFieldError = (field: string) => {
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  };
+
+  const validate = (): boolean => {
+    const errors: Record<string, string> = {};
+    const trimmedName = name.trim();
+    if (!trimmedName) errors.name = "Name is required.";
+    if (!email.trim()) errors.email = "Email is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      errors.email = "Please enter a valid email.";
+    if (!interest) errors.interest = "Please select an option.";
+    if (!message.trim()) errors.message = "Message is required.";
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!interest) return
-    setStatus("loading")
-    setErrorMessage("")
+    e.preventDefault();
+    if (!validate()) return;
+    setStatus("loading");
+    setErrorMessage("");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, interest, message }),
-      })
-      const data = await res.json().catch(() => ({}))
+      });
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setStatus("error")
-        setErrorMessage(data.error ?? "Something went wrong. Please try again.")
-        return
+        setStatus("error");
+        setErrorMessage(
+          data.error ?? "Something went wrong. Please try again.",
+        );
+        return;
       }
-      setStatus("success")
-      setName("")
-      setEmail("")
-      setInterest("")
-      setMessage("")
+      setStatus("success");
+      setName("");
+      setEmail("");
+      setInterest("");
+      setMessage("");
+      setFieldErrors({});
     } catch {
-      setStatus("error")
-      setErrorMessage("Something went wrong. Please try again.")
+      setStatus("error");
+      setErrorMessage("Something went wrong. Please try again.");
     }
-  }
+  };
 
   return (
     <section ref={ref} id="contact" className="relative py-24 lg:py-32">
@@ -76,6 +103,7 @@ export function Contact() {
           ) : (
             <form
               onSubmit={handleSubmit}
+              noValidate
               className="flex w-full flex-col gap-5"
             >
               {status === "error" && (
@@ -93,13 +121,24 @@ export function Contact() {
                 <input
                   id="name"
                   type="text"
-                  required
                   placeholder="Your name"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    clearFieldError("name");
+                  }}
                   disabled={status === "loading"}
-                  className="rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25 disabled:opacity-60"
+                  className={`rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)] disabled:opacity-60 ${
+                    fieldErrors.name
+                      ? "border-primary/60"
+                      : "border-border focus:border-primary/50"
+                  }`}
                 />
+                {fieldErrors.name && (
+                  <p className="text-sm text-primary/90" role="alert">
+                    {fieldErrors.name}
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -112,13 +151,24 @@ export function Contact() {
                 <input
                   id="email"
                   type="email"
-                  required
                   placeholder="you@email.com"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    clearFieldError("email");
+                  }}
                   disabled={status === "loading"}
-                  className="rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25 disabled:opacity-60"
+                  className={`rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)] disabled:opacity-60 ${
+                    fieldErrors.email
+                      ? "border-primary/60"
+                      : "border-border focus:border-primary/50"
+                  }`}
                 />
+                {fieldErrors.email && (
+                  <p className="text-sm text-primary/90" role="alert">
+                    {fieldErrors.email}
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -131,11 +181,20 @@ export function Contact() {
                 <DropdownSelect
                   id="interest"
                   value={interest}
-                  onValueChange={setInterest}
+                  onValueChange={(v) => {
+                    setInterest(v);
+                    clearFieldError("interest");
+                  }}
                   options={[...INTEREST_OPTIONS]}
                   placeholder="Select one..."
                   disabled={status === "loading"}
+                  hasError={!!fieldErrors.interest}
                 />
+                {fieldErrors.interest && (
+                  <p className="text-sm text-primary/90" role="alert">
+                    {fieldErrors.interest}
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -147,14 +206,25 @@ export function Contact() {
                 </label>
                 <textarea
                   id="message"
-                  required
                   rows={4}
                   placeholder="Tell me what you're looking for..."
                   value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  onChange={(e) => {
+                    setMessage(e.target.value);
+                    clearFieldError("message");
+                  }}
                   disabled={status === "loading"}
-                  className="resize-none rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25 disabled:opacity-60"
+                  className={`resize-none rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)] disabled:opacity-60 ${
+                    fieldErrors.message
+                      ? "border-primary/60"
+                      : "border-border focus:border-primary/50"
+                  }`}
                 />
+                {fieldErrors.message && (
+                  <p className="text-sm text-primary/90" role="alert">
+                    {fieldErrors.message}
+                  </p>
+                )}
               </div>
 
               <button
@@ -206,5 +276,5 @@ export function Contact() {
         </div>
       </div>
     </section>
-  )
+  );
 }

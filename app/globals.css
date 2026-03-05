@@ -96,13 +96,12 @@ select,
   transition-timing-function: ease;
 }
 
-/* Maroon focus ring for form inputs */
 input:focus,
 textarea:focus,
 [role="combobox"]:focus {
-  border-color: #8f3848 !important;
+  border-color: rgba(143, 56, 72, 0.5) !important;
   outline: none !important;
-  box-shadow: 0 0 0 3px rgba(143, 56, 72, 0.25) !important;
+  box-shadow: 0 0 20px rgba(143, 56, 72, 0.25) !important;
 }
 
 .noise-overlay {

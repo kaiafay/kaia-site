@@ -19,6 +19,7 @@ interface DropdownSelectProps {
   id?: string;
   className?: string;
   matchWidth?: boolean;
+  hasError?: boolean;
 }
 
 export function DropdownSelect({
@@ -30,6 +31,7 @@ export function DropdownSelect({
   id,
   className,
   matchWidth = true,
+  hasError = false,
 }: DropdownSelectProps) {
   const triggerRef = React.useRef<HTMLButtonElement>(null);
   const panelRef = React.useRef<HTMLDivElement>(null);
@@ -202,8 +204,9 @@ export function DropdownSelect({
         aria-expanded={open}
         aria-label={displayText}
         className={cn(
-          "flex w-full items-center justify-between gap-2 rounded-lg border border-border bg-[#111] px-4 py-3 text-left text-sm text-foreground transition-all duration-200",
-          "hover:bg-[#1a1a1a] focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25",
+          "flex w-full items-center justify-between gap-2 rounded-lg border bg-[#111] px-4 py-3 text-left text-sm text-foreground transition-all duration-200",
+          hasError ? "border-primary/60" : "border-border",
+          "hover:bg-[#1a1a1a] focus:border-primary/50 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)]",
           !selectedOption && "text-muted-foreground",
           "disabled:cursor-not-allowed disabled:opacity-50",
           className,

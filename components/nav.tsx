@@ -25,7 +25,7 @@ export function Nav() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border"
+          ? "bg-background/80 backdrop-blur-md shadow-[0_1px_0_0_rgba(255,255,255,0.04)]"
           : "bg-transparent"
       }`}
     >
@@ -62,7 +62,7 @@ export function Nav() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="border-b border-border bg-background/95 backdrop-blur-md md:hidden">
+        <div className="bg-background/80 backdrop-blur-md shadow-[0_1px_0_0_rgba(255,255,255,0.04)] md:hidden">
           <div className="flex flex-col gap-4 px-6 py-6">
             {navLinks.map((link) => (
               <a
