@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { ArrowDown } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/images";
 
@@ -65,18 +64,6 @@ export function Hero() {
           />
           <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
-        <a
-          href="#about"
-          className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-          aria-label="Scroll to about section"
-        >
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <ArrowDown size={16} className="animate-bounce" />
-        </a>
       </div>
     </section>
   );
