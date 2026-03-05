@@ -1,5 +1,10 @@
+"use client";
+
+import { useRef } from "react";
 import Image from "next/image";
 import { ClipboardList, Mail, Calendar } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
 import { images } from "@/lib/images";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -24,11 +29,22 @@ const steps = [
 ];
 
 export default function CoachingPage() {
+  const heroRef = useRef<HTMLElement>(null);
+  const approachRef = useRef<HTMLElement>(null);
+  const stepsRef = useRef<HTMLElement>(null);
+  const formRef = useRef<HTMLElement>(null);
+  const isHeroInView = useInView(heroRef);
+  const isApproachInView = useInView(approachRef);
+  const isStepsInView = useInView(stepsRef);
+  const isFormInView = useInView(formRef);
+
   return (
     <main>
       {/* Hero */}
-      <section className="relative pt-24 pb-12 lg:pt-32 lg:pb-16">
-        <div className="mx-auto max-w-3xl px-6 text-center">
+      <section ref={heroRef} className="relative pt-24 pb-12 lg:pt-32 lg:pb-16">
+        <div
+          className={`${scrollRevealClass(isHeroInView)} mx-auto max-w-3xl px-6 text-center`}
+        >
           <SectionLabel as="h2">Coaching</SectionLabel>
           <SectionHeading as="h1" className="mt-2">
             Work With Me
@@ -41,9 +57,11 @@ export default function CoachingPage() {
       </section>
 
       {/* My Approach — split image + text */}
-      <section className="relative pt-12 pb-24 lg:pt-16 lg:pb-32">
+      <section ref={approachRef} className="relative pt-12 pb-24 lg:pt-16 lg:pb-32">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+          <div
+            className={`${scrollRevealClass(isApproachInView)} grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12`}
+          >
             <div className="relative min-h-[280px] overflow-hidden rounded-lg sm:min-h-[360px] lg:min-h-0 lg:h-full">
               <Image
                 src={images.coaching}
@@ -77,16 +95,16 @@ export default function CoachingPage() {
       </section>
 
       {/* What Happens Next */}
-      <section className="relative py-16 lg:py-24">
+      <section ref={stepsRef} className="relative py-16 lg:py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <SectionLabel as="h3" className="mb-12 text-center">
-            What Happens Next
-          </SectionLabel>
+          <div className={`${scrollRevealClass(isStepsInView)} mb-12 text-center`}>
+            <SectionLabel as="h3">What Happens Next</SectionLabel>
+          </div>
           <div className="grid gap-8 md:grid-cols-3">
-            {steps.map((step) => (
+            {steps.map((step, i) => (
               <div
                 key={step.title}
-                className="flex flex-col items-center text-center"
+                className={`${scrollRevealClass(isStepsInView, Math.min(i, 6) as ScrollRevealDelay)} flex flex-col items-center text-center`}
               >
                 <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl border border-primary/30 bg-primary/10">
                   <step.icon size={24} className="text-primary" />
@@ -104,8 +122,8 @@ export default function CoachingPage() {
       </section>
 
       {/* Intake Form */}
-      <section className="relative py-16 lg:py-24">
-        <div className="mx-auto max-w-4xl px-6">
+      <section ref={formRef} className="relative py-16 lg:py-24">
+        <div className={`${scrollRevealClass(isFormInView)} mx-auto max-w-4xl px-6`}>
           <CoachingForm />
         </div>
       </section>

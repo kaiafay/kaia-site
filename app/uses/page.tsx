@@ -1,5 +1,10 @@
+"use client";
+
+import { useRef } from "react";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
 
 type UseItem = {
   name: string;
@@ -150,11 +155,14 @@ const cardShadowHover =
   "hover:shadow-[0_24px_56px_rgba(0,0,0,0.6)] hover:translate-y-[-4px]";
 
 export default function UsesPage() {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref);
+
   return (
     <main>
-      <section className="relative py-24 lg:py-32">
+      <section ref={ref} className="relative py-24 lg:py-32">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="mb-10">
+          <div className={`${scrollRevealClass(isInView)} mb-10`}>
             <SectionLabel as="h2">Uses</SectionLabel>
             <SectionHeading className="mt-2">Tools &amp; stack</SectionHeading>
             <p className="mt-4 text-sm italic text-muted-foreground">
@@ -164,8 +172,14 @@ export default function UsesPage() {
           </div>
 
           <div className="flex flex-col gap-16">
-            {usesData.map((category) => (
-              <div key={category.label}>
+            {usesData.map((category, categoryIndex) => (
+              <div
+                key={category.label}
+                className={scrollRevealClass(
+                  isInView,
+                  Math.min(categoryIndex, 6) as ScrollRevealDelay,
+                )}
+              >
                 <SectionLabel as="h4" className="mb-6">
                   {category.label}
                 </SectionLabel>

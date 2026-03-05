@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { images } from "@/lib/images";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -15,9 +16,7 @@ export function About() {
     <section ref={ref} id="about" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div
-          className={`flex flex-col items-center gap-12 lg:flex-row lg:items-start lg:gap-16 ${
-            isInView ? "animate-fade-in-up" : "opacity-0"
-          }`}
+          className={`${scrollRevealClass(isInView)} flex flex-col items-center gap-12 lg:flex-row lg:items-start lg:gap-16`}
         >
           {/* Left photo */}
           <div className="relative h-[400px] w-full max-w-sm shrink-0 overflow-hidden rounded-lg lg:h-[500px]">

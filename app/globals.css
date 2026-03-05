@@ -68,19 +68,67 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Non-scroll fade-in (e.g. form steps) — keep for components that don't use IntersectionObserver */
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out forwards;
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+
+/* Scroll-triggered reveal: base state on mount, visible state when in view */
+.scroll-animate-in {
+  will-change: transform, opacity;
+  transform: translateY(20px) translateZ(0);
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.scroll-animate-in-visible {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+/* Stagger delays (CSS only, max 300ms) */
+.scroll-animate-in-delay-0 { transition-delay: 0ms; }
+.scroll-animate-in-delay-1 { transition-delay: 50ms; }
+.scroll-animate-in-delay-2 { transition-delay: 100ms; }
+.scroll-animate-in-delay-3 { transition-delay: 150ms; }
+.scroll-animate-in-delay-4 { transition-delay: 200ms; }
+.scroll-animate-in-delay-5 { transition-delay: 250ms; }
+.scroll-animate-in-delay-6 { transition-delay: 300ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up {
+    animation: none !important;
+  }
+  .scroll-animate-in,
+  .scroll-animate-in-delay-0,
+  .scroll-animate-in-delay-1,
+  .scroll-animate-in-delay-2,
+  .scroll-animate-in-delay-3,
+  .scroll-animate-in-delay-4,
+  .scroll-animate-in-delay-5,
+  .scroll-animate-in-delay-6 {
+    animation: none !important;
+    transition: none !important;
+  }
+  .scroll-animate-in.scroll-animate-in-visible,
+  .scroll-animate-in-visible {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+  .progress-fill-animate {
+    transition: none !important;
+  }
 }
 
 /* Smooth transitions for all interactive elements */

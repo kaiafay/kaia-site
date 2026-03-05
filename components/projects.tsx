@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 
@@ -71,9 +72,7 @@ export function Projects({ limit }: ProjectsProps) {
   return (
     <section ref={ref} id="projects" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div
-          className={`mb-16 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
-        >
+        <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Work</SectionLabel>
           <SectionHeading className="mt-2">Selected Projects</SectionHeading>
         </div>
@@ -82,10 +81,7 @@ export function Projects({ limit }: ProjectsProps) {
           {displayProjects.map((project, i) => (
             <div
               key={project.name}
-              className={`group flex flex-col gap-4 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-[#222] hover:shadow-[0_0_24px_rgba(143,56,72,0.4)] ${
-                isInView ? "animate-fade-in-up" : "opacity-0"
-              }`}
-              style={{ animationDelay: `${i * 0.1}s` }}
+              className={`${scrollRevealClass(isInView, Math.min(i, 6) as ScrollRevealDelay)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-[#222] hover:shadow-[0_0_24px_rgba(143,56,72,0.4)]`}
             >
               <h4 className="font-heading text-lg font-semibold text-card-foreground">
                 {project.name}
@@ -126,10 +122,7 @@ export function Projects({ limit }: ProjectsProps) {
         </div>
 
         {limit != null && (
-          <div
-            className={`mt-10 text-center ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
-            style={{ animationDelay: `${displayProjects.length * 0.1}s` }}
-          >
+          <div className={`${scrollRevealClass(isInView, 6)} mt-10 text-center`}>
             <Link
               href="/work"
               className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/90"

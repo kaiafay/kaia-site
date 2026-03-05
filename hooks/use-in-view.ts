@@ -2,7 +2,7 @@
 
 import { useState, useEffect, type RefObject } from "react"
 
-export function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.1) {
+export function useInView(ref: RefObject<HTMLElement | null>) {
   const [isInView, setIsInView] = useState(false)
 
   useEffect(() => {
@@ -13,14 +13,18 @@ export function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.1) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsInView(true)
+          observer.disconnect()
         }
       },
-      { threshold }
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
     )
 
     observer.observe(element)
     return () => observer.disconnect()
-  }, [ref, threshold])
+  }, [ref])
 
   return isInView
 }

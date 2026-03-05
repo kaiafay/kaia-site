@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 
 export function AboutTeaser() {
@@ -12,9 +13,7 @@ export function AboutTeaser() {
   return (
     <section ref={ref} id="about" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div
-          className={`flex flex-col gap-6 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
-        >
+        <div className={`${scrollRevealClass(isInView)} flex flex-col gap-6`}>
           <SectionLabel as="h2">About</SectionLabel>
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
             I&apos;m a full stack engineer with a deep love for building clean,

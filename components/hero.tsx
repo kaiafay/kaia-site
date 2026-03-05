@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { images } from "@/lib/images";
 
 export function Hero() {
@@ -19,11 +20,7 @@ export function Hero() {
     >
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-12 px-6 py-32 lg:flex-row lg:items-center lg:justify-between lg:py-0">
         {/* Left content */}
-        <div
-          className={`flex max-w-xl flex-col gap-6 ${
-            isInView ? "animate-fade-in-up" : "opacity-0"
-          }`}
-        >
+        <div className={`${scrollRevealClass(isInView)} flex max-w-xl flex-col gap-6`}>
           <h1 className="font-heading text-7xl font-bold leading-none tracking-tighter text-foreground sm:text-8xl lg:text-9xl">
             Kaia
           </h1>
@@ -51,10 +48,7 @@ export function Hero() {
 
         {/* Right portrait */}
         <div
-          className={`relative h-[500px] w-full max-w-sm lg:h-[600px] lg:max-w-md ${
-            isInView ? "animate-fade-in-up" : "opacity-0"
-          }`}
-          style={{ animationDelay: "0.2s" }}
+          className={`${scrollRevealClass(isInView, 4)} relative h-[500px] w-full max-w-sm lg:h-[600px] lg:max-w-md`}
         >
           <Image
             src={images.hero}
