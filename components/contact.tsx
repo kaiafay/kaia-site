@@ -3,13 +3,13 @@
 import { useRef, useState } from "react"
 import { Github, Linkedin, Instagram } from "lucide-react"
 import { useInView } from "@/hooks/use-in-view"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { DropdownSelect } from "@/components/ui/dropdown-select"
+
+const INTEREST_OPTIONS = [
+  { value: "software", label: "Software" },
+  { value: "training", label: "Training" },
+  { value: "both", label: "Both" },
+] as const
 
 export function Contact() {
   const ref = useRef<HTMLElement>(null)
@@ -89,38 +89,19 @@ export function Contact() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium text-foreground">
+                <label
+                  htmlFor="interest"
+                  className="text-sm font-medium text-foreground"
+                >
                   {"I'm interested in"}
                 </label>
-                <Select value={interest} onValueChange={setInterest}>
-                  <SelectTrigger
-                    className="w-full rounded-lg border border-border bg-[#111] px-4 py-3 h-auto text-sm text-foreground data-[placeholder]:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25 hover:bg-[#1a1a1a]"
-                  >
-                    <SelectValue placeholder="Select one..." />
-                  </SelectTrigger>
-                  <SelectContent
-                    className="rounded-lg border border-border bg-[#111] text-foreground shadow-xl"
-                  >
-                    <SelectItem
-                      value="software"
-                      className="cursor-pointer rounded-md px-3 py-2.5 text-sm text-foreground focus:bg-primary/15 focus:text-foreground"
-                    >
-                      Software
-                    </SelectItem>
-                    <SelectItem
-                      value="training"
-                      className="cursor-pointer rounded-md px-3 py-2.5 text-sm text-foreground focus:bg-primary/15 focus:text-foreground"
-                    >
-                      Training
-                    </SelectItem>
-                    <SelectItem
-                      value="both"
-                      className="cursor-pointer rounded-md px-3 py-2.5 text-sm text-foreground focus:bg-primary/15 focus:text-foreground"
-                    >
-                      Both
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+                <DropdownSelect
+                  id="interest"
+                  value={interest}
+                  onValueChange={setInterest}
+                  options={[...INTEREST_OPTIONS]}
+                  placeholder="Select one..."
+                />
               </div>
 
               <div className="flex flex-col gap-2">
