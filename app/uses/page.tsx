@@ -1,101 +1,202 @@
+type UseItem = {
+  name: string;
+  description: string;
+  url?: string;
+};
+
+type UseCategory = {
+  label: string;
+  items: UseItem[];
+};
+
+const usesData: UseCategory[] = [
+  {
+    label: "Dev Tools",
+    items: [
+      {
+        name: "Cursor",
+        description:
+          "My primary editor. AI-assisted coding changed how I work.",
+      },
+      {
+        name: "Claude Code",
+        description:
+          "For agentic coding, refactoring, and scaffolding. Pairs perfectly with Cursor.",
+      },
+      {
+        name: "VS Code",
+        description: "Backup editor and for quick edits.",
+      },
+      {
+        name: "React / JavaScript",
+        description: "Most comfortable here. Where I do my best thinking.",
+      },
+      {
+        name: "TypeScript",
+        description: "Learning to love it.",
+      },
+      {
+        name: "Next.js",
+        description: "Currently learning. This site is built with it.",
+      },
+      {
+        name: "Node.js",
+        description: "Backend of choice.",
+      },
+      {
+        name: "PostgreSQL",
+        description: "Go-to database.",
+      },
+    ],
+  },
+  {
+    label: "Hardware",
+    items: [
+      {
+        name: "MacBook Pro M3 Pro",
+        description: "Fast, quiet, runs everything. Daily driver.",
+      },
+      {
+        name: "Dual monitor setup",
+        description: "Can't go back to one screen.",
+      },
+    ],
+  },
+  {
+    label: "Gym Gear",
+    items: [
+      {
+        name: "Versa Grips Pro",
+        description: "Essential for pulling days. My hands thank me.",
+        url: "https://www.versagripps.com/products/pro?variant=37837553729685",
+      },
+      {
+        name: "Nike Metcon 10",
+        description: "Best lifting shoe I've tried. Stable and grippy.",
+        url: "https://www.nike.com/t/metcon-10-womens-workout-shoes-EGL2tQMt/HQ2620-100",
+      },
+      {
+        name: "Uppper Lifting Belt",
+        description: "Functional and cute. Non-negotiable on heavy days.",
+        url: "https://uppper.com/products/lifting-belt-lavender",
+      },
+      {
+        name: "Gymreapers Ankle Straps",
+        description: "Solid for cable work. Holds up well.",
+        url: "https://www.gymreapers.com/products/ankle-straps",
+      },
+    ],
+  },
+  {
+    label: "Supplements",
+    items: [
+      {
+        name: "Vitamin D3 + K2",
+        description: "Year-round staple.",
+        url: "https://www.sportsresearch.com/products/vitamin-d3-k2",
+      },
+      {
+        name: "Eminent Bile Boost",
+        description: "Supports fat digestion. Underrated.",
+        url: "https://www.eminentnutrition.com/products/eminent-bile-boost",
+      },
+      {
+        name: "Calm Magnesium",
+        description:
+          "Sleep and recovery. Raspberry lemon flavor is actually good.",
+        url: "https://www.naturalvitality.com/products/maxcalm-powder-raspberry-lemon-flavor-nv2739",
+      },
+      {
+        name: "Creatine Monohydrate",
+        description: "The one supplement with endless research behind it.",
+        url: "https://nutricost.com/products/nutricost-creatine-monohydrate-powder-500-grams",
+      },
+      {
+        name: "L-Glutamine",
+        description: "Post-workout recovery staple.",
+        url: "https://nutricost.com/products/nutricost-l-glutamine-powder",
+      },
+    ],
+  },
+  {
+    label: "Apps",
+    items: [
+      {
+        name: "Strong",
+        description: "Workout tracker I actually stick with. Clean and simple.",
+        url: "https://apps.apple.com/us/app/strong-workout-tracker-gym-log/id464254577",
+      },
+      {
+        name: "MacroFactor",
+        description:
+          "Best food tracking app I've used. Dynamic calorie adjustment is a game changer.",
+        url: "https://apps.apple.com/us/app/macrofactor-macro-tracker/id1553503471",
+      },
+      {
+        name: "Happier Meditation",
+        description: "Daily meditation. Non-negotiable for my mental health.",
+        url: "https://apps.apple.com/us/app/happier-meditation/id992210239",
+      },
+    ],
+  },
+];
+
+const cardShadow =
+  "shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.04)]";
+const cardShadowHover =
+  "hover:shadow-[0_24px_56px_rgba(0,0,0,0.6)] hover:translate-y-[-4px]";
+
 export default function UsesPage() {
   return (
     <main>
       <section className="relative py-24 lg:py-32">
-        <div className="mx-auto max-w-3xl px-6">
-          <div className="mb-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mb-10">
             <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
               Uses
             </h2>
             <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
               Tools &amp; stack
             </h3>
+            <p className="mt-4 text-sm italic text-muted-foreground">
+              Everything I actually use — no sponsorships, just genuine
+              recommendations.
+            </p>
           </div>
 
-          <div className="flex flex-col gap-12">
-            {/* TODO: replace with your real dev tools */}
-            <div>
-              <h4 className="mb-4 text-lg font-semibold tracking-tight text-primary font-heading">
-                Dev Tools
-              </h4>
-              <ul className="flex flex-col gap-2 text-muted-foreground">
-                <li>
-                  <span className="font-medium text-foreground">VS Code</span> — Editor with Cursor for AI-assisted coding
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">iTerm2</span> — Terminal on macOS
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">Chrome</span> — Primary browser for dev and debugging
-                </li>
-              </ul>
-            </div>
-
-            {/* TODO: replace with your real hardware */}
-            <div>
-              <h4 className="mb-4 text-lg font-semibold tracking-tight text-primary font-heading">
-                Hardware
-              </h4>
-              <ul className="flex flex-col gap-2 text-muted-foreground">
-                <li>
-                  <span className="font-medium text-foreground">MacBook Pro</span> — Main development machine
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">External monitor</span> — Second screen for layout
-                </li>
-              </ul>
-            </div>
-
-            {/* TODO: replace with your real gym equipment */}
-            <div>
-              <h4 className="mb-4 text-lg font-semibold tracking-tight text-primary font-heading">
-                Gym Equipment
-              </h4>
-              <ul className="flex flex-col gap-2 text-muted-foreground">
-                <li>
-                  <span className="font-medium text-foreground">Barbell &amp; plates</span> — Squats, deadlifts, hip thrusts
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">Dumbbells</span> — Accessory work and unilateral movements
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">Resistance bands</span> — Warm-ups and mobility
-                </li>
-              </ul>
-            </div>
-
-            {/* TODO: replace with what you're actually reading/watching */}
-            <div>
-              <h4 className="mb-4 text-lg font-semibold tracking-tight text-primary font-heading">
-                Currently Reading / Watching
-              </h4>
-              <ul className="flex flex-col gap-2 text-muted-foreground">
-                <li>
-                  <span className="font-medium text-foreground">The Wedding People</span> — Alison Espach
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">NASM CPT materials</span> — Certification prep
-                </li>
-              </ul>
-            </div>
-
-            {/* TODO: replace with your real supplements if any */}
-            <div>
-              <h4 className="mb-4 text-lg font-semibold tracking-tight text-primary font-heading">
-                Supplements
-              </h4>
-              <ul className="flex flex-col gap-2 text-muted-foreground">
-                <li>
-                  <span className="font-medium text-foreground">Whey protein</span> — Post-workout recovery
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">Creatine</span> — Daily, 5g
-                </li>
-                <li>
-                  <span className="font-medium text-foreground">Vitamin D</span> — Especially in winter
-                </li>
-              </ul>
-            </div>
+          <div className="flex flex-col gap-16">
+            {usesData.map((category) => (
+              <div key={category.label}>
+                <h4 className="mb-6 text-sm font-medium tracking-widest text-primary uppercase">
+                  {category.label}
+                </h4>
+                <div className="grid gap-6 sm:grid-cols-2">
+                  {category.items.map((item) => (
+                    <div
+                      key={item.name}
+                      className={`flex flex-col gap-3 rounded-xl border border-border bg-card px-6 py-6 transition-all duration-300 ease-out sm:px-8 sm:py-6 ${cardShadow} ${cardShadowHover}`}
+                    >
+                      <h5 className="font-heading text-lg font-semibold text-card-foreground">
+                        {item.name}
+                      </h5>
+                      <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
+                        {item.description}
+                      </p>
+                      {item.url && (
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/90"
+                        >
+                          Visit →
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
