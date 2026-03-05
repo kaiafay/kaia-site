@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/images";
@@ -33,12 +34,12 @@ export function Hero() {
             <span className="text-primary">Coach by conviction.</span>
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
-            <a
-              href="#projects"
+            <Link
+              href="/work"
               className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-[0_0_16px_rgba(143,56,72,0.3)]"
             >
               See My Work
-            </a>
+            </Link>
             <a
               href="#training"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-6 py-3 text-sm font-medium text-secondary-foreground transition-all duration-200 hover:bg-border"

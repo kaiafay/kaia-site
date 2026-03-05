@@ -1,27 +1,19 @@
-import { Nav } from "@/components/nav"
 import { Hero } from "@/components/hero"
-import { About } from "@/components/about"
-import { Gallery } from "@/components/gallery"
+import { AboutTeaser } from "@/components/about-teaser"
 import { Projects } from "@/components/projects"
 import { Training } from "@/components/training"
 import { Now } from "@/components/now"
 import { Contact } from "@/components/contact"
-import { Footer } from "@/components/footer"
 
 export default function Home() {
   return (
-    <>
-      <Nav />
-      <main>
-        <Hero />
-        <About />
-        <Gallery />
-        <Projects />
-        <Training />
-        <Now />
-        <Contact />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <Hero />
+      <AboutTeaser />
+      <Projects limit={3} />
+      <Training />
+      <Now />
+      <Contact />
+    </main>
   )
 }

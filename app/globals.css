@@ -117,3 +117,35 @@ textarea:focus,
   pointer-events: none;
   z-index: 1;
 }
+
+/* Blog post long-form reading */
+.blog-post-content {
+  line-height: 1.75;
+}
+.blog-post-content p {
+  margin-bottom: 1.25em;
+}
+.blog-post-content ul,
+.blog-post-content ol {
+  margin-bottom: 1.25em;
+  padding-left: 1.5em;
+}
+.blog-post-content h2 {
+  font-family: var(--font-heading-active), sans-serif;
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+.blog-post-content a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.blog-post-content a:hover {
+  text-decoration: underline;
+}
+.blog-post-content strong {
+  font-weight: 600;
+}
+.blog-post-content em {
+  font-style: italic;
+}
