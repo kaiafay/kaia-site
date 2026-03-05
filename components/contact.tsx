@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { Github, Linkedin, Instagram } from "lucide-react"
+import { Github, Linkedin, Instagram, Loader2 } from "lucide-react"
 import { useInView } from "@/hooks/use-in-view"
 import { DropdownSelect } from "@/components/ui/dropdown-select"
 
@@ -14,13 +14,39 @@ const INTEREST_OPTIONS = [
 export function Contact() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref)
-  const [submitted, setSubmitted] = useState(false)
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
   const [interest, setInterest] = useState("")
+  const [message, setMessage] = useState("")
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!interest) return
-    setSubmitted(true)
+    setStatus("loading")
+    setErrorMessage("")
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, interest, message }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setStatus("error")
+        setErrorMessage(data.error ?? "Something went wrong. Please try again.")
+        return
+      }
+      setStatus("success")
+      setName("")
+      setEmail("")
+      setInterest("")
+      setMessage("")
+    } catch {
+      setStatus("error")
+      setErrorMessage("Something went wrong. Please try again.")
+    }
   }
 
   return (
@@ -41,13 +67,10 @@ export function Contact() {
             </h3>
           </div>
 
-          {submitted ? (
+          {status === "success" ? (
             <div className="w-full rounded-lg border border-primary/30 bg-primary/5 p-8 text-center">
               <p className="text-lg font-medium text-foreground">
-                Thanks for reaching out!
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {"I'll get back to you as soon as I can."}
+                Thanks! I&apos;ll be in touch soon.
               </p>
             </div>
           ) : (
@@ -55,6 +78,11 @@ export function Contact() {
               onSubmit={handleSubmit}
               className="flex w-full flex-col gap-5"
             >
+              {status === "error" && (
+                <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-foreground">
+                  {errorMessage}
+                </div>
+              )}
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="name"
@@ -62,13 +90,15 @@ export function Contact() {
                 >
                   Name
                 </label>
-                {/* TODO: optional — replace form placeholders below with your own */}
                 <input
                   id="name"
                   type="text"
                   required
                   placeholder="Your name"
-                  className="rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={status === "loading"}
+                  className="rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25 disabled:opacity-60"
                 />
               </div>
 
@@ -84,7 +114,10 @@ export function Contact() {
                   type="email"
                   required
                   placeholder="you@email.com"
-                  className="rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={status === "loading"}
+                  className="rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25 disabled:opacity-60"
                 />
               </div>
 
@@ -101,6 +134,7 @@ export function Contact() {
                   onValueChange={setInterest}
                   options={[...INTEREST_OPTIONS]}
                   placeholder="Select one..."
+                  disabled={status === "loading"}
                 />
               </div>
 
@@ -116,37 +150,53 @@ export function Contact() {
                   required
                   rows={4}
                   placeholder="Tell me what you're looking for..."
-                  className="resize-none rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  disabled={status === "loading"}
+                  className="resize-none rounded-lg border border-border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:border-primary focus:outline-none focus:ring-[3px] focus:ring-primary/25 disabled:opacity-60"
                 />
               </div>
 
               <button
                 type="submit"
-                className="mt-2 w-full rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-[0_0_16px_rgba(143,56,72,0.3)]"
+                disabled={status === "loading"}
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-[0_0_16px_rgba(143,56,72,0.3)] disabled:opacity-60 disabled:pointer-events-none"
               >
-                Send Message
+                {status === "loading" ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  "Send Message"
+                )}
               </button>
             </form>
           )}
 
-          {/* TODO: replace href="#" with your real social profile URLs */}
           <div className="flex items-center gap-5">
             <a
-              href="#"
+              href="https://github.com/kaiafay"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
               aria-label="GitHub"
             >
               <Github size={20} />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/kaia-scheirman/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
               aria-label="LinkedIn"
             >
               <Linkedin size={20} />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/kaia.lifts"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
               aria-label="Instagram"
             >
