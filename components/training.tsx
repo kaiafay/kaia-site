@@ -48,7 +48,7 @@ export function Training() {
           {services.map((service, i) => (
             <div
               key={service.title}
-              className={`group flex flex-col gap-4 rounded-lg border border-border bg-card p-8 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(123,45,62,0.25)] ${
+              className={`group flex flex-col gap-4 rounded-lg border border-border bg-card p-8 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(143,56,72,0.25)] ${
                 isInView ? "animate-fade-in-up" : "opacity-0"
               }`}
               style={{ animationDelay: `${i * 0.15}s` }}

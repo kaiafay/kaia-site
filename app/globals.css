@@ -10,7 +10,7 @@
   --card-foreground: #e8e8e8;
   --popover: #111111;
   --popover-foreground: #e8e8e8;
-  --primary: #7b2d3e;
+  --primary: #8f3848;
   --primary-foreground: #ffffff;
   --secondary: #1a1a1a;
   --secondary-foreground: #e8e8e8;
@@ -18,11 +18,11 @@
   --muted-foreground: #888888;
   --accent: #4b0082;
   --accent-foreground: #e8e8e8;
-  --destructive: #7b2d3e;
+  --destructive: #8f3848;
   --destructive-foreground: #ffffff;
   --border: #222222;
   --input: #1a1a1a;
-  --ring: #7b2d3e;
+  --ring: #8f3848;
   --radius: 0.5rem;
 }
 
@@ -100,9 +100,9 @@ select,
 input:focus,
 textarea:focus,
 [role="combobox"]:focus {
-  border-color: #7b2d3e !important;
+  border-color: #8f3848 !important;
   outline: none !important;
-  box-shadow: 0 0 0 3px rgba(123, 45, 62, 0.25) !important;
+  box-shadow: 0 0 0 3px rgba(143, 56, 72, 0.25) !important;
 }
 
 .noise-overlay {
