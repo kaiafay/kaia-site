@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { ClipboardList, Mail, Calendar } from "lucide-react";
 import { images } from "@/lib/images";
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { CoachingForm } from "@/components/coaching/coaching-form";
 
 const steps = [
@@ -27,12 +29,10 @@ export default function CoachingPage() {
       {/* Hero */}
       <section className="relative pt-24 pb-12 lg:pt-32 lg:pb-16">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-            Coaching
-          </h2>
-          <h1 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
+          <SectionLabel as="h2">Coaching</SectionLabel>
+          <SectionHeading as="h1" className="mt-2">
             Work With Me
-          </h1>
+          </SectionHeading>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Spots are limited. If you&apos;re serious about your goals,
             let&apos;s talk.
@@ -55,12 +55,10 @@ export default function CoachingPage() {
               />
             </div>
             <div className="flex flex-col justify-center py-4 lg:py-0">
-              <p className="text-sm font-medium tracking-widest text-primary uppercase">
-                My Approach
-              </p>
-              <h2 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
+              <SectionLabel>My Approach</SectionLabel>
+              <SectionHeading as="h2" className="mt-2">
                 No cookie-cutter programs.
-              </h2>
+              </SectionHeading>
               <div className="mt-6 flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
                 <p>
                   I build plans around your life, your schedule, and your body —
@@ -81,9 +79,9 @@ export default function CoachingPage() {
       {/* What Happens Next */}
       <section className="relative py-16 lg:py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <h3 className="mb-12 text-center text-sm font-medium tracking-widest text-primary uppercase">
+          <SectionLabel as="h3" className="mb-12 text-center">
             What Happens Next
-          </h3>
+          </SectionLabel>
           <div className="grid gap-8 md:grid-cols-3">
             {steps.map((step) => (
               <div

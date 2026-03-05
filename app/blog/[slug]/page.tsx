@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { getPostSlugs, getPostBySlug, formatDateDisplay } from "@/lib/blog";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -36,9 +37,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           <header className="mb-10">
-            <h1 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-              {meta.title}
-            </h1>
+            <SectionHeading as="h1">{meta.title}</SectionHeading>
             <p className="mt-2 text-sm text-muted-foreground">
             {formatDateDisplay(meta.date)}
           </p>

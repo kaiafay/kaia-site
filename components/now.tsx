@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { BookOpen } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const nowData = {
   reading: {
@@ -74,12 +75,10 @@ export function Now() {
         <div
           className={`mb-16 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
         >
-          <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-            Now
-          </h2>
-          <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
+          <SectionLabel as="h2">Now</SectionLabel>
+          <SectionHeading className="mt-2">
             What I&apos;m up to
-          </h3>
+          </SectionHeading>
         </div>
 
         <div className="flex flex-col gap-6">

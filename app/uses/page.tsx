@@ -1,3 +1,6 @@
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
+
 type UseItem = {
   name: string;
   description: string;
@@ -152,12 +155,8 @@ export default function UsesPage() {
       <section className="relative py-24 lg:py-32">
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-10">
-            <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-              Uses
-            </h2>
-            <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-              Tools &amp; stack
-            </h3>
+            <SectionLabel as="h2">Uses</SectionLabel>
+            <SectionHeading className="mt-2">Tools &amp; stack</SectionHeading>
             <p className="mt-4 text-sm italic text-muted-foreground">
               Everything I actually use — no sponsorships, just genuine
               recommendations.
@@ -167,9 +166,9 @@ export default function UsesPage() {
           <div className="flex flex-col gap-16">
             {usesData.map((category) => (
               <div key={category.label}>
-                <h4 className="mb-6 text-sm font-medium tracking-widest text-primary uppercase">
+                <SectionLabel as="h4" className="mb-6">
                   {category.label}
-                </h4>
+                </SectionLabel>
                 <div className="grid gap-6 sm:grid-cols-2">
                   {category.items.map((item) => (
                     <div

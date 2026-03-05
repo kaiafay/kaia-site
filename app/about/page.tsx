@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "@/hooks/use-in-view";
 import { images } from "@/lib/images";
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 export default function AboutPage() {
   const ref = useRef<HTMLElement>(null);
@@ -41,13 +43,8 @@ export default function AboutPage() {
 
             {/* Right text */}
             <div className="flex flex-1 flex-col gap-6">
-              <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-                About
-              </h2>
-              {/* TODO: replace with your about headline */}
-              <h1 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-                I build things. I build people.
-              </h1>
+            <SectionLabel as="h2">About</SectionLabel>
+            <SectionHeading as="h1">I build things. I build people.</SectionHeading>
               <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
                 <p>
                   I&apos;m a full stack engineer with a deep love for building

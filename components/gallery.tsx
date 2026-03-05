@@ -4,6 +4,8 @@ import { useRef } from "react"
 import Image from "next/image"
 import { useInView } from "@/hooks/use-in-view"
 import { images } from "@/lib/images"
+import { SectionLabel } from "@/components/ui/section-label"
+import { SectionHeading } from "@/components/ui/section-heading"
 
 export function Gallery() {
   const ref = useRef<HTMLElement>(null)
@@ -20,13 +22,8 @@ export function Gallery() {
         <div
           className={`mb-12 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
         >
-          <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-            Photos
-          </h2>
-          {/* TODO: optional — replace gallery section title with your own */}
-          <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-            A few moments
-          </h3>
+          <SectionLabel as="h2">Photos</SectionLabel>
+          <SectionHeading className="mt-2">A few moments</SectionHeading>
         </div>
 
         <div

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getAllPosts, formatDateDisplay } from "@/lib/blog";
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 export default function BlogPage() {
   const posts = getAllPosts();
@@ -9,12 +11,8 @@ export default function BlogPage() {
       <section className="relative py-24 lg:py-32">
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-16">
-            <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-              Blog
-            </h2>
-            <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-              Writing
-            </h3>
+            <SectionLabel as="h2">Blog</SectionLabel>
+            <SectionHeading className="mt-2">Writing</SectionHeading>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { useInView } from "@/hooks/use-in-view";
+import { SectionLabel } from "@/components/ui/section-label";
 
 export function AboutTeaser() {
   const ref = useRef<HTMLElement>(null);
@@ -14,9 +15,7 @@ export function AboutTeaser() {
         <div
           className={`flex flex-col gap-6 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
         >
-          <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-            About
-          </h2>
+          <SectionLabel as="h2">About</SectionLabel>
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
             I&apos;m a full stack engineer with a deep love for building clean,
             scalable software. By day, I&apos;m shipping code — designing APIs,

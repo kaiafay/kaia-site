@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Loader2, Check, ArrowRight, ArrowLeft } from "lucide-react";
 import { DropdownSelect } from "@/components/ui/dropdown-select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { SectionLabel } from "@/components/ui/section-label";
 
 const TOTAL_STEPS = 5;
 
@@ -88,6 +89,50 @@ const inputClass = (hasError: boolean) =>
     hasError ? "border-primary/60" : "border-border focus:border-primary/50"
   }`;
 
+export type CoachingFormState = {
+  fullName: string;
+  email: string;
+  age: string;
+  location: string;
+  trainingLength: string;
+  daysPerWeek: string;
+  trainingTypes: string[];
+  primaryGoal: string;
+  targetTimeline: string;
+  holdingBack: string;
+  injuries: string;
+  medicalConditions: string;
+  doctorOrSpecialist: string;
+  currentDiet: string;
+  dietaryRestrictions: string;
+  gymAccess: string;
+  monthlyBudget: string;
+  hearAbout: string;
+  anythingElse: string;
+};
+
+const initialFormState: CoachingFormState = {
+  fullName: "",
+  email: "",
+  age: "",
+  location: "",
+  trainingLength: "",
+  daysPerWeek: "",
+  trainingTypes: [],
+  primaryGoal: "",
+  targetTimeline: "",
+  holdingBack: "",
+  injuries: "",
+  medicalConditions: "",
+  doctorOrSpecialist: "",
+  currentDiet: "",
+  dietaryRestrictions: "",
+  gymAccess: "",
+  monthlyBudget: "",
+  hearAbout: "",
+  anythingElse: "",
+};
+
 export function CoachingForm() {
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState<
@@ -95,25 +140,33 @@ export function CoachingForm() {
   >("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
-  const [location, setLocation] = useState("");
-  const [trainingLength, setTrainingLength] = useState("");
-  const [daysPerWeek, setDaysPerWeek] = useState("");
-  const [trainingTypes, setTrainingTypes] = useState<string[]>([]);
-  const [primaryGoal, setPrimaryGoal] = useState("");
-  const [targetTimeline, setTargetTimeline] = useState("");
-  const [holdingBack, setHoldingBack] = useState("");
-  const [injuries, setInjuries] = useState("");
-  const [medicalConditions, setMedicalConditions] = useState("");
-  const [doctorOrSpecialist, setDoctorOrSpecialist] = useState("");
-  const [currentDiet, setCurrentDiet] = useState("");
-  const [dietaryRestrictions, setDietaryRestrictions] = useState("");
-  const [gymAccess, setGymAccess] = useState("");
-  const [monthlyBudget, setMonthlyBudget] = useState("");
-  const [hearAbout, setHearAbout] = useState("");
-  const [anythingElse, setAnythingElse] = useState("");
+  const [formData, setFormData] = useState<CoachingFormState>(initialFormState);
+
+  const handleChange = (field: keyof CoachingFormState, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleAgeChange = (value: string) => {
+    if (value === "" || /^\d{1,3}$/.test(value)) {
+      handleChange("age", value);
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next.age;
+        return next;
+      });
+    }
+  };
+
+  const handleTrainingTypeToggle = (value: string, checked: boolean) => {
+    setFormData((prev) =>
+      checked
+        ? { ...prev, trainingTypes: [...prev.trainingTypes, value] }
+        : {
+            ...prev,
+            trainingTypes: prev.trainingTypes.filter((v) => v !== value),
+          },
+    );
+  };
 
   const clearError = (field: string) => {
     setFieldErrors((prev) => {
@@ -125,12 +178,12 @@ export function CoachingForm() {
 
   const validateStep1 = (): boolean => {
     const errors: Record<string, string> = {};
-    if (!fullName.trim()) errors.fullName = "Required.";
-    if (!email.trim()) errors.email = "Required.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    if (!formData.fullName.trim()) errors.fullName = "Name is required.";
+    if (!formData.email.trim()) errors.email = "Email is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
       errors.email = "Please enter a valid email.";
-    if (age.trim()) {
-      const n = parseInt(age.trim(), 10);
+    if (formData.age.trim()) {
+      const n = parseInt(formData.age.trim(), 10);
       if (Number.isNaN(n) || n < 1 || n > 120)
         errors.age = "Please enter a valid age (1–120).";
     }
@@ -160,30 +213,32 @@ export function CoachingForm() {
     if (!validateStep1()) return;
     setStatus("loading");
     setErrorMessage("");
+    const d = formData;
     try {
       const res = await fetch("/api/coaching", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fullName: fullName.trim(),
-          email: email.trim(),
-          age: age.trim() || undefined,
-          location: location.trim() || undefined,
-          trainingLength: trainingLength || undefined,
-          daysPerWeek: daysPerWeek || undefined,
-          trainingTypes: trainingTypes.length > 0 ? trainingTypes : undefined,
-          primaryGoal: primaryGoal || undefined,
-          targetTimeline: targetTimeline.trim() || undefined,
-          holdingBack: holdingBack.trim() || undefined,
-          injuries: injuries.trim() || undefined,
-          medicalConditions: medicalConditions.trim() || undefined,
-          doctorOrSpecialist: doctorOrSpecialist || undefined,
-          currentDiet: currentDiet || undefined,
-          dietaryRestrictions: dietaryRestrictions.trim() || undefined,
-          gymAccess: gymAccess || undefined,
-          monthlyBudget: monthlyBudget || undefined,
-          hearAbout: hearAbout || undefined,
-          anythingElse: anythingElse.trim() || undefined,
+          fullName: d.fullName.trim(),
+          email: d.email.trim(),
+          age: d.age.trim() || undefined,
+          location: d.location.trim() || undefined,
+          trainingLength: d.trainingLength || undefined,
+          daysPerWeek: d.daysPerWeek || undefined,
+          trainingTypes:
+            d.trainingTypes.length > 0 ? d.trainingTypes : undefined,
+          primaryGoal: d.primaryGoal || undefined,
+          targetTimeline: d.targetTimeline.trim() || undefined,
+          holdingBack: d.holdingBack.trim() || undefined,
+          injuries: d.injuries.trim() || undefined,
+          medicalConditions: d.medicalConditions.trim() || undefined,
+          doctorOrSpecialist: d.doctorOrSpecialist || undefined,
+          currentDiet: d.currentDiet || undefined,
+          dietaryRestrictions: d.dietaryRestrictions.trim() || undefined,
+          gymAccess: d.gymAccess || undefined,
+          monthlyBudget: d.monthlyBudget || undefined,
+          hearAbout: d.hearAbout || undefined,
+          anythingElse: d.anythingElse.trim() || undefined,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -245,9 +300,7 @@ export function CoachingForm() {
         <div className="min-h-[320px]">
           {step === 1 && (
             <div key="step1" className="animate-fade-in-up flex flex-col gap-5">
-              <p className="text-sm font-medium tracking-widest text-primary uppercase">
-                {STEP_LABELS[1]}
-              </p>
+              <SectionLabel>{STEP_LABELS[1]}</SectionLabel>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="flex flex-col gap-2">
                   <label
@@ -259,9 +312,9 @@ export function CoachingForm() {
                   <input
                     id="fullName"
                     type="text"
-                    value={fullName}
+                    value={formData.fullName}
                     onChange={(e) => {
-                      setFullName(e.target.value);
+                      handleChange("fullName", e.target.value);
                       clearError("fullName");
                     }}
                     disabled={status === "loading"}
@@ -284,9 +337,9 @@ export function CoachingForm() {
                   <input
                     id="email"
                     type="email"
-                    value={email}
+                    value={formData.email}
                     onChange={(e) => {
-                      setEmail(e.target.value);
+                      handleChange("email", e.target.value);
                       clearError("email");
                     }}
                     disabled={status === "loading"}
@@ -310,14 +363,8 @@ export function CoachingForm() {
                     id="age"
                     type="text"
                     inputMode="numeric"
-                    value={age}
-                    onChange={(e) => {
-                      const v = e.target.value;
-                      if (v === "" || /^\d{1,3}$/.test(v)) {
-                        setAge(v);
-                        clearError("age");
-                      }
-                    }}
+                    value={formData.age}
+                    onChange={(e) => handleAgeChange(e.target.value)}
                     disabled={status === "loading"}
                     className={inputClass(!!fieldErrors.age)}
                     placeholder="e.g. 28"
@@ -338,8 +385,8 @@ export function CoachingForm() {
                   <input
                     id="location"
                     type="text"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    value={formData.location}
+                    onChange={(e) => handleChange("location", e.target.value)}
                     disabled={status === "loading"}
                     className={inputClass(false)}
                     placeholder="e.g. Denver, CO"
@@ -351,17 +398,15 @@ export function CoachingForm() {
 
           {step === 2 && (
             <div key="step2" className="animate-fade-in-up flex flex-col gap-5">
-              <p className="text-sm font-medium tracking-widest text-primary uppercase">
-                {STEP_LABELS[2]}
-              </p>
+              <SectionLabel>{STEP_LABELS[2]}</SectionLabel>
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-medium text-foreground">
                     How long have you been training?
                   </label>
                   <DropdownSelect
-                    value={trainingLength}
-                    onValueChange={setTrainingLength}
+                    value={formData.trainingLength}
+                    onValueChange={(v) => handleChange("trainingLength", v)}
                     options={TRAINING_LENGTH_OPTIONS}
                     placeholder="Select..."
                     disabled={status === "loading"}
@@ -372,8 +417,8 @@ export function CoachingForm() {
                     How many days per week do you train?
                   </label>
                   <DropdownSelect
-                    value={daysPerWeek}
-                    onValueChange={setDaysPerWeek}
+                    value={formData.daysPerWeek}
+                    onValueChange={(v) => handleChange("daysPerWeek", v)}
                     options={DAYS_PER_WEEK_OPTIONS}
                     placeholder="Select..."
                     disabled={status === "loading"}
@@ -390,16 +435,13 @@ export function CoachingForm() {
                         className="flex cursor-pointer items-center gap-2 text-sm text-muted-foreground"
                       >
                         <Checkbox
-                          checked={trainingTypes.includes(opt.value)}
-                          onCheckedChange={(checked) => {
-                            if (checked === true) {
-                              setTrainingTypes((prev) => [...prev, opt.value]);
-                            } else {
-                              setTrainingTypes((prev) =>
-                                prev.filter((v) => v !== opt.value),
-                              );
-                            }
-                          }}
+                          checked={formData.trainingTypes.includes(opt.value)}
+                          onCheckedChange={(checked) =>
+                            handleTrainingTypeToggle(
+                              opt.value,
+                              checked === true,
+                            )
+                          }
                           disabled={status === "loading"}
                           className="border-muted-foreground/80 data-[state=unchecked]:bg-input data-[state=unchecked]:border-muted-foreground/80"
                         />
@@ -414,17 +456,15 @@ export function CoachingForm() {
 
           {step === 3 && (
             <div key="step3" className="animate-fade-in-up flex flex-col gap-5">
-              <p className="text-sm font-medium tracking-widest text-primary uppercase">
-                {STEP_LABELS[3]}
-              </p>
+              <SectionLabel>{STEP_LABELS[3]}</SectionLabel>
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-medium text-foreground">
                     Primary goal
                   </label>
                   <DropdownSelect
-                    value={primaryGoal}
-                    onValueChange={setPrimaryGoal}
+                    value={formData.primaryGoal}
+                    onValueChange={(v) => handleChange("primaryGoal", v)}
                     options={PRIMARY_GOAL_OPTIONS}
                     placeholder="Select..."
                     disabled={status === "loading"}
@@ -440,8 +480,10 @@ export function CoachingForm() {
                   <input
                     id="targetTimeline"
                     type="text"
-                    value={targetTimeline}
-                    onChange={(e) => setTargetTimeline(e.target.value)}
+                    value={formData.targetTimeline}
+                    onChange={(e) =>
+                      handleChange("targetTimeline", e.target.value)
+                    }
                     disabled={status === "loading"}
                     className={inputClass(false)}
                     placeholder='e.g. "6 months", "before summer"'
@@ -458,8 +500,10 @@ export function CoachingForm() {
                   <textarea
                     id="holdingBack"
                     rows={3}
-                    value={holdingBack}
-                    onChange={(e) => setHoldingBack(e.target.value)}
+                    value={formData.holdingBack}
+                    onChange={(e) =>
+                      handleChange("holdingBack", e.target.value)
+                    }
                     disabled={status === "loading"}
                     className={`resize-none ${inputClass(false)}`}
                     placeholder="Tell me more..."
@@ -471,9 +515,7 @@ export function CoachingForm() {
 
           {step === 4 && (
             <div key="step4" className="animate-fade-in-up flex flex-col gap-5">
-              <p className="text-sm font-medium tracking-widest text-primary uppercase">
-                {STEP_LABELS[4]}
-              </p>
+              <SectionLabel>{STEP_LABELS[4]}</SectionLabel>
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-2">
                   <label
@@ -485,8 +527,8 @@ export function CoachingForm() {
                   <textarea
                     id="injuries"
                     rows={2}
-                    value={injuries}
-                    onChange={(e) => setInjuries(e.target.value)}
+                    value={formData.injuries}
+                    onChange={(e) => handleChange("injuries", e.target.value)}
                     disabled={status === "loading"}
                     className={`resize-none ${inputClass(false)}`}
                     placeholder="Optional"
@@ -502,8 +544,10 @@ export function CoachingForm() {
                   <textarea
                     id="medicalConditions"
                     rows={2}
-                    value={medicalConditions}
-                    onChange={(e) => setMedicalConditions(e.target.value)}
+                    value={formData.medicalConditions}
+                    onChange={(e) =>
+                      handleChange("medicalConditions", e.target.value)
+                    }
                     disabled={status === "loading"}
                     className={`resize-none ${inputClass(false)}`}
                     placeholder="Optional"
@@ -514,8 +558,8 @@ export function CoachingForm() {
                     Currently working with a doctor or specialist?
                   </label>
                   <DropdownSelect
-                    value={doctorOrSpecialist}
-                    onValueChange={setDoctorOrSpecialist}
+                    value={formData.doctorOrSpecialist}
+                    onValueChange={(v) => handleChange("doctorOrSpecialist", v)}
                     options={DOCTOR_OPTIONS}
                     placeholder="Select..."
                     disabled={status === "loading"}
@@ -526,8 +570,8 @@ export function CoachingForm() {
                     How would you describe your current diet?
                   </label>
                   <DropdownSelect
-                    value={currentDiet}
-                    onValueChange={setCurrentDiet}
+                    value={formData.currentDiet}
+                    onValueChange={(v) => handleChange("currentDiet", v)}
                     options={CURRENT_DIET_OPTIONS}
                     placeholder="Select..."
                     disabled={status === "loading"}
@@ -543,8 +587,10 @@ export function CoachingForm() {
                   <input
                     id="dietaryRestrictions"
                     type="text"
-                    value={dietaryRestrictions}
-                    onChange={(e) => setDietaryRestrictions(e.target.value)}
+                    value={formData.dietaryRestrictions}
+                    onChange={(e) =>
+                      handleChange("dietaryRestrictions", e.target.value)
+                    }
                     disabled={status === "loading"}
                     className={inputClass(false)}
                     placeholder="Optional"
@@ -556,17 +602,15 @@ export function CoachingForm() {
 
           {step === 5 && (
             <div key="step5" className="animate-fade-in-up flex flex-col gap-5">
-              <p className="text-sm font-medium tracking-widest text-primary uppercase">
-                {STEP_LABELS[5]}
-              </p>
+              <SectionLabel>{STEP_LABELS[5]}</SectionLabel>
               <div className="flex flex-col gap-5">
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-medium text-foreground">
                     Gym access?
                   </label>
                   <DropdownSelect
-                    value={gymAccess}
-                    onValueChange={setGymAccess}
+                    value={formData.gymAccess}
+                    onValueChange={(v) => handleChange("gymAccess", v)}
                     options={GYM_ACCESS_OPTIONS}
                     placeholder="Select..."
                     disabled={status === "loading"}
@@ -577,8 +621,8 @@ export function CoachingForm() {
                     Monthly coaching budget?
                   </label>
                   <DropdownSelect
-                    value={monthlyBudget}
-                    onValueChange={setMonthlyBudget}
+                    value={formData.monthlyBudget}
+                    onValueChange={(v) => handleChange("monthlyBudget", v)}
                     options={BUDGET_OPTIONS}
                     placeholder="Select..."
                     disabled={status === "loading"}
@@ -589,8 +633,8 @@ export function CoachingForm() {
                     How did you hear about Kaia?
                   </label>
                   <DropdownSelect
-                    value={hearAbout}
-                    onValueChange={setHearAbout}
+                    value={formData.hearAbout}
+                    onValueChange={(v) => handleChange("hearAbout", v)}
                     options={HEAR_ABOUT_OPTIONS}
                     placeholder="Select..."
                     disabled={status === "loading"}
@@ -606,8 +650,10 @@ export function CoachingForm() {
                   <textarea
                     id="anythingElse"
                     rows={3}
-                    value={anythingElse}
-                    onChange={(e) => setAnythingElse(e.target.value)}
+                    value={formData.anythingElse}
+                    onChange={(e) =>
+                      handleChange("anythingElse", e.target.value)
+                    }
                     disabled={status === "loading"}
                     className={`resize-none ${inputClass(false)}`}
                     placeholder="Optional"

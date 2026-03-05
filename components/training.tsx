@@ -3,6 +3,8 @@
 import { useRef } from "react"
 import { Dumbbell, ClipboardList, Apple } from "lucide-react"
 import { useInView } from "@/hooks/use-in-view"
+import { SectionLabel } from "@/components/ui/section-label"
+import { SectionHeading } from "@/components/ui/section-heading"
 
 // TODO: replace with your real coaching services (titles and descriptions)
 const services = [
@@ -36,12 +38,8 @@ export function Training() {
         <div
           className={`mb-16 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
         >
-          <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-            Training
-          </h2>
-          <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-            Coaching Services
-          </h3>
+          <SectionLabel as="h2">Training</SectionLabel>
+          <SectionHeading className="mt-2">Coaching Services</SectionHeading>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

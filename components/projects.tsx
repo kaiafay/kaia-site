@@ -4,6 +4,8 @@ import { useRef } from "react";
 import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 // TODO: replace with your real projects (name, description, tech, github URL, live URL or null)
 const projects = [
@@ -72,12 +74,8 @@ export function Projects({ limit }: ProjectsProps) {
         <div
           className={`mb-16 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
         >
-          <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-            Work
-          </h2>
-          <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-            Selected Projects
-          </h3>
+          <SectionLabel as="h2">Work</SectionLabel>
+          <SectionHeading className="mt-2">Selected Projects</SectionHeading>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
