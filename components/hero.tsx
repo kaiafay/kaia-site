@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { images } from "@/lib/images";
@@ -20,7 +19,9 @@ export function Hero() {
     >
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-12 px-6 py-32 lg:flex-row lg:items-center lg:justify-between lg:py-0">
         {/* Left content */}
-        <div className={`${scrollRevealClass(isInView)} flex max-w-xl flex-col gap-6`}>
+        <div
+          className={`${scrollRevealClass(isInView)} flex max-w-xl flex-col gap-6`}
+        >
           <h1 className="font-heading text-7xl font-bold leading-none tracking-tighter text-foreground sm:text-8xl lg:text-9xl">
             Kaia
           </h1>
@@ -60,18 +61,6 @@ export function Hero() {
           />
           <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
-        <a
-          href="#about"
-          className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-          aria-label="Scroll to about section"
-        >
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <ArrowDown size={16} className="animate-bounce" />
-        </a>
       </div>
     </section>
   );
