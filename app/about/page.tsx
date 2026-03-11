@@ -38,6 +38,7 @@ export default function AboutPage() {
                 fill
                 className="object-cover object-top"
                 sizes="(max-width: 768px) 100vw, 384px"
+                priority
               />
             </div>
 

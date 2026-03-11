@@ -69,7 +69,7 @@ export default function CoachingPage() {
                 fill
                 className="object-cover object-[50%_65%]"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                priority={false}
+                priority
               />
             </div>
             <div className="flex flex-col justify-center py-4 lg:py-0">

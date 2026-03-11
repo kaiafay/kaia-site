@@ -26,6 +26,7 @@ export function About() {
               fill
               className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 384px"
+              priority
             />
           </div>
 

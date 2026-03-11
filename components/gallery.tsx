@@ -8,6 +8,17 @@ import { images } from "@/lib/images"
 import { SectionLabel } from "@/components/ui/section-label"
 import { SectionHeading } from "@/components/ui/section-heading"
 
+const blurDataURLs: Record<string, string> = {
+  "/images/extra-1.webp":
+    "data:image/jpeg;base64,/9j/2wBDACgcHiMeGSgjISMtKygwPGRBPDc3PHtYXUlkkYCZlo+AjIqgtObDoKrarYqMyP/L2u71////m8H////6/+b9//j/2wBDASstLTw1PHZBQXb4pYyl+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj/wAARCAAPAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMF/8QAHRAAAgIBBQAAAAAAAAAAAAAAAREAAgMSEyFhcf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDNqK6GTzClhhQQLHsbPYgf/9k=",
+  "/images/extra-5.webp":
+    "data:image/jpeg;base64,/9j/2wBDACgcHiMeGSgjISMtKygwPGRBPDc3PHtYXUlkkYCZlo+AjIqgtObDoKrarYqMyP/L2u71////m8H////6/+b9//j/2wBDASstLTw1PHZBQXb4pYyl+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj/wAARCAAPAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAwIE/8QAIBAAAQMDBQEAAAAAAAAAAAAAAQACAwQRURQhIjGRof/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAER/9oADAMBAAIRAxEAPwDI2nj2sbpNLHlvqoyRvA7GSAmDqew4O+Kkg6//2Q==",
+  "/images/extra-3.webp":
+    "data:image/jpeg;base64,/9j/2wBDACgcHiMeGSgjISMtKygwPGRBPDc3PHtYXUlkkYCZlo+AjIqgtObDoKrarYqMyP/L2u71////m8H////6/+b9//j/2wBDASstLTw1PHZBQXb4pYyl+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj/wAARCAAPAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAwT/xAAeEAABAgICAwAAAAAAAAAAAAAAAgEDBBFIRJBgf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwBOTYGFVBpibGKmzGUUs1EjvINzYSYLIt1GT9OVxxxGNT4DsD1gf//Z",
+  "/images/extra-6.webp":
+    "data:image/jpeg;base64,/9j/2wBDACgcHiMeGSgjISMtKygwPGRBPDc3PHtYXUlkkYCZlo+AjIqgtObDoKrarYqMyP/L2u71////m8H////6/+b9//j/2wBDASstLTw1PHZBQXb4pYyl+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj/wAARCAAPAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAwEF/8QAHBAAAgICAwAAAAAAAAAAAAAAAQIAEQMTIUGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDOBuxXskVMLqxNDnu4mhYV/9k=",
+}
+
 export function Gallery() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref)
@@ -37,7 +48,9 @@ export function Gallery() {
                 src={src}
                 alt=""
                 fill
-                className={`object-cover ${src === "/images/extra-5.JPG" ? "object-bottom" : "object-center"}`}
+                placeholder="blur"
+                blurDataURL={blurDataURLs[src]}
+                className={`object-cover ${src === "/images/extra-5.webp" ? "object-bottom" : "object-center"}`}
                 sizes="(max-width: 640px) 50vw, 25vw"
               />
             </div>

@@ -46,6 +46,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" as="image" href="/images/hero-portrait.webp" />
+      </head>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased`}>
         <Nav />
         {children}
