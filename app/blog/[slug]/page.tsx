@@ -1,9 +1,8 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { getPostSlugs, getPostBySlug, formatDateDisplay } from "@/lib/blog";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { BlogPostContent } from "@/components/blog-post-content";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -25,29 +24,9 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <main>
-      <article className="relative py-24 lg:py-32">
-        <div className="mx-auto max-w-3xl px-6">
-          <div className="mb-10">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              ← Back to blog
-            </Link>
-          </div>
-
-          <header className="mb-10">
-            <SectionHeading as="h1">{meta.title}</SectionHeading>
-            <p className="mt-2 text-sm text-muted-foreground">
-            {formatDateDisplay(meta.date)}
-          </p>
-          </header>
-
-          <div className="blog-post-content text-foreground">
-            {MdxContent}
-          </div>
-        </div>
-      </article>
+      <BlogPostContent title={meta.title} date={formatDateDisplay(meta.date)}>
+        {MdxContent}
+      </BlogPostContent>
     </main>
   );
 }
