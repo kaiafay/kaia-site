@@ -1,8 +1,10 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { BookOpen } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass } from "@/lib/scroll-reveal";
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const nowData = {
   reading: {
@@ -60,9 +62,12 @@ export function Now() {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setProgressAnimated(true);
+        if (entry.isIntersecting) {
+          setProgressAnimated(true);
+          observer.disconnect();
+        }
       },
-      { threshold: 0.2 },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -71,24 +76,17 @@ export function Now() {
   return (
     <section ref={ref} id="now" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div
-          className={`mb-16 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
-        >
-          <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-            Now
-          </h2>
-          <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
+        <div className={`${scrollRevealClass(isInView)} mb-16`}>
+          <SectionLabel as="h2">Now</SectionLabel>
+          <SectionHeading className="mt-2">
             What I&apos;m up to
-          </h3>
+          </SectionHeading>
         </div>
 
         <div className="flex flex-col gap-6">
           {/* Card 1 — Reading (left-aligned) */}
           <div
-            className={`${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-[#111] md:flex-row ${
-              isInView ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "0s" }}
+            className={`${scrollRevealClass(isInView, 0)} ${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-[#111] md:flex-row`}
           >
             <div className="flex w-full flex-col justify-center text-center md:w-1/2 md:max-w-[50%] md:text-left">
               <CardLabel>Currently reading</CardLabel>
@@ -109,10 +107,7 @@ export function Now() {
 
           {/* Card 2 — Listening (right-aligned) */}
           <div
-            className={`${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[#141414] md:flex-row ${
-              isInView ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "0.1s" }}
+            className={`${scrollRevealClass(isInView, 2)} ${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[#141414] md:flex-row`}
           >
             <div className="hidden flex-1 md:block" aria-hidden />
             <div className="flex w-full flex-col justify-center text-center md:ml-auto md:w-1/2 md:max-w-[50%] md:text-right">
@@ -134,10 +129,7 @@ export function Now() {
 
           {/* Card 3 — Training (left-aligned) */}
           <div
-            className={`${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-[#111] md:flex-row ${
-              isInView ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "0.2s" }}
+            className={`${scrollRevealClass(isInView, 4)} ${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-[#111] md:flex-row`}
           >
             <div className="flex w-full flex-col justify-center text-center md:w-1/2 md:max-w-[50%] md:flex-row md:items-center md:justify-between md:text-left">
               <div>
@@ -164,10 +156,7 @@ export function Now() {
           {/* Card 4 — Learning (right-aligned, two columns) */}
           <div
             ref={learningRef}
-            className={`${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[#141414] md:flex-row ${
-              isInView ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "0.3s" }}
+            className={`${scrollRevealClass(isInView, 6)} ${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[#141414] md:flex-row`}
           >
             <div className="hidden flex-1 md:block" aria-hidden />
             <div className="flex w-full flex-col justify-center text-center md:ml-auto md:w-1/2 md:max-w-[50%] md:text-right">
@@ -183,11 +172,13 @@ export function Now() {
                         {item.percent}%
                       </span>
                     </div>
-                    <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-secondary">
+                    <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-secondary">
                       <div
-                        className="h-full rounded-full bg-primary transition-all duration-700 ease-out"
+                        className="progress-fill-animate h-full w-full rounded-full bg-primary origin-left transition-transform duration-700 ease-out will-change-transform"
                         style={{
-                          width: progressAnimated ? `${item.percent}%` : "0%",
+                          transform: progressAnimated
+                            ? `scaleX(${item.percent / 100}) translateZ(0)`
+                            : "scaleX(0) translateZ(0)",
                         }}
                       />
                     </div>

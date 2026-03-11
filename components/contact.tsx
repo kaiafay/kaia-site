@@ -3,7 +3,10 @@
 import { useRef, useState } from "react";
 import { Github, Linkedin, Instagram, Loader2 } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { DropdownSelect } from "@/components/ui/dropdown-select";
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const INTEREST_OPTIONS = [
   { value: "software", label: "Software" },
@@ -79,19 +82,10 @@ export function Contact() {
   return (
     <section ref={ref} id="contact" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-2xl px-6">
-        <div
-          className={`flex flex-col items-center gap-12 ${
-            isInView ? "animate-fade-in-up" : "opacity-0"
-          }`}
-        >
+        <div className={`${scrollRevealClass(isInView)} flex flex-col items-center gap-12`}>
           <div className="text-center">
-            <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-              Contact
-            </h2>
-            {/* TODO: optional — replace contact heading and success message below with your own copy */}
-            <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-              {"Let's Connect"}
-            </h3>
+            <SectionLabel as="h2">Contact</SectionLabel>
+            <SectionHeading className="mt-2">{"Let's Connect"}</SectionHeading>
           </div>
 
           {status === "success" ? (

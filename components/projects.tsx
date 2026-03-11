@@ -1,8 +1,12 @@
-"use client"
+"use client";
 
-import { useRef } from "react"
-import { ExternalLink, Github } from "lucide-react"
-import { useInView } from "@/hooks/use-in-view"
+import { useRef } from "react";
+import Link from "next/link";
+import { ExternalLink, Github } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 // TODO: replace with your real projects (name, description, tech, github URL, live URL or null)
 const projects = [
@@ -54,34 +58,30 @@ const projects = [
     github: "#",
     live: null,
   },
-]
+];
 
-export function Projects() {
-  const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref)
+type ProjectsProps = {
+  limit?: number;
+};
+
+export function Projects({ limit }: ProjectsProps) {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref);
+  const displayProjects = limit != null ? projects.slice(0, limit) : projects;
 
   return (
     <section ref={ref} id="projects" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div
-          className={`mb-16 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
-        >
-          <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-            Work
-          </h2>
-          <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-            Selected Projects
-          </h3>
+        <div className={`${scrollRevealClass(isInView)} mb-16`}>
+          <SectionLabel as="h2">Work</SectionLabel>
+          <SectionHeading className="mt-2">Selected Projects</SectionHeading>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, i) => (
+          {displayProjects.map((project, i) => (
             <div
               key={project.name}
-              className={`group flex flex-col gap-4 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-[#222] hover:shadow-[0_0_24px_rgba(143,56,72,0.4)] ${
-                isInView ? "animate-fade-in-up" : "opacity-0"
-              }`}
-              style={{ animationDelay: `${i * 0.1}s` }}
+              className={`${scrollRevealClass(isInView, Math.min(i, 6) as ScrollRevealDelay)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-[#222] hover:shadow-[0_0_24px_rgba(143,56,72,0.4)]`}
             >
               <h4 className="font-heading text-lg font-semibold text-card-foreground">
                 {project.name}
@@ -120,7 +120,18 @@ export function Projects() {
             </div>
           ))}
         </div>
+
+        {limit != null && (
+          <div className={`${scrollRevealClass(isInView, 6)} mt-10 text-center`}>
+            <Link
+              href="/work"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/90"
+            >
+              View all work →
+            </Link>
+          </div>
+        )}
       </div>
     </section>
-  )
+  );
 }

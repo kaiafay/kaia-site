@@ -3,6 +3,9 @@
 import { useRef } from "react"
 import { Dumbbell, ClipboardList, Apple } from "lucide-react"
 import { useInView } from "@/hooks/use-in-view"
+import { scrollRevealClass } from "@/lib/scroll-reveal"
+import { SectionLabel } from "@/components/ui/section-label"
+import { SectionHeading } from "@/components/ui/section-heading"
 
 // TODO: replace with your real coaching services (titles and descriptions)
 const services = [
@@ -33,25 +36,16 @@ export function Training() {
   return (
     <section ref={ref} id="training" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div
-          className={`mb-16 ${isInView ? "animate-fade-in-up" : "opacity-0"}`}
-        >
-          <h2 className="text-sm font-medium tracking-widest text-primary uppercase">
-            Training
-          </h2>
-          <h3 className="mt-2 font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl text-balance">
-            Coaching Services
-          </h3>
+        <div className={`${scrollRevealClass(isInView)} mb-16`}>
+          <SectionLabel as="h2">Training</SectionLabel>
+          <SectionHeading className="mt-2">Coaching Services</SectionHeading>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, i) => (
             <div
               key={service.title}
-              className={`group flex flex-col gap-4 rounded-lg border border-border bg-card p-8 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(143,56,72,0.25)] ${
-                isInView ? "animate-fade-in-up" : "opacity-0"
-              }`}
-              style={{ animationDelay: `${i * 0.15}s` }}
+              className={`${scrollRevealClass(isInView, i === 0 ? 0 : i === 1 ? 3 : 6)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-8 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(143,56,72,0.25)]`}
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-primary/30 bg-primary/10">
                 <service.icon size={24} className="text-primary" />
