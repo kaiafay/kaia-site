@@ -25,7 +25,6 @@ export function Hero() {
           <h1 className="font-heading text-7xl font-bold leading-none tracking-tighter text-foreground sm:text-8xl lg:text-9xl">
             Kaia
           </h1>
-          {/* TODO: replace with your tagline */}
           <p className="text-xl font-medium leading-relaxed text-muted-foreground sm:text-2xl">
             Engineer by day.
             <br />
@@ -38,12 +37,12 @@ export function Hero() {
             >
               See My Work
             </Link>
-            <a
-              href="#training"
+            <Link
+              href="/coaching"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-6 py-3 text-sm font-medium text-secondary-foreground transition-all duration-200 hover:bg-border"
             >
               Train With Me
-            </a>
+            </Link>
           </div>
         </div>
 

@@ -2,61 +2,83 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { ExternalLink, Github } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  Coffee,
+  Dumbbell,
+  ExternalLink,
+  Flame,
+  Github,
+  Loader2,
+  MessageCircle,
+  Zap,
+} from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-// TODO: replace with your real projects (name, description, tech, github URL, live URL or null)
-const projects = [
+const projects: {
+  name: string;
+  description: string;
+  tech: string[];
+  github: string;
+  live: string | null;
+  icon: LucideIcon;
+}[] = [
   {
-    name: "FitTrack Pro",
+    name: "Something's brewing",
     description:
-      "A full-stack workout tracking app with progressive overload analytics, rest timers, and workout history visualization.",
-    tech: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind"],
-    github: "#",
-    live: "#",
-  },
-  {
-    name: "NutriSync",
-    description:
-      "Meal planning and macro tracking platform with AI-powered food recognition and barcode scanning.",
-    tech: ["React", "Node.js", "OpenAI", "MongoDB"],
-    github: "#",
-    live: "#",
-  },
-  {
-    name: "DevBoard",
-    description:
-      "Real-time collaborative kanban board for dev teams with GitHub integration and automated sprint reports.",
-    tech: ["Next.js", "WebSockets", "Redis", "Prisma"],
+      "Currently in the build phase. I'm not one for shipping half-baked work. Check back soon.",
+    tech: ["In progress"],
     github: "#",
     live: null,
+    icon: Coffee,
   },
   {
-    name: "CoachConnect",
+    name: "Work in progress",
     description:
-      "Marketplace platform connecting coaches with clients. Includes scheduling, payments, and progress dashboards.",
-    tech: ["Next.js", "Stripe", "Supabase", "Tailwind"],
-    github: "#",
-    live: "#",
-  },
-  {
-    name: "FormCheck AI",
-    description:
-      "Computer vision tool for analyzing exercise form through video upload. Provides real-time feedback and corrections.",
-    tech: ["Python", "TensorFlow", "FastAPI", "React"],
+      "This one's close. Writing clean code takes time, and I'd rather ship it right than ship it fast.",
+    tech: ["Coming soon"],
     github: "#",
     live: null,
+    icon: Loader2,
   },
   {
-    name: "Pulse CLI",
+    name: "Still in the oven",
     description:
-      "Developer productivity CLI that tracks coding time, generates standup summaries, and integrates with Linear and Slack.",
-    tech: ["Go", "SQLite", "Cobra", "REST APIs"],
+      "Ideas are easy. Execution is the hard part. This is somewhere in between.",
+    tech: ["In progress"],
     github: "#",
     live: null,
+    icon: Flame,
+  },
+  {
+    name: "Next up on the bench",
+    description:
+      "Every program needs a next block. This is mine. Building something I'd actually want to use.",
+    tech: ["Coming soon"],
+    github: "#",
+    live: null,
+    icon: Dumbbell,
+  },
+  {
+    name: "Loading...",
+    description:
+      "Not placeholder content — actual work happening behind the scenes. Stay tuned.",
+    tech: ["In progress"],
+    github: "#",
+    live: null,
+    icon: Zap,
+  },
+  {
+    name: "Ask me what I'm building",
+    description:
+      "Reach out via the contact form or find me on GitHub. Happy to talk through what's in the pipeline.",
+    tech: ["Let's connect"],
+    github: "https://github.com/kaiafay",
+    live: null,
+    icon: MessageCircle,
   },
 ];
 
@@ -78,51 +100,67 @@ export function Projects({ limit }: ProjectsProps) {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {displayProjects.map((project, i) => (
-            <div
-              key={project.name}
-              className={`${scrollRevealClass(isInView, Math.min(i, 6) as ScrollRevealDelay)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-[#222] hover:shadow-[0_0_24px_rgba(143,56,72,0.4)]`}
-            >
-              <h4 className="font-heading text-lg font-semibold text-card-foreground">
-                {project.name}
-              </h4>
-              <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.tech.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-md bg-secondary px-2 py-1 text-xs text-secondary-foreground"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="flex items-center gap-3 pt-2">
-                <a
-                  href={project.github}
-                  className="text-muted-foreground transition-colors hover:text-foreground"
-                  aria-label={`${project.name} GitHub`}
-                >
-                  <Github size={18} />
-                </a>
-                {project.live && (
+          {displayProjects.map((project, i) => {
+            const Icon = project.icon;
+            return (
+              <div
+                key={project.name}
+                className={`${scrollRevealClass(isInView, Math.min(i, 6) as ScrollRevealDelay)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-[#222] hover:shadow-[0_0_24px_rgba(143,56,72,0.4)]`}
+              >
+                <div className="flex items-center gap-2">
+                  <Icon
+                    size={20}
+                    className="shrink-0 text-primary/80"
+                    aria-hidden
+                  />
+                  <h4 className="font-heading text-lg font-semibold text-card-foreground">
+                    {project.name}
+                  </h4>
+                </div>
+                <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((tag) => (
+                    <span
+                      key={tag}
+                      className={`rounded-md px-2 py-1 text-xs ${
+                        tag === "In progress"
+                          ? "bg-primary/20 text-primary border border-primary/30"
+                          : "bg-secondary text-secondary-foreground"
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex items-center gap-3 pt-2">
                   <a
-                    href={project.live}
+                    href={project.github}
                     className="text-muted-foreground transition-colors hover:text-foreground"
-                    aria-label={`${project.name} live site`}
+                    aria-label={`${project.name} GitHub`}
                   >
-                    <ExternalLink size={18} />
+                    <Github size={18} />
                   </a>
-                )}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      className="text-muted-foreground transition-colors hover:text-foreground"
+                      aria-label={`${project.name} live site`}
+                    >
+                      <ExternalLink size={18} />
+                    </a>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {limit != null && (
-          <div className={`${scrollRevealClass(isInView, 6)} mt-10 text-center`}>
+          <div
+            className={`${scrollRevealClass(isInView, 6)} mt-10 text-center`}
+          >
             <Link
               href="/work"
               className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/90"

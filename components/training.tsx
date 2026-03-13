@@ -7,7 +7,6 @@ import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-// TODO: replace with your real coaching services (titles and descriptions)
 const services = [
   {
     icon: Dumbbell,
