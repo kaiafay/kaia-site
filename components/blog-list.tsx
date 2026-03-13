@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import { Clock } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -13,6 +14,7 @@ type PostDisplay = {
   excerpt: string;
   slug: string;
   dateDisplay: string;
+  readTimeMinutes: number;
 };
 
 export function BlogList({ posts }: { posts: PostDisplay[] }) {
@@ -37,7 +39,12 @@ export function BlogList({ posts }: { posts: PostDisplay[] }) {
               <h4 className="font-heading text-lg font-semibold text-card-foreground">
                 {post.title}
               </h4>
-              <p className="text-xs text-muted-foreground">{post.dateDisplay}</p>
+              <p className="flex items-center gap-1 text-xs text-muted-foreground flex-wrap">
+                <span>{post.dateDisplay}</span>
+                <span>·</span>
+                <Clock className="size-3 shrink-0" />
+                <span>{post.readTimeMinutes} min </span>
+              </p>
               <p className="flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-3">
                 {post.excerpt}
               </p>

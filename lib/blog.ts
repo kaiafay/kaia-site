@@ -39,11 +39,42 @@ export function getPostBySlug(slug: string): { meta: PostMeta; content: string }
   return { meta, content };
 }
 
-export function getAllPosts(): PostMeta[] {
+/** Estimated read time in minutes (~200 wpm). */
+export function getReadTimeMinutes(content: string): number {
+  const wordCount = content.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(wordCount / 200));
+}
+
+export type PostWithReadTime = PostMeta & { readTimeMinutes: number };
+
+export function getAllPosts(): PostWithReadTime[] {
   const slugs = getPostSlugs();
   return slugs
-    .map((slug) => getPostBySlug(slug).meta)
+    .map((slug) => {
+      const { meta, content } = getPostBySlug(slug);
+      return { ...meta, readTimeMinutes: getReadTimeMinutes(content) };
+    })
     .sort((a, b) => (b.date > a.date ? 1 : -1));
+}
+
+/**
+ * Map from request slug (URL) to file slug (filename without .mdx).
+ * Includes both frontmatter slugs and file slugs so /blog/introduction and
+ * /blog/2026-03-10-introduction resolve to the same post when applicable.
+ */
+export function getSlugToFileSlugMap(): Map<string, string> {
+  const map = new Map<string, string>();
+  for (const fileSlug of getPostSlugs()) {
+    const { meta } = getPostBySlug(fileSlug);
+    map.set(meta.slug, fileSlug);
+    if (meta.slug !== fileSlug) map.set(fileSlug, fileSlug);
+  }
+  return map;
+}
+
+/** Resolve a URL slug to the file slug used on disk. Returns null if not found. */
+export function resolveRequestSlugToFileSlug(requestSlug: string): string | null {
+  return getSlugToFileSlugMap().get(requestSlug) ?? null;
 }
 
 /** Format a YYYY-MM-DD date string for display, e.g. "March 4, 2026". */
