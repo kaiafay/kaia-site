@@ -34,16 +34,15 @@ export function About() {
           <div className="flex flex-col gap-6">
             <SectionLabel as="h2">About</SectionLabel>
             <SectionHeading>I build things. I build people.</SectionHeading>
-            {/* TODO: replace with your own bio paragraphs */}
             <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
               <p>
                 {
-                  "I'm a full stack engineer with a deep love for building clean, scalable software. By day, I'm shipping code \u2014 designing APIs, crafting interfaces, and solving problems that make real products better."
+                  "I'm a full-stack engineer with a passion for building clean, scalable systems and beautiful, intuitive interfaces. By day, I'm shipping code, designing APIs, crafting thoughtful user interfaces, and solving problems that make real products better."
                 }
               </p>
               <p>
                 {
-                  "But when the laptop closes, the weights come out. Strength training and bodybuilding have been my anchor for years \u2014 a practice that taught me discipline, patience, and the power of showing up consistently."
+                  "But when the laptop closes, the weights come out. Strength training has been my anchor for years, teaching me discipline, patience, and the power of showing up consistently."
                 }
               </p>
               <p>

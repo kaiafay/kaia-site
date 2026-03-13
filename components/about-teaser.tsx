@@ -16,11 +16,12 @@ export function AboutTeaser() {
         <div className={`${scrollRevealClass(isInView)} flex flex-col gap-6`}>
           <SectionLabel as="h2">About</SectionLabel>
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-            I&apos;m a full stack engineer with a deep love for building clean,
-            scalable software. By day, I&apos;m shipping code — designing APIs,
-            crafting interfaces, and solving problems that make real products
-            better. When the laptop closes, the weights come out: strength
-            training and bodybuilding have been my anchor for years.
+            I&apos;m a full-stack engineer with a passion for building clean,
+            scalable systems and beautiful, intuitive interfaces. By day,
+            I&apos;m shipping code, designing APIs, crafting thoughtful user
+            interfaces, and solving problems that make real products better.
+            When the laptop closes, the weights come out. Strength training has
+            been my anchor for years.
           </p>
           <Link
             href="/about"

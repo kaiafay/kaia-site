@@ -44,20 +44,22 @@ export default function AboutPage() {
 
             {/* Right text */}
             <div className="flex flex-1 flex-col gap-6">
-            <SectionLabel as="h2">About</SectionLabel>
-            <SectionHeading as="h1">I build things. I build people.</SectionHeading>
+              <SectionLabel as="h2">About</SectionLabel>
+              <SectionHeading as="h1">
+                I build things. I build people.
+              </SectionHeading>
               <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
                 <p>
-                  I&apos;m a full stack engineer with a deep love for building
-                  clean, scalable software. By day, I&apos;m shipping code —
-                  designing APIs, crafting interfaces, and solving problems that
-                  make real products better.
+                  I&apos;m a full-stack engineer with a passion for building
+                  clean, scalable systems and beautiful, intuitive interfaces.
+                  By day, I&apos;m shipping code, designing APIs, crafting
+                  thoughtful user interfaces, and solving problems that make
+                  real products better.
                 </p>
                 <p>
                   But when the laptop closes, the weights come out. Strength
-                  training and bodybuilding have been my anchor for years — a
-                  practice that taught me discipline, patience, and the power of
-                  showing up consistently.
+                  training has been my anchor for years, teaching me discipline,
+                  patience, and the power of showing up consistently.
                 </p>
                 <p>
                   Now I&apos;m merging both worlds. As a coach, I bring the same
@@ -65,18 +67,6 @@ export default function AboutPage() {
                   structured, evidence-based, and tailored to each individual.
                   Whether it&apos;s a codebase or a training block, I believe in
                   building with intention.
-                </p>
-                {/* TODO: replace with your own longer bio paragraphs */}
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                  enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-                </p>
-                <p>
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
                 </p>
               </div>
             </div>

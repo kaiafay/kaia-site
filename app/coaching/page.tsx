@@ -57,7 +57,10 @@ export default function CoachingPage() {
       </section>
 
       {/* My Approach — split image + text */}
-      <section ref={approachRef} className="relative pt-12 pb-24 lg:pt-16 lg:pb-32">
+      <section
+        ref={approachRef}
+        className="relative pt-12 pb-24 lg:pt-16 lg:pb-32"
+      >
         <div className="mx-auto max-w-6xl px-6">
           <div
             className={`${scrollRevealClass(isApproachInView)} grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12`}
@@ -83,9 +86,9 @@ export default function CoachingPage() {
                   not a template.
                 </p>
                 <p>
-                  Whether your goal is building muscle, losing fat, or stepping
-                  on stage, I&apos;ll meet you where you are and push you past
-                  where you thought you could go.
+                  Whether your goal is building muscle, losing fat, or simply
+                  getting stronger, I&apos;ll meet you where you are and push
+                  you past where you thought you could go.
                 </p>
                 <p>Evidence-based. Adaptive. Built for real results.</p>
               </div>
@@ -97,7 +100,9 @@ export default function CoachingPage() {
       {/* What Happens Next */}
       <section ref={stepsRef} className="relative py-16 lg:py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <div className={`${scrollRevealClass(isStepsInView)} mb-12 text-center`}>
+          <div
+            className={`${scrollRevealClass(isStepsInView)} mb-12 text-center`}
+          >
             <SectionLabel as="h3">What Happens Next</SectionLabel>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
@@ -123,7 +128,9 @@ export default function CoachingPage() {
 
       {/* Intake Form */}
       <section ref={formRef} className="relative py-16 lg:py-24">
-        <div className={`${scrollRevealClass(isFormInView)} mx-auto max-w-4xl px-6`}>
+        <div
+          className={`${scrollRevealClass(isFormInView)} mx-auto max-w-4xl px-6`}
+        >
           <CoachingForm />
         </div>
       </section>

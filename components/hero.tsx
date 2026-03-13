@@ -29,7 +29,7 @@ export function Hero() {
           <p className="text-xl font-medium leading-relaxed text-muted-foreground sm:text-2xl">
             Engineer by day.
             <br />
-            <span className="text-primary">Coach by conviction.</span>
+            <span className="text-primary">Coach by calling.</span>
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
             <Link

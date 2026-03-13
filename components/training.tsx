@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useRef } from "react"
-import { Dumbbell, ClipboardList, Apple } from "lucide-react"
-import { useInView } from "@/hooks/use-in-view"
-import { scrollRevealClass } from "@/lib/scroll-reveal"
-import { SectionLabel } from "@/components/ui/section-label"
-import { SectionHeading } from "@/components/ui/section-heading"
+import { useRef } from "react";
+import { Dumbbell, ClipboardList, Apple } from "lucide-react";
+import { useInView } from "@/hooks/use-in-view";
+import { scrollRevealClass } from "@/lib/scroll-reveal";
+import { SectionLabel } from "@/components/ui/section-label";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 // TODO: replace with your real coaching services (titles and descriptions)
 const services = [
@@ -19,19 +19,19 @@ const services = [
     icon: ClipboardList,
     title: "Program Design",
     description:
-      "Custom training blocks designed with periodization principles. Whether you're prepping for a show or building your foundation, every set has a purpose.",
+      "Custom training blocks designed with periodization principles. Whether you're building your foundation or pushing toward your next goal, every set has a purpose.",
   },
   {
     icon: Apple,
     title: "Nutrition Guidance",
     description:
-      "Flexible nutrition strategies that fit your lifestyle. Macro coaching, meal timing, and sustainable approaches to fueling performance and recovery.",
+      "Flexible nutrition strategies that fit your lifestyle. Macro coaching, meal timing, and sustainable habits that support performance and recovery.",
   },
-]
+];
 
 export function Training() {
-  const ref = useRef<HTMLElement>(null)
-  const isInView = useInView(ref)
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref);
 
   return (
     <section ref={ref} id="training" className="relative py-24 lg:py-32">
@@ -61,5 +61,5 @@ export function Training() {
         </div>
       </div>
     </section>
-  )
+  );
 }
