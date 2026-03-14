@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Uses | Kaia",
-  description: "Tools, hardware, gym equipment, and more.",
+  title: "Uses",
+  description: "The tools, gear, and apps I actually use every day.",
 };
 
 export default function UsesLayout({

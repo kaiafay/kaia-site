@@ -16,9 +16,18 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const fileSlug = resolveRequestSlugToFileSlug(slug);
-  if (!fileSlug) return { title: "Post | Kaia" };
+  if (!fileSlug) return { title: "Post" };
   const { meta } = getPostBySlug(fileSlug);
-  return { title: `${meta.title} | Kaia`, description: meta.excerpt };
+  return {
+    title: meta.title,
+    description: meta.excerpt,
+    openGraph: {
+      title: meta.title,
+      description: meta.excerpt,
+      type: "article",
+      publishedTime: meta.date,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: Props) {

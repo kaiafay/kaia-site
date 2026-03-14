@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog | Kaia",
-  description: "Writing on engineering, training, and building.",
+  title: "Blog",
+  description:
+    "Writing about life, fitness, engineering, and building both at once.",
 };
 
 export default function BlogLayout({
