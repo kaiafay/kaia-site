@@ -9,6 +9,7 @@ import { images } from "@/lib/images";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Gallery } from "@/components/gallery";
+import { PersonalStats } from "@/components/stats";
 
 export default function AboutPage() {
   const ref = useRef<HTMLElement>(null);
@@ -73,6 +74,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      <PersonalStats />
       <Gallery />
     </main>
   );
