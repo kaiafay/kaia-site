@@ -10,6 +10,7 @@ export type PostMeta = {
   date: string;
   excerpt: string;
   slug: string;
+  pinned?: boolean;
 };
 
 export function getPostSlugs(): string[] {
@@ -35,6 +36,7 @@ export function getPostBySlug(slug: string): { meta: PostMeta; content: string }
     date: formatDate(data.date),
     excerpt: String(data.excerpt ?? ""),
     slug: String(data.slug ?? slug),
+    pinned: Boolean(data.pinned),
   };
   return { meta, content };
 }
@@ -54,7 +56,11 @@ export function getAllPosts(): PostWithReadTime[] {
       const { meta, content } = getPostBySlug(slug);
       return { ...meta, readTimeMinutes: getReadTimeMinutes(content) };
     })
-    .sort((a, b) => (b.date > a.date ? 1 : -1));
+    .sort((a, b) => {
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      return b.date > a.date ? 1 : -1;
+    });
 }
 
 /**
