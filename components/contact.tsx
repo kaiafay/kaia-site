@@ -82,7 +82,9 @@ export function Contact() {
   return (
     <section ref={ref} id="contact" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-2xl px-6">
-        <div className={`${scrollRevealClass(isInView)} flex flex-col items-center gap-12`}>
+        <div
+          className={`${scrollRevealClass(isInView)} flex flex-col items-center gap-12`}
+        >
           <div className="text-center">
             <SectionLabel as="h2">Contact</SectionLabel>
             <SectionHeading className="mt-2">{"Let's Connect"}</SectionHeading>
@@ -258,7 +260,7 @@ export function Contact() {
               <Linkedin size={20} />
             </a>
             <a
-              href="https://www.instagram.com/kaia.lifts"
+              href="https://www.instagram.com/kaia.builds"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
