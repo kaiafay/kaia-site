@@ -8,13 +8,13 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 const nowData = {
   reading: {
-    title: "The Wedding People",
-    author: "Alison Espach",
-    reaction: "Can't put it down",
+    title: "The Briars",
+    author: "Sarah Crouch",
+    reaction: "Keeping me at the edge of my seat",
   },
   listening: {
     spotifyEmbedUrl:
-      "https://open.spotify.com/embed/track/1R6VwZ8TuHRzxZUxe88n4I",
+      "https://open.spotify.com/embed/track/4Z5KKoBGxpJo8YbDcGQXd5",
   },
   training: {
     focus: "Off season — building phase",
@@ -78,9 +78,7 @@ export function Now() {
       <div className="mx-auto max-w-6xl px-6">
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Now</SectionLabel>
-          <SectionHeading className="mt-2">
-            What I&apos;m up to
-          </SectionHeading>
+          <SectionHeading className="mt-2">What I&apos;m up to</SectionHeading>
         </div>
 
         <div className="flex flex-col gap-6">
