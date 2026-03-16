@@ -5,29 +5,9 @@ import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
+import statsConfig from "@/content/stats.json";
 
-// To reset or override a stat: update baseline to the current real number
-// and baselineDate to today's date. The rate will pick up from there.
-const STATS_CONFIG = {
-  booksRead: {
-    baseline: 22,
-    baselineDate: "2026-03-13",
-    rateMs: 6 * 24 * 60 * 60 * 1000, // one book every 6 days
-  },
-  energyDrinks: {
-    baseline: 67,
-    baselineDate: "2026-03-13",
-    rateMs: 1.2 * 24 * 60 * 60 * 1000, // one every 1.2 days
-  },
-  hoursCoded: {
-    baseline: 94,
-    baselineDate: "2026-03-13",
-    rateMs: 9 * 60 * 60 * 1000, // one hour every 9 hours
-  },
-};
-
-// December 14, 1999, 11:47 AM UTC+8 → 03:47 UTC
-const BIRTH_DATE = new Date(Date.UTC(1999, 11, 14, 3, 47, 0, 0));
+const BIRTH_DATE = new Date(statsConfig.birthDate);
 
 const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
@@ -97,26 +77,30 @@ export function PersonalStats() {
   const [hoursCoded, setHoursCoded] = useState(0);
 
   useEffect(() => {
+    const booksRateMs = statsConfig.booksRead.rateEveryDays * MS_PER_DAY;
+    const energyRateMs = statsConfig.energyDrinks.rateEveryDays * MS_PER_DAY;
+    const hoursRateMs = statsConfig.hoursCoded.rateEveryHours * MS_PER_HOUR;
+
     setAgeUnits(getAgeUnits(BIRTH_DATE));
     setBooksRead(
       getCalculatedStat(
-        STATS_CONFIG.booksRead.baseline,
-        STATS_CONFIG.booksRead.baselineDate,
-        STATS_CONFIG.booksRead.rateMs,
+        statsConfig.booksRead.baseline,
+        statsConfig.booksRead.baselineDate,
+        booksRateMs,
       ),
     );
     setEnergyDrinks(
       getCalculatedStat(
-        STATS_CONFIG.energyDrinks.baseline,
-        STATS_CONFIG.energyDrinks.baselineDate,
-        STATS_CONFIG.energyDrinks.rateMs,
+        statsConfig.energyDrinks.baseline,
+        statsConfig.energyDrinks.baselineDate,
+        energyRateMs,
       ),
     );
     setHoursCoded(
       getCalculatedStat(
-        STATS_CONFIG.hoursCoded.baseline,
-        STATS_CONFIG.hoursCoded.baselineDate,
-        STATS_CONFIG.hoursCoded.rateMs,
+        statsConfig.hoursCoded.baseline,
+        statsConfig.hoursCoded.baselineDate,
+        hoursRateMs,
       ),
     );
 
@@ -127,16 +111,16 @@ export function PersonalStats() {
     const booksEnergyInterval = setInterval(() => {
       setBooksRead(
         getCalculatedStat(
-          STATS_CONFIG.booksRead.baseline,
-          STATS_CONFIG.booksRead.baselineDate,
-          STATS_CONFIG.booksRead.rateMs,
+          statsConfig.booksRead.baseline,
+          statsConfig.booksRead.baselineDate,
+          booksRateMs,
         ),
       );
       setEnergyDrinks(
         getCalculatedStat(
-          STATS_CONFIG.energyDrinks.baseline,
-          STATS_CONFIG.energyDrinks.baselineDate,
-          STATS_CONFIG.energyDrinks.rateMs,
+          statsConfig.energyDrinks.baseline,
+          statsConfig.energyDrinks.baselineDate,
+          energyRateMs,
         ),
       );
     }, 60 * 1000);
@@ -145,9 +129,9 @@ export function PersonalStats() {
       () => {
         setHoursCoded(
           getCalculatedStat(
-            STATS_CONFIG.hoursCoded.baseline,
-            STATS_CONFIG.hoursCoded.baselineDate,
-            STATS_CONFIG.hoursCoded.rateMs,
+            statsConfig.hoursCoded.baseline,
+            statsConfig.hoursCoded.baselineDate,
+            hoursRateMs,
           ),
         );
       },

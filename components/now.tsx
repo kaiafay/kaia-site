@@ -5,30 +5,7 @@ import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
-
-const nowData = {
-  reading: {
-    title: "The Briars",
-    author: "Sarah Crouch",
-    reaction: "Keeping me at the edge of my seat",
-  },
-  listening: {
-    spotifyEmbedUrl:
-      "https://open.spotify.com/embed/track/4Z5KKoBGxpJo8YbDcGQXd5",
-  },
-  training: {
-    focus: "Off season — building phase",
-    prLabel: "Hip Thrust",
-    prValue: 275,
-    prUnit: "lb",
-  },
-  learning: {
-    items: [
-      { name: "NASM CPT Certification", percent: 90 },
-      { name: "Accounting Fundamentals", percent: 75 },
-    ],
-  },
-};
+import nowData from "@/content/now.json";
 
 const cardBase =
   "flex min-h-[140px] w-full items-center overflow-hidden rounded-xl px-6 py-6 transition-all duration-300 ease-out sm:px-8 sm:py-8";

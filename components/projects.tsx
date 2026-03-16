@@ -17,70 +17,26 @@ import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
+import projectsRaw from "@/content/projects.json";
 
-const projects: {
+const ICON_MAP: Record<string, LucideIcon> = {
+  Coffee,
+  Dumbbell,
+  Flame,
+  Loader2,
+  MessageCircle,
+  Zap,
+};
+
+type ProjectItem = {
   name: string;
   description: string;
   tech: string[];
   github: string;
   live: string | null;
-  icon: LucideIcon;
-}[] = [
-  {
-    name: "Something's brewing",
-    description:
-      "Currently in the build phase. I'm not one for shipping half-baked work. Check back soon.",
-    tech: ["In progress"],
-    github: "#",
-    live: null,
-    icon: Coffee,
-  },
-  {
-    name: "Work in progress",
-    description:
-      "This one's close. Writing clean code takes time, and I'd rather ship it right than ship it fast.",
-    tech: ["Coming soon"],
-    github: "#",
-    live: null,
-    icon: Loader2,
-  },
-  {
-    name: "Still in the oven",
-    description:
-      "Ideas are easy. Execution is the hard part. This is somewhere in between.",
-    tech: ["In progress"],
-    github: "#",
-    live: null,
-    icon: Flame,
-  },
-  {
-    name: "Next up on the bench",
-    description:
-      "Every program needs a next block. This is mine. Building something I'd actually want to use.",
-    tech: ["Coming soon"],
-    github: "#",
-    live: null,
-    icon: Dumbbell,
-  },
-  {
-    name: "Loading...",
-    description:
-      "Not placeholder content — actual work happening behind the scenes. Stay tuned.",
-    tech: ["In progress"],
-    github: "#",
-    live: null,
-    icon: Zap,
-  },
-  {
-    name: "Ask me what I'm building",
-    description:
-      "Reach out via the contact form or find me on GitHub. Happy to talk through what's in the pipeline.",
-    tech: ["Let's connect"],
-    github: "https://github.com/kaiafay",
-    live: null,
-    icon: MessageCircle,
-  },
-];
+  icon: string;
+};
+const projects = projectsRaw as ProjectItem[];
 
 type ProjectsProps = {
   limit?: number;
@@ -101,7 +57,7 @@ export function Projects({ limit }: ProjectsProps) {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {displayProjects.map((project, i) => {
-            const Icon = project.icon;
+            const Icon = ICON_MAP[project.icon] ?? Loader2;
             return (
               <div
                 key={project.name}
