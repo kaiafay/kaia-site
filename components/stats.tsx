@@ -169,10 +169,10 @@ export function PersonalStats() {
           <SectionHeading className="mt-2">By the numbers</SectionHeading>
         </div>
 
-        <div
-          className={`${scrollRevealClass(isInView, 2)} grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1.2fr_1fr]`}
-        >
-          <div className={`${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#111]`}>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1.2fr_1fr]">
+          <div
+            className={`${scrollRevealClass(isInView, 0)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#111]`}
+          >
             <div className="flex flex-nowrap items-baseline gap-x-1.5 whitespace-nowrap text-xl sm:text-2xl">
               <span className="font-heading font-bold tabular-nums text-primary">
                 {ageUnits.years}
@@ -198,7 +198,9 @@ export function PersonalStats() {
             <StatLabel>current age</StatLabel>
           </div>
 
-          <div className={`${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#111]`}>
+          <div
+            className={`${scrollRevealClass(isInView, 2)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#111]`}
+          >
             <span className="font-heading text-3xl font-bold tabular-nums text-primary">
               {booksRead}
             </span>
@@ -206,7 +208,7 @@ export function PersonalStats() {
           </div>
 
           <div
-            className={`${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#141414]`}
+            className={`${scrollRevealClass(isInView, 4)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#141414]`}
           >
             <span className="font-heading text-3xl font-bold tabular-nums text-primary">
               {energyDrinks}
@@ -215,7 +217,7 @@ export function PersonalStats() {
           </div>
 
           <div
-            className={`${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#141414]`}
+            className={`${scrollRevealClass(isInView, 6)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#141414]`}
           >
             <span className="font-heading text-3xl font-bold tabular-nums text-primary">
               {hoursCoded}
