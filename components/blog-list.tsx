@@ -34,7 +34,7 @@ export function BlogList({ posts }: { posts: PostDisplay[] }) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className={`${scrollRevealClass(isInView, Math.min(i, 6) as ScrollRevealDelay)} flex flex-col gap-3 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-[#222] hover:shadow-[0_0_24px_rgba(143,56,72,0.4)]`}
+              className={`${scrollRevealClass(isInView, Math.min(i, 6) as ScrollRevealDelay)} flex flex-col gap-3 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-[#222] hover:shadow-[0_0_24px_rgba(143,56,72,0.4)] active:scale-[0.99] active:opacity-90`}
             >
               <h4 className="font-heading text-lg font-semibold text-card-foreground">
                 {post.title}
