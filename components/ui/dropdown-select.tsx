@@ -179,6 +179,7 @@ export function DropdownSelect({
               i !== highlightedIndex &&
                 value !== option.value &&
                 "text-foreground hover:bg-primary/10",
+              "active:bg-primary/20",
             )}
             onMouseEnter={() => setHighlightedIndex(i)}
             onMouseDown={(e) => {

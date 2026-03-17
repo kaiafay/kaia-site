@@ -144,6 +144,15 @@ select,
   transition-timing-function: ease;
 }
 
+/* Tap feedback on touch devices only */
+@media (hover: none) {
+  a:active,
+  button:active {
+    opacity: 0.75;
+    transform: scale(0.97);
+  }
+}
+
 input:focus,
 textarea:focus,
 [role="combobox"]:focus {
