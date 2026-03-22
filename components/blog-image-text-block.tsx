@@ -58,7 +58,7 @@ export function BlogImageTextBlock({
         />
       </div>
 
-      <div className="min-w-0 flex-1 text-center md:text-left">
+      <div className="min-w-0 flex-1 text-left">
         {label ? (
           <p className="text-xs italic text-muted-foreground">{label}</p>
         ) : null}
