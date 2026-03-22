@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
+import Image from "next/image";
 import {
   getPostBySlug,
   formatDateDisplay,
@@ -9,6 +10,7 @@ import {
   getAllPosts,
 } from "@/lib/blog";
 import { BlogPostContent } from "@/components/blog-post-content";
+import { BlogImageTextBlock } from "@/components/blog-image-text-block";
 import { Divider } from "@/components/divider";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -54,7 +56,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   const { content: MdxContent } = await compileMDX({
     source: content,
-    components: { Divider },
+    components: { Divider, Image, ImageTextBlock: BlogImageTextBlock },
   });
 
   return (
