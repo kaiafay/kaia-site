@@ -89,7 +89,9 @@ html {
   will-change: transform, opacity;
   transform: translateY(20px) translateZ(0);
   opacity: 0;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
 }
 
 .scroll-animate-in-visible {
@@ -98,13 +100,27 @@ html {
 }
 
 /* Stagger delays (CSS only, max 300ms) */
-.scroll-animate-in-delay-0 { transition-delay: 0ms; }
-.scroll-animate-in-delay-1 { transition-delay: 50ms; }
-.scroll-animate-in-delay-2 { transition-delay: 100ms; }
-.scroll-animate-in-delay-3 { transition-delay: 150ms; }
-.scroll-animate-in-delay-4 { transition-delay: 200ms; }
-.scroll-animate-in-delay-5 { transition-delay: 250ms; }
-.scroll-animate-in-delay-6 { transition-delay: 300ms; }
+.scroll-animate-in-delay-0 {
+  transition-delay: 0ms;
+}
+.scroll-animate-in-delay-1 {
+  transition-delay: 50ms;
+}
+.scroll-animate-in-delay-2 {
+  transition-delay: 100ms;
+}
+.scroll-animate-in-delay-3 {
+  transition-delay: 150ms;
+}
+.scroll-animate-in-delay-4 {
+  transition-delay: 200ms;
+}
+.scroll-animate-in-delay-5 {
+  transition-delay: 250ms;
+}
+.scroll-animate-in-delay-6 {
+  transition-delay: 300ms;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up {
@@ -205,4 +221,93 @@ textarea:focus,
 }
 .blog-post-content em {
   font-style: italic;
+}
+
+/* ─── Budget Buddy landing page ─────────────────────── */
+.bb-page-gradient {
+  background: linear-gradient(
+    160deg,
+    #e8ecff,
+    #c5d0fa,
+    #4f6bed,
+    #5b5bd6
+  ) !important;
+  background-size: 200% 200% !important;
+  animation: bbGradientShift 18s ease infinite;
+}
+
+@keyframes bbGradientShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-page-gradient {
+    animation: none;
+    background-position: 0% 0%;
+  }
+}
+
+.bb-hero-phone {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+}
+.bb-hero-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s ease-out 0.2s,
+    transform 0.7s ease-out 0.2s;
+}
+.bb-hero-phone.bb-loaded,
+.bb-hero-text.bb-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bb-slide-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+.bb-slide-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+.bb-slide-left.bb-visible,
+.bb-slide-right.bb-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.bb-input:focus {
+  border-color: rgba(34, 197, 94, 0.5) !important;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.15) !important;
+  outline: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-hero-phone,
+  .bb-hero-text,
+  .bb-slide-left,
+  .bb-slide-right {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
