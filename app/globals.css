@@ -24,6 +24,14 @@
   --input: #1a1a1a;
   --ring: #8f3848;
   --radius: 0.5rem;
+
+  /* Budget Buddy brand colors */
+  --bb-ink: #1E1B4B;
+  --bb-ink-muted: #4a4a6a;
+  --bb-indigo: #5b5bd6;
+  --bb-ink-a10: rgba(30, 27, 75, 0.1);
+  --bb-indigo-a22: rgba(91, 91, 214, 0.22);
+  --bb-indigo-a55: rgba(91, 91, 214, 0.55);
 }
 
 @theme inline {
@@ -89,7 +97,9 @@ html {
   will-change: transform, opacity;
   transform: translateY(20px) translateZ(0);
   opacity: 0;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
 }
 
 .scroll-animate-in-visible {
@@ -98,13 +108,27 @@ html {
 }
 
 /* Stagger delays (CSS only, max 300ms) */
-.scroll-animate-in-delay-0 { transition-delay: 0ms; }
-.scroll-animate-in-delay-1 { transition-delay: 50ms; }
-.scroll-animate-in-delay-2 { transition-delay: 100ms; }
-.scroll-animate-in-delay-3 { transition-delay: 150ms; }
-.scroll-animate-in-delay-4 { transition-delay: 200ms; }
-.scroll-animate-in-delay-5 { transition-delay: 250ms; }
-.scroll-animate-in-delay-6 { transition-delay: 300ms; }
+.scroll-animate-in-delay-0 {
+  transition-delay: 0ms;
+}
+.scroll-animate-in-delay-1 {
+  transition-delay: 50ms;
+}
+.scroll-animate-in-delay-2 {
+  transition-delay: 100ms;
+}
+.scroll-animate-in-delay-3 {
+  transition-delay: 150ms;
+}
+.scroll-animate-in-delay-4 {
+  transition-delay: 200ms;
+}
+.scroll-animate-in-delay-5 {
+  transition-delay: 250ms;
+}
+.scroll-animate-in-delay-6 {
+  transition-delay: 300ms;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up {
@@ -205,4 +229,332 @@ textarea:focus,
 }
 .blog-post-content em {
   font-style: italic;
+}
+
+/* ─── Budget Buddy landing page ─────────────────────── */
+.bb-page-gradient {
+  background: linear-gradient(
+    160deg,
+    #e8ecff,
+    #c5d0fa,
+    #4f6bed,
+    var(--bb-indigo)
+  ) !important;
+  background-size: 200% 200% !important;
+  animation: bbGradientShift 18s ease infinite;
+}
+
+@keyframes bbGradientShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-page-gradient {
+    animation: none;
+    background-position: 0% 0%;
+  }
+}
+
+.bb-hero-phone {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+}
+.bb-hero-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s ease-out 0.2s,
+    transform 0.7s ease-out 0.2s;
+}
+.bb-hero-phone.bb-loaded,
+.bb-hero-text.bb-loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bb-slide-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+.bb-slide-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+.bb-slide-left.bb-visible,
+.bb-slide-right.bb-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Phone device mockup (screen matches 1206×2622 assets) */
+.bb-phone-shell {
+  --bb-phone-screen: 264px;
+  position: relative;
+  flex-shrink: 0;
+  width: fit-content;
+  max-width: min(calc(var(--bb-phone-screen) + 28px), calc(100vw - 40px));
+  margin-left: auto;
+  margin-right: auto;
+  filter: drop-shadow(0 22px 44px rgba(0, 0, 0, 0.32));
+}
+
+.bb-phone-bezel {
+  padding: clamp(8px, 2.2vw, 11px);
+  border-radius: 46px;
+  background: linear-gradient(
+    155deg,
+    #45454a 0%,
+    #2c2c30 28%,
+    #1c1c1f 55%,
+    #252528 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.bb-phone-screen {
+  position: relative;
+  width: min(var(--bb-phone-screen), calc(100vw - 80px));
+  max-width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 1206 / 2622;
+  border-radius: 36px;
+  overflow: hidden;
+  background: #0a0a0c;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    inset 0 0 24px rgba(0, 0, 0, 0.35);
+}
+
+.bb-phone-screen-img {
+  z-index: 0;
+}
+
+.bb-phone-home-bar {
+  position: absolute;
+  bottom: clamp(6px, 1.8%, 10px);
+  left: 50%;
+  z-index: 2;
+  width: 38%;
+  height: 4px;
+  max-width: 120px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.38);
+  pointer-events: none;
+}
+
+.bb-phone-side-btn {
+  position: absolute;
+  z-index: 0;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #3a3a3e, #222226);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.bb-phone-side-btn--1 {
+  left: -2px;
+  top: 18%;
+  width: 3px;
+  height: 36px;
+  border-radius: 2px 0 0 2px;
+}
+
+.bb-phone-side-btn--2 {
+  left: -2px;
+  top: 26%;
+  width: 3px;
+  height: 58px;
+  border-radius: 2px 0 0 2px;
+}
+
+.bb-phone-side-btn--3 {
+  left: -2px;
+  top: 36%;
+  width: 3px;
+  height: 58px;
+  border-radius: 2px 0 0 2px;
+}
+
+.bb-phone-side-btn--power {
+  right: -2px;
+  top: 24%;
+  width: 3px;
+  height: 76px;
+  border-radius: 0 2px 2px 0;
+}
+
+.bb-input:focus {
+  border-color: var(--bb-indigo-a55) !important;
+  box-shadow: 0 0 16px var(--bb-indigo-a22) !important;
+  outline: none !important;
+}
+
+/* Glassmorphism — CTA card + primary actions (Budget Buddy) */
+.bb-cta-glass {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 20px;
+  padding: 48px 40px;
+  text-align: center;
+  backdrop-filter: blur(18px) saturate(165%);
+  -webkit-backdrop-filter: blur(18px) saturate(165%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 12px 40px var(--bb-ink-a10);
+}
+
+.bb-input-glass {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.38) !important;
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.bb-btn-glass {
+  font-family: var(--font-heading-active);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  background: linear-gradient(
+    152deg,
+    rgba(34, 197, 94, 0.88),
+    rgba(16, 185, 129, 0.82)
+  );
+  backdrop-filter: blur(10px) saturate(175%);
+  -webkit-backdrop-filter: blur(10px) saturate(175%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 6px 22px rgba(22, 101, 52, 0.22);
+  transition:
+    background 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.bb-btn-glass:hover:not(:disabled) {
+  background: linear-gradient(
+    152deg,
+    rgb(34, 197, 94),
+    rgb(16, 185, 129)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 8px 28px rgba(22, 101, 52, 0.28);
+}
+
+.bb-btn-glass:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.bb-btn-glass--hero {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+}
+
+.bb-btn-glass--submit {
+  padding: 11px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.bb-btn-glass--submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .bb-cta-glass,
+  .bb-input-glass,
+  .bb-btn-glass {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .bb-cta-glass {
+    background: rgba(255, 255, 255, 0.38);
+  }
+
+  .bb-input-glass {
+    background: rgba(255, 255, 255, 0.42) !important;
+  }
+
+  .bb-btn-glass {
+    background: linear-gradient(152deg, #22c55e, #10b981);
+  }
+}
+
+/* CTA email + button: row on wide screens, stacked full-width on mobile */
+.bb-cta-field-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  align-items: stretch;
+}
+
+.bb-cta-field-row .bb-cta-input {
+  flex: 1;
+  min-width: 180px;
+  box-sizing: border-box;
+}
+
+.bb-cta-field-row .bb-cta-submit {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .bb-cta-field-row {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .bb-cta-field-row .bb-cta-input,
+  .bb-cta-field-row .bb-cta-submit {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .bb-cta-field-row .bb-cta-submit {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-hero-phone,
+  .bb-hero-text,
+  .bb-slide-left,
+  .bb-slide-right {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
