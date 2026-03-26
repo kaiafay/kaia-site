@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -31,24 +31,7 @@ export function Now() {
   const ref = useRef<HTMLElement>(null);
   const learningRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref);
-  const [progressAnimated, setProgressAnimated] = useState(false);
-
-  useEffect(() => {
-    if (!isInView) return;
-    const el = learningRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setProgressAnimated(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [isInView]);
+  const progressAnimated = useInView(learningRef);
 
   return (
     <section ref={ref} id="now" className="relative py-24 lg:py-32">

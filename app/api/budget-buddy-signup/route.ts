@@ -42,18 +42,17 @@ export async function POST(request: Request) {
   }
 
   const submittedAt = new Date();
-  const timestampFriendly =
-    new Intl.DateTimeFormat("en-US", {
-      timeZone: "America/Los_Angeles",
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZoneName: "short",
-    }).format(submittedAt);
+  const timestampFriendly = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Los_Angeles",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: "short",
+  }).format(submittedAt);
 
   function escapeHtml(s: string | undefined): string {
     if (s == null) return "";
@@ -65,9 +64,9 @@ export async function POST(request: Request) {
   }
 
   const row = (label: string, value: string) =>
-    "<tr><td style=\"padding: 6px 12px 6px 0; vertical-align: top; color: #4a4a6a;\">" +
+    '<tr><td style="padding: 6px 12px 6px 0; vertical-align: top; color: #4a4a6a;">' +
     escapeHtml(label) +
-    "</td><td style=\"padding: 6px 0; color: #1E1B4B; font-weight: 600;\">" +
+    '</td><td style="padding: 6px 0; color: #1E1B4B; font-weight: 600;">' +
     escapeHtml(value) +
     "</td></tr>";
 
@@ -79,13 +78,13 @@ export async function POST(request: Request) {
   ].join("\n");
 
   const html =
-    "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>New Budget Buddy signup</title></head><body style=\"font-family: system-ui, sans-serif; line-height: 1.6; background: #eef2ff; color: #1E1B4B; max-width: 560px; margin: 0 auto; padding: 24px;\">" +
-    "<div style=\"background: rgba(255,255,255,0.7); border: 1px solid rgba(91, 91, 214, 0.22); border-radius: 16px; padding: 20px 22px; box-shadow: 0 12px 36px rgba(30, 27, 75, 0.1);\">" +
-    "<h1 style=\"font-size: 1.25rem; color: #5b5bd6; margin: 0 0 6px;\">New Budget Buddy signup</h1>" +
-    "<p style=\"color: #4a4a6a; margin: 0;\">A new beta access request just came in.</p>" +
-    "<hr style=\"border: none; border-top: 1px solid rgba(91, 91, 214, 0.22); margin: 18px 0;\" />" +
-    "<h2 style=\"font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; color: #5b5bd6; margin: 0 0 8px;\">Details</h2>" +
-    "<table style=\"width: 100%; border-collapse: collapse;\">" +
+    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>New Budget Buddy signup</title></head><body style="font-family: system-ui, sans-serif; line-height: 1.6; background: #eef2ff; color: #1E1B4B; max-width: 560px; margin: 0 auto; padding: 24px;">' +
+    '<div style="background: rgba(255,255,255,0.7); border: 1px solid rgba(91, 91, 214, 0.22); border-radius: 16px; padding: 20px 22px; box-shadow: 0 12px 36px rgba(30, 27, 75, 0.1);">' +
+    '<h1 style="font-size: 1.25rem; color: #5b5bd6; margin: 0 0 6px;">New Budget Buddy signup</h1>' +
+    '<p style="color: #4a4a6a; margin: 0;">A new beta access request just came in.</p>' +
+    '<hr style="border: none; border-top: 1px solid rgba(91, 91, 214, 0.22); margin: 18px 0;" />' +
+    '<h2 style="font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; color: #5b5bd6; margin: 0 0 8px;">Details</h2>' +
+    '<table style="width: 100%; border-collapse: collapse;">' +
     row("Email", email) +
     row("Submitted", timestampFriendly) +
     "</table>" +
@@ -107,8 +106,6 @@ export async function POST(request: Request) {
       { status: 500 },
     );
   }
-
-  console.log("[budget-buddy-signup] New signup recorded");
 
   return NextResponse.json({ success: true });
 }
