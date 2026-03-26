@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
+  DollarSign,
   Coffee,
   Dumbbell,
   ExternalLink,
@@ -20,6 +21,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import projectsRaw from "@/content/projects.json";
 
 const ICON_MAP: Record<string, LucideIcon> = {
+  DollarSign,
   Coffee,
   Dumbbell,
   Flame,
