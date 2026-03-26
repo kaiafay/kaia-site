@@ -182,22 +182,9 @@ export default function BudgetBuddyPage() {
             }}
           >
             Most budgeting apps tell you where your money went. Budget Buddy
-            shows you where it&apos;s going — one day at a time.
+            shows you where it&apos;s going.
           </p>
-          <a
-            href="#get-access"
-            style={{
-              display: "inline-block",
-              backgroundColor: "#22C55E",
-              color: "#ffffff",
-              fontFamily: "var(--font-heading-active)",
-              fontWeight: 600,
-              fontSize: "0.9375rem",
-              padding: "14px 28px",
-              borderRadius: 12,
-              textDecoration: "none",
-            }}
-          >
+          <a href="#get-access" className="bb-btn-glass bb-btn-glass--hero">
             Request early access
           </a>
         </div>
@@ -235,8 +222,8 @@ export default function BudgetBuddyPage() {
           }}
         >
           By the time you see a monthly summary, the damage is done. Budget
-          Buddy puts your running balance on the calendar so you can see — at a
-          glance — what today&apos;s spending means for the rest of the month.
+          Buddy puts your running balance on the calendar so you can see at a
+          glance what today&apos;s spending means for the rest of the month.
         </p>
       </section>
 
@@ -256,14 +243,14 @@ export default function BudgetBuddyPage() {
             {
               src: "/images/budget-buddy/transactions.webp",
               alt: "Transactions list",
-              caption: "Every expense and income entry, organized by date.",
+              caption: "Every expense and income entry. Organized by date.",
               fromLeft: true,
             },
             {
               src: "/images/budget-buddy/add-transaction.webp",
               alt: "Add transaction screen",
               caption:
-                "Quick entry. Label it, date it, mark it recurring if it repeats.",
+                "Quick entry. Label it. Date it. Mark it as recurring if it repeats.",
               fromLeft: false,
             },
             {
@@ -347,15 +334,7 @@ export default function BudgetBuddyPage() {
         id="get-access"
         style={{ maxWidth: 540, margin: "0 auto 120px", padding: "0 32px" }}
       >
-        <div
-          style={{
-            backgroundColor: "rgba(255,255,255,0.35)",
-            border: "1px solid rgba(255,255,255,0.5)",
-            borderRadius: 20,
-            padding: "48px 40px",
-            textAlign: "center",
-          }}
-        >
+        <div className="bb-cta-glass">
           <h2
             style={{
               fontFamily: "var(--font-heading-active)",
@@ -400,12 +379,10 @@ export default function BudgetBuddyPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
-                  className="bb-input bb-cta-input"
+                  className="bb-input bb-cta-input bb-input-glass"
                   style={{
                     padding: "11px 14px",
                     borderRadius: 10,
-                    border: "1px solid rgba(30,27,75,0.2)",
-                    backgroundColor: "rgba(255,255,255,0.45)",
                     color: "#1E1B4B",
                     fontFamily: "var(--font-sans-active)",
                     fontSize: "0.9375rem",
@@ -414,19 +391,10 @@ export default function BudgetBuddyPage() {
                 <button
                   type="submit"
                   disabled={formStatus === "loading"}
-                  className="bb-cta-submit"
+                  className="bb-cta-submit bb-btn-glass bb-btn-glass--submit"
                   style={{
-                    backgroundColor: "#22C55E",
-                    color: "#ffffff",
-                    fontFamily: "var(--font-heading-active)",
-                    fontWeight: 600,
-                    fontSize: "0.9375rem",
-                    padding: "11px 20px",
-                    borderRadius: 10,
-                    border: "none",
                     cursor:
                       formStatus === "loading" ? "not-allowed" : "pointer",
-                    opacity: formStatus === "loading" ? 0.65 : 1,
                   }}
                 >
                   {formStatus === "loading" ? "Sending…" : "Get access"}
