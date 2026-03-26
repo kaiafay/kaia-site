@@ -62,19 +62,28 @@ export function PersonalStats() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
 
-  // TODO: Hydration flash — stats start at 0 then jump after mount. To fix: compute
-  // initial values once (e.g. in a shared util or via props) so server and client
-  // can render the same first paint and avoid the brief 0 → value flash.
-  const [ageUnits, setAgeUnits] = useState({
-    years: 0,
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-  const [booksRead, setBooksRead] = useState(0);
-  const [energyDrinks, setEnergyDrinks] = useState(0);
-  const [hoursCoded, setHoursCoded] = useState(0);
+  const [ageUnits, setAgeUnits] = useState(() => getAgeUnits(BIRTH_DATE));
+  const [booksRead, setBooksRead] = useState(() =>
+    getCalculatedStat(
+      statsConfig.booksRead.baseline,
+      statsConfig.booksRead.baselineDate,
+      statsConfig.booksRead.rateEveryDays * MS_PER_DAY,
+    ),
+  );
+  const [energyDrinks, setEnergyDrinks] = useState(() =>
+    getCalculatedStat(
+      statsConfig.energyDrinks.baseline,
+      statsConfig.energyDrinks.baselineDate,
+      statsConfig.energyDrinks.rateEveryDays * MS_PER_DAY,
+    ),
+  );
+  const [hoursCoded, setHoursCoded] = useState(() =>
+    getCalculatedStat(
+      statsConfig.hoursCoded.baseline,
+      statsConfig.hoursCoded.baselineDate,
+      statsConfig.hoursCoded.rateEveryHours * MS_PER_HOUR,
+    ),
+  );
 
   useEffect(() => {
     const booksRateMs = statsConfig.booksRead.rateEveryDays * MS_PER_DAY;

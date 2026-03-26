@@ -8,6 +8,13 @@ import { DropdownSelect } from "@/components/ui/dropdown-select";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 
+function inputClass(hasError: boolean, extra = "") {
+  return (
+    `${extra}rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)] disabled:opacity-60 ` +
+    (hasError ? "border-primary/60" : "border-border focus:border-primary/50")
+  );
+}
+
 const INTEREST_OPTIONS = [
   { value: "software", label: "Software" },
   { value: "training", label: "Training" },
@@ -124,11 +131,7 @@ export function Contact() {
                     clearFieldError("name");
                   }}
                   disabled={status === "loading"}
-                  className={`rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)] disabled:opacity-60 ${
-                    fieldErrors.name
-                      ? "border-primary/60"
-                      : "border-border focus:border-primary/50"
-                  }`}
+                  className={inputClass(!!fieldErrors.name)}
                 />
                 {fieldErrors.name && (
                   <p className="text-sm text-primary/90" role="alert">
@@ -154,11 +157,7 @@ export function Contact() {
                     clearFieldError("email");
                   }}
                   disabled={status === "loading"}
-                  className={`rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)] disabled:opacity-60 ${
-                    fieldErrors.email
-                      ? "border-primary/60"
-                      : "border-border focus:border-primary/50"
-                  }`}
+                  className={inputClass(!!fieldErrors.email)}
                 />
                 {fieldErrors.email && (
                   <p className="text-sm text-primary/90" role="alert">
@@ -210,11 +209,7 @@ export function Contact() {
                     clearFieldError("message");
                   }}
                   disabled={status === "loading"}
-                  className={`resize-none rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)] disabled:opacity-60 ${
-                    fieldErrors.message
-                      ? "border-primary/60"
-                      : "border-border focus:border-primary/50"
-                  }`}
+                  className={inputClass(!!fieldErrors.message, "resize-none ")}
                 />
                 {fieldErrors.message && (
                   <p className="text-sm text-primary/90" role="alert">
