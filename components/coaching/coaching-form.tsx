@@ -5,6 +5,7 @@ import { Loader2, Check, ArrowRight, ArrowLeft } from "lucide-react";
 import { DropdownSelect } from "@/components/ui/dropdown-select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SectionLabel } from "@/components/ui/section-label";
+import type { CoachingFormState } from "@/lib/coaching-types";
 
 const TOTAL_STEPS = 5;
 
@@ -88,28 +89,6 @@ const inputClass = (hasError: boolean) =>
   `rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)] disabled:opacity-60 ${
     hasError ? "border-primary/60" : "border-border focus:border-primary/50"
   }`;
-
-export type CoachingFormState = {
-  fullName: string;
-  email: string;
-  age: string;
-  location: string;
-  trainingLength: string;
-  daysPerWeek: string;
-  trainingTypes: string[];
-  primaryGoal: string;
-  targetTimeline: string;
-  holdingBack: string;
-  injuries: string;
-  medicalConditions: string;
-  doctorOrSpecialist: string;
-  currentDiet: string;
-  dietaryRestrictions: string;
-  gymAccess: string;
-  monthlyBudget: string;
-  hearAbout: string;
-  anythingElse: string;
-};
 
 const initialFormState: CoachingFormState = {
   fullName: "",

@@ -1,32 +1,12 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import type { CoachingFormState } from "@/lib/coaching-types";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TO_EMAIL = process.env.CONTACT_EMAIL;
 const FROM_EMAIL =
   process.env.RESEND_FROM ?? "Coaching Form <onboarding@resend.dev>";
 
-type CoachingPayload = {
-  fullName?: string;
-  email?: string;
-  age?: string;
-  location?: string;
-  trainingLength?: string;
-  daysPerWeek?: string;
-  trainingTypes?: string[];
-  primaryGoal?: string;
-  targetTimeline?: string;
-  holdingBack?: string;
-  injuries?: string;
-  medicalConditions?: string;
-  doctorOrSpecialist?: string;
-  currentDiet?: string;
-  dietaryRestrictions?: string;
-  gymAccess?: string;
-  monthlyBudget?: string;
-  hearAbout?: string;
-  anythingElse?: string;
-};
 
 function formatSection(title: string, entries: [string, string | undefined][]): string {
   const lines = entries
@@ -48,7 +28,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Not configured." }, { status: 500 });
   }
 
-  let body: CoachingPayload;
+  let body: Partial<CoachingFormState>;
   try {
     body = await request.json();
   } catch {

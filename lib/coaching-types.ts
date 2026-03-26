@@ -1,0 +1,21 @@
+export type CoachingFormState = {
+  fullName: string;
+  email: string;
+  age: string;
+  location: string;
+  trainingLength: string;
+  daysPerWeek: string;
+  trainingTypes: string[];
+  primaryGoal: string;
+  targetTimeline: string;
+  holdingBack: string;
+  injuries: string;
+  medicalConditions: string;
+  doctorOrSpecialist: string;
+  currentDiet: string;
+  dietaryRestrictions: string;
+  gymAccess: string;
+  monthlyBudget: string;
+  hearAbout: string;
+  anythingElse: string;
+};
