@@ -76,8 +76,17 @@ export default function BudgetBuddyPage() {
   >("idle");
 
   useEffect(() => {
+    // Fix iOS Safari overscroll: expose gradient start color instead of site's
+    // dark body background when rubber-band scrolling past the page edges.
+    document.documentElement.style.backgroundColor = "#e8ecff";
+    document.body.style.backgroundColor = "#e8ecff";
+
     const t = setTimeout(() => setLoaded(true), 50);
-    return () => clearTimeout(t);
+    return () => {
+      clearTimeout(t);
+      document.documentElement.style.backgroundColor = "";
+      document.body.style.backgroundColor = "";
+    };
   }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
