@@ -77,7 +77,7 @@ export default function BudgetBuddyPage() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     );
 
     revealRefs.current.forEach((el) => {
@@ -108,9 +108,7 @@ export default function BudgetBuddyPage() {
   }
 
   return (
-    <div
-      className="bb-page-gradient min-h-screen text-[var(--bb-ink)]"
-    >
+    <div className="bb-page-gradient min-h-screen text-[var(--bb-ink)]">
       {/* ─── Hero ─────────────────────────────────────────── */}
       <section className="mx-auto max-w-[1080px] flex flex-wrap items-center gap-18 px-8 py-[120px]">
         {/* Phone */}
@@ -192,7 +190,9 @@ export default function BudgetBuddyPage() {
         ).map(({ src, alt, caption, fromLeft }, index) => (
           <div
             key={src}
-            ref={(el) => { revealRefs.current[index] = el; }}
+            ref={(el) => {
+              revealRefs.current[index] = el;
+            }}
             className="bb-reveal"
           >
             <div
@@ -238,8 +238,8 @@ export default function BudgetBuddyPage() {
           </p>
 
           {formStatus === "success" ? (
-            <p className="text-green-500 text-base py-4">
-              You&apos;re on the list. I&apos;ll be in touch.
+            <p className="text-[var(--bb-indigo)] text-base py-4">
+              You&apos;re on the list! I&apos;ll be in touch :)
             </p>
           ) : (
             <form onSubmit={handleSubmit}>
