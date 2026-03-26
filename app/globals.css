@@ -263,25 +263,43 @@ textarea:focus,
   }
 }
 
+@keyframes bb-hero-phone-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bb-hero-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .bb-hero-phone {
   opacity: 0;
   background: transparent;
-  transform: translateY(30px);
-  transition:
-    opacity 0.7s ease-out,
-    transform 0.7s ease-out;
 }
+
 .bb-hero-text {
   opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.7s ease-out 0.2s,
-    transform 0.7s ease-out 0.2s;
 }
-.bb-hero-phone.bb-loaded,
+
+.bb-hero-phone.bb-loaded {
+  animation: bb-hero-phone-in 0.7s ease-out forwards;
+}
+
 .bb-hero-text.bb-loaded {
-  opacity: 1;
-  transform: translateY(0);
+  animation: bb-hero-text-in 0.7s ease-out 0.2s forwards;
 }
 
 @keyframes bb-reveal {
@@ -554,11 +572,11 @@ textarea:focus,
 @media (prefers-reduced-motion: reduce) {
   .bb-hero-phone,
   .bb-hero-text {
-    transition: none !important;
     opacity: 1 !important;
-    transform: none !important;
   }
 
+  .bb-hero-phone.bb-loaded,
+  .bb-hero-text.bb-loaded,
   .bb-reveal {
     animation: none !important;
     opacity: 1 !important;
