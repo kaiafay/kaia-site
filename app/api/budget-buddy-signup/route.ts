@@ -56,7 +56,5 @@ export async function POST(request: Request) {
     )
   }
 
-  console.log("[budget-buddy-signup] New signup recorded")
-
   return NextResponse.json({ success: true })
 }
