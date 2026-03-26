@@ -265,6 +265,7 @@ textarea:focus,
 
 .bb-hero-phone {
   opacity: 0;
+  background: transparent;
   transform: translateY(30px);
   transition:
     opacity 0.7s ease-out,
@@ -283,26 +284,26 @@ textarea:focus,
   transform: translateY(0);
 }
 
-.bb-slide-left {
-  opacity: 0;
-  background: transparent;
-  transform: translateX(-40px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+@keyframes bb-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.bb-slide-right {
+
+.bb-reveal {
   opacity: 0;
-  background: transparent;
-  transform: translateX(40px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+  animation: bb-reveal 0.6s ease-out forwards;
+  animation-play-state: paused;
+  will-change: opacity;
 }
-.bb-slide-left.bb-visible,
-.bb-slide-right.bb-visible {
-  opacity: 1;
-  transform: translateX(0);
+
+.bb-reveal.bb-reveal--visible {
+  animation-play-state: running;
 }
 
 /* Phone device mockup (screen matches 1206×2622 assets) */
@@ -416,23 +417,23 @@ textarea:focus,
 
 /* Glassmorphism — CTA card + primary actions (Budget Buddy) */
 .bb-cta-glass {
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 20px;
   padding: 48px 40px;
   text-align: center;
-  backdrop-filter: blur(18px) saturate(165%);
-  -webkit-backdrop-filter: blur(18px) saturate(165%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
     0 12px 40px var(--bb-ink-a10);
 }
 
 .bb-input-glass {
   background: rgba(255, 255, 255, 0.2) !important;
   border: 1px solid rgba(255, 255, 255, 0.38) !important;
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
@@ -447,8 +448,8 @@ textarea:focus,
     rgba(34, 197, 94, 0.88),
     rgba(16, 185, 129, 0.82)
   );
-  backdrop-filter: blur(10px) saturate(175%);
-  -webkit-backdrop-filter: blur(10px) saturate(175%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.48),
     0 6px 22px rgba(22, 101, 52, 0.22);
@@ -500,7 +501,7 @@ textarea:focus,
   }
 
   .bb-cta-glass {
-    background: rgba(255, 255, 255, 0.38);
+    background: rgba(255, 255, 255, 0.32);
   }
 
   .bb-input-glass {
@@ -552,11 +553,14 @@ textarea:focus,
 
 @media (prefers-reduced-motion: reduce) {
   .bb-hero-phone,
-  .bb-hero-text,
-  .bb-slide-left,
-  .bb-slide-right {
+  .bb-hero-text {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .bb-reveal {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }

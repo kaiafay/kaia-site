@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { useInView } from "@/hooks/use-in-view";
 
 // ─── Phone mockup (assets are 1206×2622; frame matches that aspect ratio) ───
 
@@ -44,28 +43,6 @@ function PhoneMockup({
   );
 }
 
-// ─── Scroll reveal ────────────────────────────────────────────────────────────
-
-function SlideReveal({
-  children,
-  fromLeft = true,
-}: {
-  children: React.ReactNode;
-  fromLeft?: boolean;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const visible = useInView(ref);
-
-  return (
-    <div
-      ref={ref}
-      className={`${fromLeft ? "bb-slide-left" : "bb-slide-right"} ${visible ? "bb-visible" : ""}`}
-    >
-      {children}
-    </div>
-  );
-}
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function BudgetBuddyPage() {
@@ -74,6 +51,7 @@ export default function BudgetBuddyPage() {
   const [formStatus, setFormStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+  const revealRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     // Fix iOS Safari overscroll: expose gradient start color instead of site's
@@ -87,6 +65,26 @@ export default function BudgetBuddyPage() {
       document.documentElement.style.backgroundColor = "";
       document.body.style.backgroundColor = "";
     };
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("bb-reveal--visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    revealRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -191,8 +189,12 @@ export default function BudgetBuddyPage() {
               fromLeft: true,
             },
           ] as const
-        ).map(({ src, alt, caption, fromLeft }) => (
-          <SlideReveal key={src} fromLeft={fromLeft}>
+        ).map(({ src, alt, caption, fromLeft }, index) => (
+          <div
+            key={src}
+            ref={(el) => { revealRefs.current[index] = el; }}
+            className="bb-reveal"
+          >
             <div
               className={`flex items-center gap-12 flex-wrap justify-center ${fromLeft ? "flex-row" : "flex-row-reverse"}`}
             >
@@ -203,7 +205,7 @@ export default function BudgetBuddyPage() {
                 {caption}
               </p>
             </div>
-          </SlideReveal>
+          </div>
         ))}
       </section>
 
