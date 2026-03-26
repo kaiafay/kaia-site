@@ -24,6 +24,14 @@
   --input: #1a1a1a;
   --ring: #8f3848;
   --radius: 0.5rem;
+
+  /* Budget Buddy brand colors */
+  --bb-ink: #1E1B4B;
+  --bb-ink-muted: #4a4a6a;
+  --bb-indigo: #5b5bd6;
+  --bb-ink-a10: rgba(30, 27, 75, 0.1);
+  --bb-indigo-a22: rgba(91, 91, 214, 0.22);
+  --bb-indigo-a55: rgba(91, 91, 214, 0.55);
 }
 
 @theme inline {
@@ -230,7 +238,7 @@ textarea:focus,
     #e8ecff,
     #c5d0fa,
     #4f6bed,
-    #5b5bd6
+    var(--bb-indigo)
   ) !important;
   background-size: 200% 200% !important;
   animation: bbGradientShift 18s ease infinite;
@@ -399,8 +407,8 @@ textarea:focus,
 }
 
 .bb-input:focus {
-  border-color: rgba(91, 91, 214, 0.55) !important;
-  box-shadow: 0 0 16px rgba(91, 91, 214, 0.22) !important;
+  border-color: var(--bb-indigo-a55) !important;
+  box-shadow: 0 0 16px var(--bb-indigo-a22) !important;
   outline: none !important;
 }
 
@@ -415,7 +423,7 @@ textarea:focus,
   -webkit-backdrop-filter: blur(18px) saturate(165%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.55),
-    0 12px 40px rgba(30, 27, 75, 0.1);
+    0 12px 40px var(--bb-ink-a10);
 }
 
 .bb-input-glass {

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useInView } from "@/hooks/use-in-view";
 
 // ─── Phone mockup (assets are 1206×2622; frame matches that aspect ratio) ───
 
@@ -33,8 +34,7 @@ function PhoneMockup({
             alt={alt}
             fill
             sizes={BB_PHONE_SIZES}
-            className="bb-phone-screen-img"
-            style={{ objectFit: "cover", objectPosition: "top" }}
+            className="bb-phone-screen-img object-cover object-top"
             priority={priority}
           />
           <span className="bb-phone-home-bar" aria-hidden />
@@ -54,23 +54,7 @@ function SlideReveal({
   fromLeft?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const visible = useInView(ref);
 
   return (
     <div
@@ -117,19 +101,11 @@ export default function BudgetBuddyPage() {
   }
 
   return (
-    <div className="bb-page-gradient min-h-screen" style={{ color: "#1E1B4B" }}>
+    <div
+      className="bb-page-gradient min-h-screen text-[var(--bb-ink)]"
+    >
       {/* ─── Hero ─────────────────────────────────────────── */}
-      <section
-        style={{
-          maxWidth: 1080,
-          margin: "0 auto",
-          padding: "120px 32px 120px",
-          display: "flex",
-          alignItems: "center",
-          gap: 72,
-          flexWrap: "wrap",
-        }}
-      >
+      <section className="mx-auto max-w-[1080px] flex flex-wrap items-center gap-18 px-8 py-[120px]">
         {/* Phone */}
         <div className={`bb-hero-phone${loaded ? " bb-loaded" : ""}`}>
           <PhoneMockup
@@ -141,46 +117,20 @@ export default function BudgetBuddyPage() {
 
         {/* Text */}
         <div
-          className={`bb-hero-text${loaded ? " bb-loaded" : ""}`}
-          style={{ flex: 1, minWidth: 260 }}
+          className={`bb-hero-text flex-1 min-w-[260px]${loaded ? " bb-loaded" : ""}`}
         >
-          <p
-            style={{
-              fontFamily: "var(--font-heading-active)",
-              fontWeight: 600,
-              fontSize: 11,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#5b5bd6",
-              marginBottom: 18,
-            }}
-          >
+          <p className="font-heading font-semibold text-[11px] tracking-[0.18em] uppercase text-[var(--bb-indigo)] mb-[18px]">
             Budget Buddy
           </p>
           <h1
-            style={{
-              fontFamily: "var(--font-heading-active)",
-              fontWeight: 600,
-              fontSize: "clamp(2.4rem, 5vw, 3.4rem)",
-              lineHeight: 1.15,
-              color: "#1E1B4B",
-              marginBottom: 20,
-            }}
+            className="font-heading font-semibold leading-[1.15] text-[var(--bb-ink)] mb-5"
+            style={{ fontSize: "clamp(2.4rem, 5vw, 3.4rem)" }}
           >
             Your balance,
             <br />
             every day.
           </h1>
-          <p
-            style={{
-              fontFamily: "var(--font-sans-active)",
-              fontSize: "1.0625rem",
-              color: "#4a4a6a",
-              lineHeight: 1.65,
-              maxWidth: 400,
-              marginBottom: 36,
-            }}
-          >
+          <p className="text-[1.0625rem] text-[var(--bb-ink-muted)] leading-[1.65] max-w-[400px] mb-9">
             Most budgeting apps tell you where your money went. Budget Buddy
             shows you where it&apos;s going.
           </p>
@@ -191,36 +141,16 @@ export default function BudgetBuddyPage() {
       </section>
 
       {/* ─── Problem ──────────────────────────────────────── */}
-      <section
-        style={{
-          maxWidth: 660,
-          margin: "0 auto",
-          padding: "120px 32px",
-          textAlign: "center",
-        }}
-      >
+      <section className="mx-auto max-w-[660px] px-8 py-[120px] text-center">
         <h2
-          style={{
-            fontFamily: "var(--font-heading-active)",
-            fontWeight: 600,
-            fontSize: "clamp(1.7rem, 3.5vw, 2.4rem)",
-            color: "#1E1B4B",
-            lineHeight: 1.25,
-            marginBottom: 24,
-          }}
+          className="font-heading font-semibold leading-[1.25] text-[var(--bb-ink)] mb-6"
+          style={{ fontSize: "clamp(1.7rem, 3.5vw, 2.4rem)" }}
         >
           Budgeting apps show you the month.
           <br />
           That&apos;s too late.
         </h2>
-        <p
-          style={{
-            fontFamily: "var(--font-sans-active)",
-            fontSize: "1.0625rem",
-            color: "#4a4a6a",
-            lineHeight: 1.7,
-          }}
-        >
+        <p className="text-[1.0625rem] text-[var(--bb-ink-muted)] leading-[1.7]">
           By the time you see a monthly summary, the damage is done. Budget
           Buddy puts your running balance on the calendar so you can see at a
           glance what today&apos;s spending means for the rest of the month.
@@ -228,16 +158,7 @@ export default function BudgetBuddyPage() {
       </section>
 
       {/* ─── Screenshots ──────────────────────────────────── */}
-      <section
-        style={{
-          maxWidth: 960,
-          margin: "0 auto",
-          padding: "40px 32px 120px",
-          display: "flex",
-          flexDirection: "column",
-          gap: 72,
-        }}
-      >
+      <section className="mx-auto max-w-[960px] flex flex-col gap-18 px-8 pt-10 pb-[120px]">
         {(
           [
             {
@@ -264,29 +185,11 @@ export default function BudgetBuddyPage() {
         ).map(({ src, alt, caption, fromLeft }) => (
           <SlideReveal key={src} fromLeft={fromLeft}>
             <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 48,
-                flexWrap: "wrap",
-                justifyContent: "center",
-                flexDirection: fromLeft ? "row" : "row-reverse",
-              }}
+              className={`flex items-center gap-12 flex-wrap justify-center ${fromLeft ? "flex-row" : "flex-row-reverse"}`}
             >
               <PhoneMockup src={src} alt={alt} />
               <p
-                style={{
-                  fontFamily: "var(--font-sans-active)",
-                  fontSize: "1.0625rem",
-                  color: "#4a4a6a",
-                  lineHeight: 1.65,
-                  maxWidth: 280,
-                  textAlign: fromLeft ? "right" : "left",
-                  flex: 1,
-                  minWidth: 180,
-                  alignSelf: "center",
-                  margin: 0,
-                }}
+                className={`text-[1.0625rem] text-[var(--bb-ink-muted)] leading-[1.65] max-w-[280px] flex-1 min-w-[180px] self-center m-0 ${fromLeft ? "text-right" : "text-left"}`}
               >
                 {caption}
               </p>
@@ -296,34 +199,14 @@ export default function BudgetBuddyPage() {
       </section>
 
       {/* ─── Who it's for ─────────────────────────────────── */}
-      <section
-        style={{
-          maxWidth: 620,
-          margin: "0 auto",
-          padding: "80px 32px 120px",
-          textAlign: "center",
-        }}
-      >
+      <section className="mx-auto max-w-[620px] px-8 pt-20 pb-[120px] text-center">
         <h2
-          style={{
-            fontFamily: "var(--font-heading-active)",
-            fontWeight: 600,
-            fontSize: "clamp(1.7rem, 3vw, 2.1rem)",
-            color: "#1E1B4B",
-            lineHeight: 1.3,
-            marginBottom: 24,
-          }}
+          className="font-heading font-semibold leading-[1.3] text-[var(--bb-ink)] mb-6"
+          style={{ fontSize: "clamp(1.7rem, 3vw, 2.1rem)" }}
         >
           Built for people who want to know their number — not analyze it.
         </h2>
-        <p
-          style={{
-            fontFamily: "var(--font-sans-active)",
-            fontSize: "1.0625rem",
-            color: "#4a4a6a",
-            lineHeight: 1.7,
-          }}
-        >
+        <p className="text-[1.0625rem] text-[var(--bb-ink-muted)] leading-[1.7]">
           No charts. No AI insights. No subscription tiers. Just your balance,
           updated every day, exactly when you need it.
         </p>
@@ -332,42 +215,19 @@ export default function BudgetBuddyPage() {
       {/* ─── CTA ──────────────────────────────────────────── */}
       <section
         id="get-access"
-        style={{ maxWidth: 540, margin: "0 auto 120px", padding: "0 32px" }}
+        className="mx-auto max-w-[540px] px-8 mb-[120px]"
       >
         <div className="bb-cta-glass">
-          <h2
-            style={{
-              fontFamily: "var(--font-heading-active)",
-              fontWeight: 600,
-              fontSize: "1.75rem",
-              color: "#1E1B4B",
-              marginBottom: 12,
-            }}
-          >
+          <h2 className="font-heading font-semibold text-[1.75rem] text-[var(--bb-ink)] mb-3">
             Budget Buddy is in private beta.
           </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-sans-active)",
-              fontSize: "1rem",
-              color: "#4a4a6a",
-              lineHeight: 1.65,
-              marginBottom: 28,
-            }}
-          >
+          <p className="text-base text-[var(--bb-ink-muted)] leading-[1.65] mb-7">
             Drop your email and I&apos;ll send you an invite code when a spot
             opens up.
           </p>
 
           {formStatus === "success" ? (
-            <p
-              style={{
-                color: "#22C55E",
-                fontFamily: "var(--font-sans-active)",
-                fontSize: "1rem",
-                padding: "16px 0",
-              }}
-            >
+            <p className="text-green-500 text-base py-4">
               You&apos;re on the list. I&apos;ll be in touch.
             </p>
           ) : (
@@ -379,46 +239,22 @@ export default function BudgetBuddyPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
-                  className="bb-input bb-cta-input bb-input-glass"
-                  style={{
-                    padding: "11px 14px",
-                    borderRadius: 10,
-                    color: "#1E1B4B",
-                    fontFamily: "var(--font-sans-active)",
-                    fontSize: "0.9375rem",
-                  }}
+                  className="bb-input bb-cta-input bb-input-glass py-[11px] px-[14px] rounded-[10px] text-[var(--bb-ink)] text-[0.9375rem]"
                 />
                 <button
                   type="submit"
                   disabled={formStatus === "loading"}
                   className="bb-cta-submit bb-btn-glass bb-btn-glass--submit"
-                  style={{
-                    cursor:
-                      formStatus === "loading" ? "not-allowed" : "pointer",
-                  }}
                 >
                   {formStatus === "loading" ? "Sending…" : "Get access"}
                 </button>
               </div>
               {formStatus === "error" && (
-                <p
-                  style={{
-                    color: "#f87171",
-                    fontFamily: "var(--font-sans-active)",
-                    fontSize: "0.875rem",
-                    marginBottom: 8,
-                  }}
-                >
+                <p className="text-red-400 text-sm mb-2">
                   Something went wrong. Please try again.
                 </p>
               )}
-              <p
-                style={{
-                  fontFamily: "var(--font-sans-active)",
-                  fontSize: "0.8125rem",
-                  color: "#4a4a6a",
-                }}
-              >
+              <p className="text-[0.8125rem] text-[var(--bb-ink-muted)]">
                 No spam. Just the code when it&apos;s ready.
               </p>
             </form>
@@ -428,23 +264,14 @@ export default function BudgetBuddyPage() {
 
       {/* ─── Footer ───────────────────────────────────────── */}
       <footer
-        style={{
-          textAlign: "center",
-          padding: "28px 32px 40px",
-          borderTop: "1px solid rgba(30,27,75,0.1)",
-        }}
+        className="text-center pt-7 pb-10 px-8"
+        style={{ borderTop: "1px solid var(--bb-ink-a10)" }}
       >
-        <p
-          style={{
-            fontFamily: "var(--font-sans-active)",
-            fontSize: "0.875rem",
-            color: "#4a4a6a",
-          }}
-        >
+        <p className="text-sm text-[var(--bb-ink-muted)]">
           Built by Kaia ·{" "}
           <a
             href="https://kaiafay.com"
-            style={{ color: "#1E1B4B", textDecoration: "none" }}
+            className="text-[var(--bb-ink)] no-underline"
           >
             kaiafay.com
           </a>
