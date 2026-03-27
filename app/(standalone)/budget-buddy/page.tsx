@@ -206,7 +206,7 @@ export default function BudgetBuddyPage() {
             className="bb-reveal"
           >
             <div
-              className={`flex items-center gap-12 flex-wrap justify-center ${fromLeft ? "flex-row" : "flex-row-reverse"}`}
+              className={`bb-screenshot-pair flex items-center gap-12 flex-wrap justify-center ${fromLeft ? "flex-row" : "flex-row-reverse"}`}
             >
               <PhoneMockup src={src} alt={alt} />
               <p

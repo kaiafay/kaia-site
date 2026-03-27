@@ -565,6 +565,23 @@ textarea:focus,
   }
 }
 
+@media (max-width: 767px) {
+  .bb-phone-shell {
+    --bb-phone-screen: 200px;
+    max-width: 228px;
+  }
+
+  .bb-screenshot-pair {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  .bb-screenshot-pair > p {
+    text-align: center !important;
+    max-width: 280px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bb-hero-phone,
   .bb-hero-text {
