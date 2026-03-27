@@ -580,6 +580,19 @@ textarea:focus,
     text-align: center !important;
     max-width: 280px;
   }
+
+  .bb-hero-section {
+    padding-top: 56px;
+    gap: 28px;
+  }
+
+  .bb-page-gradient section {
+    padding-bottom: 72px;
+  }
+
+  .bb-cta-section {
+    margin-bottom: 72px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

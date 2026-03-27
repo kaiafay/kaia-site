@@ -110,7 +110,7 @@ export default function BudgetBuddyPage() {
   return (
     <div className="bb-page-gradient min-h-screen text-[var(--bb-ink)]">
       {/* ─── Hero ─────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[1080px] flex flex-wrap items-center gap-18 px-8 py-[120px]">
+      <section className="bb-hero-section mx-auto max-w-[1080px] flex flex-wrap items-center gap-18 px-8 py-[120px]">
         {/* Phone */}
         <div className={`bb-hero-phone${loaded ? " bb-loaded" : ""}`}>
           <PhoneMockup
@@ -236,7 +236,7 @@ export default function BudgetBuddyPage() {
       {/* ─── CTA ──────────────────────────────────────────── */}
       <section
         id="get-access"
-        className="mx-auto max-w-[540px] px-8 mb-[120px]"
+        className="bb-cta-section mx-auto max-w-[540px] px-8 mb-[120px]"
       >
         <div className="bb-cta-glass">
           <h2 className="font-heading font-semibold text-[1.75rem] text-[var(--bb-ink)] mb-3">
