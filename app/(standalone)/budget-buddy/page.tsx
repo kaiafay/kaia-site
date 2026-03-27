@@ -142,6 +142,16 @@ export default function BudgetBuddyPage() {
           <a href="#get-access" className="bb-btn-glass bb-btn-glass--hero">
             Request early access
           </a>
+          <p className="mt-2 text-[0.8125rem] text-[var(--bb-ink-muted)]">
+            <a
+              href="https://budget-buddy-theta-three.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-fit items-center gap-1.5 opacity-70 transition-[color,opacity] hover:opacity-85 hover:text-[var(--bb-indigo)]"
+            >
+              Already have access? Open the app →
+            </a>
+          </p>
         </div>
       </section>
 
@@ -218,8 +228,8 @@ export default function BudgetBuddyPage() {
           Built for people who want to know their number — not analyze it.
         </h2>
         <p className="text-[1.0625rem] text-[var(--bb-ink-muted)] leading-[1.7]">
-          No charts. No AI insights. No subscription tiers. Just your balance,
-          updated every day, exactly when you need it.
+          Budgeting shouldn't feel like a performance review. Budget Buddy keeps
+          it simple. Just your number, every day.
         </p>
       </section>
 
