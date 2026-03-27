@@ -243,8 +243,8 @@ export default function BudgetBuddyPage() {
             Budget Buddy is in private beta.
           </h2>
           <p className="text-base text-[var(--bb-ink-muted)] leading-[1.65] mb-7">
-            Drop your email and I&apos;ll send you an invite code when a spot
-            opens up.
+            Drop your email and I&apos;ll send an invite code when a spot opens
+            up.
           </p>
 
           {formStatus === "success" ? (
