@@ -185,8 +185,13 @@ export default function BudgetBuddyPage() {
             {
               src: "/images/budget-buddy/add-transaction.webp",
               alt: "Add transaction screen",
-              caption:
-                "Quick entry. Label it. Date it. Mark it as recurring if it repeats.",
+              caption: (
+                <>
+                  Quick entry. Label it. Date it.
+                  <br />
+                  Mark it as recurring if it repeats.
+                </>
+              ),
               fromLeft: false,
             },
             {
@@ -196,7 +201,7 @@ export default function BudgetBuddyPage() {
                 "Set your starting balance once. Budget Buddy handles the math from there.",
               fromLeft: true,
             },
-          ] as const
+          ] as { src: string; alt: string; caption: React.ReactNode; fromLeft: boolean }[]
         ).map(({ src, alt, caption, fromLeft }, index) => (
           <div
             key={src}
@@ -243,8 +248,7 @@ export default function BudgetBuddyPage() {
             Budget Buddy is in private beta.
           </h2>
           <p className="text-base text-[var(--bb-ink-muted)] leading-[1.65] mb-7">
-            Drop your email and I&apos;ll send an invite code when a spot opens
-            up.
+            Drop your email to receive an invite code when a spot opens.
           </p>
 
           {formStatus === "success" ? (
@@ -285,7 +289,9 @@ export default function BudgetBuddyPage() {
                   rel="noopener noreferrer"
                   className="inline-flex w-fit items-center gap-1.5 opacity-70 transition-[color,opacity] hover:opacity-85 hover:text-[var(--bb-indigo)]"
                 >
-                  Already a beta tester? Share your feedback →
+                  Already a beta tester?{" "}
+                  <br className="sm:hidden" />
+                  Share your feedback →
                 </a>
               </p>
             </form>
