@@ -268,6 +268,16 @@ export default function BudgetBuddyPage() {
               <p className="text-[0.8125rem] text-[var(--bb-ink-muted)]">
                 No spam. Just the code when it&apos;s ready.
               </p>
+              <p className="mt-2 text-[0.8125rem] text-[var(--bb-ink-muted)]">
+                <a
+                  href="https://tally.so/r/rjVYM2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-fit items-center gap-1.5 opacity-70 transition-[color,opacity] hover:opacity-85 hover:text-[var(--bb-indigo)]"
+                >
+                  Already a beta tester? Share your feedback →
+                </a>
+              </p>
             </form>
           )}
         </div>
