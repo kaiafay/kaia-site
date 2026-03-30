@@ -1,8 +1,8 @@
 {
   "reading": {
-    "title": "The Briars",
-    "author": "Sarah Crouch",
-    "reaction": "Keeping me at the edge of my seat"
+    "title": "The Ballad of Songbirds and Snakes",
+    "author": "Suzanne Collins",
+    "reaction": "I'm hooked"
   },
   "listening": {
     "spotifyEmbedUrl": "https://open.spotify.com/embed/track/4Z5KKoBGxpJo8YbDcGQXd5"
@@ -15,8 +15,14 @@
   },
   "learning": {
     "items": [
-      { "name": "NASM CPT Certification", "percent": 90 },
-      { "name": "Accounting Fundamentals", "percent": 75 }
+      {
+        "name": "NASM CPT Certification",
+        "percent": 90
+      },
+      {
+        "name": "Accounting Fundamentals",
+        "percent": 75
+      }
     ]
   }
 }

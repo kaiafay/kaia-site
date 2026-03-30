@@ -144,7 +144,7 @@ export default function BudgetBuddyPage() {
           </a>
           <p className="mt-2 text-[0.8125rem] text-[var(--bb-ink-muted)]">
             <a
-              href="https://budget-buddy-theta-three.vercel.app/"
+              href="https://budgetbuddy.kaiafay.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex w-fit items-center gap-1.5 opacity-70 transition-[color,opacity] hover:opacity-85 hover:text-[var(--bb-indigo)]"
@@ -201,7 +201,12 @@ export default function BudgetBuddyPage() {
                 "Set your starting balance once. Budget Buddy handles the math from there.",
               fromLeft: true,
             },
-          ] as { src: string; alt: string; caption: React.ReactNode; fromLeft: boolean }[]
+          ] as {
+            src: string;
+            alt: string;
+            caption: React.ReactNode;
+            fromLeft: boolean;
+          }[]
         ).map(({ src, alt, caption, fromLeft }, index) => (
           <div
             key={src}
@@ -289,8 +294,7 @@ export default function BudgetBuddyPage() {
                   rel="noopener noreferrer"
                   className="inline-flex w-fit items-center gap-1.5 opacity-70 transition-[color,opacity] hover:opacity-85 hover:text-[var(--bb-indigo)]"
                 >
-                  Already a beta tester?{" "}
-                  <br className="sm:hidden" />
+                  Already a beta tester? <br className="sm:hidden" />
                   Share your feedback →
                 </a>
               </p>
