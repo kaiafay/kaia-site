@@ -9,15 +9,10 @@ import nowData from "@/content/now.json";
 
 const cardBase =
   "flex min-h-[140px] w-full items-center overflow-hidden rounded-xl px-6 py-6 transition-all duration-300 ease-out sm:px-8 sm:py-8";
-// Stronger shadow so it reads on dark; soft maroon edge glow instead of flat border
-const edgeGlowLeft =
-  "shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.04),inset_4px_0_24px_-4px_rgba(143,56,72,0.45)]";
-const edgeGlowLeftHover =
-  "hover:shadow-[0_24px_56px_rgba(0,0,0,0.6),inset_4px_0_24px_-4px_rgba(143,56,72,0.5)] hover:translate-y-[-4px]";
-const edgeGlowRight =
-  "shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.04),inset_-4px_0_24px_-4px_rgba(143,56,72,0.45)]";
-const edgeGlowRightHover =
-  "hover:shadow-[0_24px_56px_rgba(0,0,0,0.6),inset_-4px_0_24px_-4px_rgba(143,56,72,0.5)] hover:translate-y-[-4px]";
+const edgeGlowLeft = "card-glow-left";
+const edgeGlowLeftHover = "hover:-translate-y-1";
+const edgeGlowRight = "card-glow-right";
+const edgeGlowRightHover = "hover:-translate-y-1";
 
 function CardLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -44,7 +39,7 @@ export function Now() {
         <div className="flex flex-col gap-6">
           {/* Card 1 — Reading (left-aligned) */}
           <div
-            className={`${scrollRevealClass(isInView, 0)} ${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-[#111] md:flex-row`}
+            className={`${scrollRevealClass(isInView, 0)} ${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-card md:flex-row`}
           >
             <div className="flex w-full flex-col justify-center text-center md:w-1/2 md:max-w-[50%] md:text-left">
               <CardLabel>Currently reading</CardLabel>
@@ -65,7 +60,7 @@ export function Now() {
 
           {/* Card 2 — Listening (right-aligned) */}
           <div
-            className={`${scrollRevealClass(isInView, 2)} ${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[#141414] md:flex-row`}
+            className={`${scrollRevealClass(isInView, 2)} ${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[var(--surface-elevated)] md:flex-row`}
           >
             <div className="hidden flex-1 md:block" aria-hidden />
             <div className="flex w-full flex-col justify-center text-center md:ml-auto md:w-1/2 md:max-w-[50%] md:text-right">
@@ -87,7 +82,7 @@ export function Now() {
 
           {/* Card 3 — Training (left-aligned) */}
           <div
-            className={`${scrollRevealClass(isInView, 4)} ${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-[#111] md:flex-row`}
+            className={`${scrollRevealClass(isInView, 4)} ${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-card md:flex-row`}
           >
             <div className="flex w-full flex-col justify-center text-center md:w-1/2 md:max-w-[50%] md:flex-row md:items-center md:justify-between md:text-left">
               <div>
@@ -114,7 +109,7 @@ export function Now() {
           {/* Card 4 — Learning (right-aligned, two columns) */}
           <div
             ref={learningRef}
-            className={`${scrollRevealClass(isInView, 6)} ${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[#141414] md:flex-row`}
+            className={`${scrollRevealClass(isInView, 6)} ${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[var(--surface-elevated)] md:flex-row`}
           >
             <div className="hidden flex-1 md:block" aria-hidden />
             <div className="flex w-full flex-col justify-center text-center md:ml-auto md:w-1/2 md:max-w-[50%] md:text-right">

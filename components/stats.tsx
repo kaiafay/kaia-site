@@ -45,10 +45,8 @@ function getCalculatedStat(
 
 const cardBase =
   "flex min-h-[140px] w-full flex-col justify-center overflow-hidden rounded-xl px-6 py-6 transition-all duration-300 ease-out sm:px-8 sm:py-8";
-const edgeGlow =
-  "shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.04),inset_4px_0_24px_-4px_rgba(143,56,72,0.45)]";
-const edgeGlowHover =
-  "hover:shadow-[0_24px_56px_rgba(0,0,0,0.6),inset_4px_0_24px_-4px_rgba(143,56,72,0.5)] hover:translate-y-[-4px]";
+const edgeGlow = "card-glow-left";
+const edgeGlowHover = "hover:-translate-y-1";
 
 function StatLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -164,7 +162,7 @@ export function PersonalStats() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1.2fr_1fr]">
           <div
-            className={`${scrollRevealClass(isInView, 0)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#111]`}
+            className={`${scrollRevealClass(isInView, 0)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-card`}
           >
             <div className="flex flex-nowrap items-baseline gap-x-1.5 whitespace-nowrap text-xl sm:text-2xl">
               <span className="font-heading font-bold tabular-nums text-primary">
@@ -192,7 +190,7 @@ export function PersonalStats() {
           </div>
 
           <div
-            className={`${scrollRevealClass(isInView, 2)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#111]`}
+            className={`${scrollRevealClass(isInView, 2)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-card`}
           >
             <span className="font-heading text-3xl font-bold tabular-nums text-primary">
               {booksRead}
@@ -201,7 +199,7 @@ export function PersonalStats() {
           </div>
 
           <div
-            className={`${scrollRevealClass(isInView, 4)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#141414]`}
+            className={`${scrollRevealClass(isInView, 4)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[var(--surface-elevated)]`}
           >
             <span className="font-heading text-3xl font-bold tabular-nums text-primary">
               {energyDrinks}
@@ -210,7 +208,7 @@ export function PersonalStats() {
           </div>
 
           <div
-            className={`${scrollRevealClass(isInView, 6)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[#141414]`}
+            className={`${scrollRevealClass(isInView, 6)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[var(--surface-elevated)]`}
           >
             <span className="font-heading text-3xl font-bold tabular-nums text-primary">
               {hoursCoded}

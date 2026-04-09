@@ -59,9 +59,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preload" as="image" href="/images/hero-portrait.webp" />
+        {/* Prevent flash of wrong theme before JS hydrates */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.dataset.theme='light';}}catch(e){}})();` }} />
       </head>
       <body
         className={`${inter.variable} ${outfit.variable} font-sans antialiased`}

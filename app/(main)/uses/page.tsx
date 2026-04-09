@@ -11,10 +11,8 @@ type UseItem = { name: string; description: string; url?: string };
 type UseCategory = { label: string; items: UseItem[] };
 const usesData = usesDataRaw as UseCategory[];
 
-const cardShadow =
-  "shadow-[0_12px_40px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.04)]";
-const cardShadowHover =
-  "hover:shadow-[0_24px_56px_rgba(0,0,0,0.6)] hover:translate-y-[-4px]";
+const cardShadow = "card-shadow";
+const cardShadowHover = "hover:-translate-y-1";
 
 export default function UsesPage() {
   const ref = useRef<HTMLElement>(null);
