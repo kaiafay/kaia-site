@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 
 const navLinks = [
   { label: "About", href: "/about" },
@@ -16,12 +16,27 @@ const navLinks = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") as "dark" | "light" | null;
+    setTheme(saved ?? "dark");
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("theme", next);
+  };
 
   return (
     <>
@@ -35,7 +50,7 @@ export function Nav() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-background/80 backdrop-blur-md shadow-[0_1px_0_0_rgba(255,255,255,0.04)]"
+            ? "bg-background/80 backdrop-blur-md border-b border-border/20"
             : "bg-transparent"
         }`}
       >
@@ -60,31 +75,46 @@ export function Nav() {
             ))}
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="relative text-foreground md:hidden w-6 h-6"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            <span
-              className={`absolute inset-0 transition-all duration-300 ${
-                mobileOpen
-                  ? "opacity-100 rotate-0 scale-100"
-                  : "opacity-0 rotate-90 scale-75"
-              }`}
+          {/* Right controls: theme toggle (always visible) + hamburger (mobile only) */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={toggleTheme}
+              className="text-muted-foreground transition-colors hover:text-foreground"
+              aria-label="Toggle theme"
             >
-              <X size={24} />
-            </span>
-            <span
-              className={`absolute inset-0 transition-all duration-300 ${
-                mobileOpen
-                  ? "opacity-0 -rotate-90 scale-75"
-                  : "opacity-100 rotate-0 scale-100"
-              }`}
+              {mounted ? (
+                theme === "dark" ? <Sun size={18} /> : <Moon size={18} />
+              ) : (
+                <span className="block size-[18px]" />
+              )}
+            </button>
+
+            {/* Mobile toggle */}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="relative text-foreground md:hidden w-6 h-6"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              <Menu size={24} />
-            </span>
-          </button>
+              <span
+                className={`absolute inset-0 transition-all duration-300 ${
+                  mobileOpen
+                    ? "opacity-100 rotate-0 scale-100"
+                    : "opacity-0 rotate-90 scale-75"
+                }`}
+              >
+                <X size={24} />
+              </span>
+              <span
+                className={`absolute inset-0 transition-all duration-300 ${
+                  mobileOpen
+                    ? "opacity-0 -rotate-90 scale-75"
+                    : "opacity-100 rotate-0 scale-100"
+                }`}
+              >
+                <Menu size={24} />
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu — animated slide down */}
@@ -94,7 +124,7 @@ export function Nav() {
           }`}
           style={{
             background:
-              "linear-gradient(to bottom, rgba(10,10,10,0.8) 85%, rgba(10,10,10,0) 100%)",
+              "linear-gradient(to bottom, var(--nav-mobile-bg) 85%, transparent 100%)",
             paddingBottom: mobileOpen ? "0.5rem" : "0",
           }}
         >
