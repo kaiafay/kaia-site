@@ -8,8 +8,8 @@ import {
   Coffee,
   Dumbbell,
   ExternalLink,
-  Flame,
   Github,
+  Link as LinkIcon,
   Loader2,
   MessageCircle,
   Zap,
@@ -24,10 +24,10 @@ const ICON_MAP: Record<string, LucideIcon> = {
   DollarSign,
   Coffee,
   Dumbbell,
-  Flame,
   Loader2,
   MessageCircle,
   Zap,
+  LinkIcon,
 };
 
 type ProjectItem = {

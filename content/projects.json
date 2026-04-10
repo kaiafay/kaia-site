@@ -12,6 +12,18 @@
     "icon": "DollarSign"
   },
   {
+    "name": "Stackd",
+    "description": "A clean, design-forward link in bio tool",
+    "tech": [
+      "Next.js",
+      "React/TypeScript",
+      "Supabase"
+    ],
+    "github": "https://github.com/kaiafay/stackd",
+    "live": "https://stackdlink.com/",
+    "icon": "LinkIcon"
+  },
+  {
     "name": "Something's brewing",
     "description": "Currently in the build phase. I'm not one for shipping half-baked work. Check back soon.",
     "tech": [
@@ -20,16 +32,6 @@
     "github": "#",
     "live": null,
     "icon": "Coffee"
-  },
-  {
-    "name": "Still in the oven",
-    "description": "Ideas are easy. Execution is the hard part. This is somewhere in between.",
-    "tech": [
-      "In progress"
-    ],
-    "github": "#",
-    "live": null,
-    "icon": "Flame"
   },
   {
     "name": "Next up on the bench",
