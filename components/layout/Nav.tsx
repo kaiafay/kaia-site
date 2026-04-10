@@ -26,8 +26,8 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    const saved = localStorage.getItem("theme") as "dark" | "light" | null;
-    setTheme(saved ?? "dark");
+    const saved = localStorage.getItem("theme");
+    setTheme(saved === "light" ? "light" : "dark");
     setMounted(true);
   }, []);
 
@@ -79,11 +79,33 @@ export function Nav() {
           <div className="flex items-center gap-3">
             <button
               onClick={toggleTheme}
-              className="text-muted-foreground transition-colors hover:text-foreground"
+              className="relative flex h-[30px] w-[30px] items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
+              style={{ clipPath: "inset(0 -100px 0 -100px)" }}
               aria-label="Toggle theme"
             >
               {mounted ? (
-                theme === "dark" ? <Sun size={18} /> : <Moon size={18} />
+                <>
+                  <span
+                    className="absolute flex origin-[9px_30px] items-center justify-center md:origin-[9px_48px] size-[18px] transition-[transform,opacity] duration-500 ease-in-out"
+                    style={{
+                      transform:
+                        theme === "dark" ? "rotate(0deg)" : "rotate(45deg)",
+                      opacity: theme === "dark" ? 1 : 0,
+                    }}
+                  >
+                    <Sun size={18} />
+                  </span>
+                  <span
+                    className="absolute flex origin-[9px_30px] items-center justify-center md:origin-[9px_48px] size-[18px] transition-[transform,opacity] duration-500 ease-in-out"
+                    style={{
+                      transform:
+                        theme === "dark" ? "rotate(-45deg)" : "rotate(0deg)",
+                      opacity: theme === "dark" ? 0 : 1,
+                    }}
+                  >
+                    <Moon size={18} />
+                  </span>
+                </>
               ) : (
                 <span className="block size-[18px]" />
               )}
