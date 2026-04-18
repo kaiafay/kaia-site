@@ -1,51 +1,67 @@
 [
   {
     "label": "Dev Tools",
-    "items": [
+    "subsections": [
       {
-        "name": "Cursor",
-        "description": "My primary editor. AI-assisted coding changed how I work."
+        "label": "Setup",
+        "items": [
+          {
+            "name": "Cursor",
+            "description": "My primary editor. AI-assisted coding changed how I work."
+          },
+          {
+            "name": "Claude Code",
+            "description": "For agentic coding, refactoring, and scaffolding. Pairs perfectly with Cursor."
+          },
+          {
+            "name": "VS Code",
+            "description": "Backup editor and for quick edits."
+          },
+          {
+            "name": "Elgato Stream Deck",
+            "description": "Every macro on a physical button. Less brainspace on keybinds.",
+            "url": "https://www.elgato.com/us/en/p/stream-deck?srsltid=AfmBOoqUiX9XKiZ_zoOyPlkdjSW4pTLHiakNpQ7CP5AnmzLjf8GJv1_L"
+          },
+          {
+            "name": "Plugable Thunderbolt Dock",
+            "description": "Single cable connects everything. Monitors, drives, peripherals — one plug.",
+            "url": "https://plugable.com/products/tbt4-ud5?variant=48409601016039&country=US&currency=USD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&gad_source=1&gad_campaignid=21862117677&gbraid=0AAAAAD5ZQEg6toUiRDOzdYuds-UZpWfvB&gclid=CjwKCAjw14zPBhAuEiwAP3-Eb5NgsdS4m8WNjnczHwawzrSzapACqP9-iih1CYHPMmdWt2OhWBtpFBoC5_kQAvD_BwE"
+          },
+          {
+            "name": "MacBook Pro M3 Pro",
+            "description": "Fast, quiet, runs everything. Daily driver."
+          },
+          {
+            "name": "Dual monitor setup",
+            "description": "Can't go back to one screen."
+          }
+        ]
       },
       {
-        "name": "Claude Code",
-        "description": "For agentic coding, refactoring, and scaffolding. Pairs perfectly with Cursor."
-      },
-      {
-        "name": "VS Code",
-        "description": "Backup editor and for quick edits."
-      },
-      {
-        "name": "React / JavaScript",
-        "description": "Most comfortable here. Where I do my best thinking."
-      },
-      {
-        "name": "TypeScript",
-        "description": "Learning to love it."
-      },
-      {
-        "name": "Next.js",
-        "description": "Currently learning. This site is built with it."
-      },
-      {
-        "name": "Node.js",
-        "description": "Backend of choice."
-      },
-      {
-        "name": "PostgreSQL",
-        "description": "Go-to database."
-      }
-    ]
-  },
-  {
-    "label": "Hardware",
-    "items": [
-      {
-        "name": "MacBook Pro M3 Pro",
-        "description": "Fast, quiet, runs everything. Daily driver."
-      },
-      {
-        "name": "Dual monitor setup",
-        "description": "Can't go back to one screen."
+        "label": "Tech Stack",
+        "items": [
+          {
+            "name": "React / JavaScript"
+          },
+          {
+            "name": "Next.js"
+          },
+          {
+            "name": "TypeScript"
+          },
+          {
+            "name": "Node.js"
+          },
+          {
+            "name": "PostgreSQL"
+          },
+          {
+            "name": "Supabase"
+          },
+          {
+            "name": "Vercel"
+          }
+        ]
       }
     ]
   },

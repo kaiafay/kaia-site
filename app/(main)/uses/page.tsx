@@ -7,12 +7,44 @@ import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
 import usesDataRaw from "@/content/uses.json";
 
-type UseItem = { name: string; description: string; url?: string };
-type UseCategory = { label: string; items: UseItem[] };
+type UseItem = { name: string; description?: string; url?: string };
+type UseSubsection = { label: string; items: UseItem[] };
+type UseCategory = { label: string; items?: UseItem[]; subsections?: UseSubsection[] };
 const usesData = usesDataRaw as UseCategory[];
 
-const cardShadow = "card-shadow";
-const cardShadowHover = "hover:-translate-y-1";
+function ItemRow({ item }: { item: UseItem }) {
+  const name = item.url ? (
+    <a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-semibold text-foreground transition-colors duration-150 hover:text-primary"
+    >
+      {item.name}
+    </a>
+  ) : (
+    <span className="font-semibold text-foreground">{item.name}</span>
+  );
+
+  return (
+    <li className="text-sm leading-relaxed">
+      {name}
+      {item.description && (
+        <span className="text-muted-foreground"> · {item.description}</span>
+      )}
+    </li>
+  );
+}
+
+function ItemList({ items }: { items: UseItem[] }) {
+  return (
+    <ul className="flex flex-col gap-2.5">
+      {items.map((item) => (
+        <ItemRow key={item.name} item={item} />
+      ))}
+    </ul>
+  );
+}
 
 export default function UsesPage() {
   const ref = useRef<HTMLElement>(null);
@@ -21,8 +53,8 @@ export default function UsesPage() {
   return (
     <main>
       <section ref={ref} className="relative py-24 lg:py-32">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className={`${scrollRevealClass(isInView)} mb-10`}>
+        <div className="mx-auto max-w-3xl px-6">
+          <div className={`${scrollRevealClass(isInView)} mb-16`}>
             <SectionLabel as="h2">Uses</SectionLabel>
             <SectionHeading className="mt-2">Tools &amp; stack</SectionHeading>
             <p className="mt-4 text-sm italic text-muted-foreground">
@@ -31,42 +63,38 @@ export default function UsesPage() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-16">
+          <div>
             {usesData.map((category, categoryIndex) => (
               <div
                 key={category.label}
-                className={scrollRevealClass(
+                className={`${scrollRevealClass(
                   isInView,
                   Math.min(categoryIndex, 6) as ScrollRevealDelay,
-                )}
+                )} ${categoryIndex > 0 ? "border-t border-border/40" : ""} py-10`}
               >
-                <SectionLabel as="h4" className="mb-6">
-                  {category.label}
-                </SectionLabel>
-                <div className="grid gap-6 sm:grid-cols-2">
-                  {category.items.map((item) => (
-                    <div
-                      key={item.name}
-                      className={`flex flex-col gap-3 rounded-xl border border-border bg-card px-6 py-6 transition-all duration-300 ease-out sm:px-8 sm:py-6 ${cardShadow} ${cardShadowHover}`}
-                    >
-                      <h5 className="font-heading text-lg font-semibold text-card-foreground">
-                        {item.name}
-                      </h5>
-                      <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
-                        {item.description}
-                      </p>
-                      {item.url && (
-                        <a
-                          href={item.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-1 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/90"
-                        >
-                          Visit →
-                        </a>
-                      )}
-                    </div>
-                  ))}
+                <div className="flex flex-col gap-5 sm:flex-row sm:gap-12">
+                  <div className="w-full shrink-0 sm:w-[130px]">
+                    <span className="font-heading text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                      {category.label}
+                    </span>
+                  </div>
+
+                  <div className="flex-1">
+                    {category.subsections ? (
+                      <div className="flex flex-col gap-8">
+                        {category.subsections.map((sub) => (
+                          <div key={sub.label}>
+                            <p className="mb-3 font-heading text-xs font-medium uppercase tracking-widest text-muted-foreground/70">
+                              {sub.label}
+                            </p>
+                            <ItemList items={sub.items} />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <ItemList items={category.items ?? []} />
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
