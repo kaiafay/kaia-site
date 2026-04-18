@@ -55,16 +55,24 @@ export const projectsSchema = z.array(
   })
 );
 
+const usesItemSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  url: z.string().url().optional(),
+});
+
 export const usesSchema = z.array(
   z.object({
     label: z.string(),
-    items: z.array(
-      z.object({
-        name: z.string(),
-        description: z.string(),
-        url: z.string().url().optional(),
-      })
-    ),
+    items: z.array(usesItemSchema).optional(),
+    subsections: z
+      .array(
+        z.object({
+          label: z.string(),
+          items: z.array(usesItemSchema),
+        })
+      )
+      .optional(),
   })
 );
 
