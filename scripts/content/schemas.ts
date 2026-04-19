@@ -1,6 +1,10 @@
 import { z } from "zod";
 
 export const nowSchema = z.object({
+  development: z.object({
+    name: z.string(),
+    description: z.string(),
+  }),
   reading: z.object({
     title: z.string(),
     author: z.string(),

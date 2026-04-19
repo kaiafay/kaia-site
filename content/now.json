@@ -1,8 +1,12 @@
 {
+  "development": {
+    "name": "Budget Buddy v2",
+    "description": "More robust recurring transactions and spending analytics."
+  },
   "reading": {
-    "title": "The Ballad of Songbirds and Snakes",
-    "author": "Suzanne Collins",
-    "reaction": "I'm hooked"
+    "title": "Enshittification",
+    "author": "Cory Doctorow",
+    "reaction": "Eye-opening and more relevant than ever"
   },
   "listening": {
     "spotifyEmbedUrl": "https://open.spotify.com/embed/track/4Z5KKoBGxpJo8YbDcGQXd5"

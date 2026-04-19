@@ -1,22 +1,17 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 import nowData from "@/content/now.json";
+import { images } from "@/lib/images";
 
-const cardBase =
-  "flex min-h-[140px] w-full items-center overflow-hidden rounded-xl px-6 py-6 transition-all duration-300 ease-out sm:px-8 sm:py-8";
-const edgeGlowLeft = "card-glow-left";
-const edgeGlowLeftHover = "hover:-translate-y-1";
-const edgeGlowRight = "card-glow-right";
-const edgeGlowRightHover = "hover:-translate-y-1";
-
-function CardLabel({ children }: { children: React.ReactNode }) {
+function BlockLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-medium tracking-widest text-primary uppercase">
+    <p className="mb-3 text-xs font-medium tracking-widest text-primary uppercase">
       {children}
     </p>
   );
@@ -31,23 +26,79 @@ export function Now() {
   return (
     <section ref={ref} id="now" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
+        {/* Section header */}
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Now</SectionLabel>
           <SectionHeading className="mt-2">What I&apos;m up to</SectionHeading>
         </div>
 
-        <div className="flex flex-col gap-6">
-          {/* Card 1 — Reading (left-aligned) */}
-          <div
-            className={`${scrollRevealClass(isInView, 0)} ${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-card md:flex-row`}
-          >
-            <div className="flex w-full flex-col justify-center text-center md:w-1/2 md:max-w-[50%] md:text-left">
-              <CardLabel>Currently reading</CardLabel>
-              <div className="mt-3 flex flex-col items-center md:items-start">
-                <p className="font-heading text-lg font-semibold text-card-foreground">
+        {/* IN DEVELOPMENT — top statement */}
+        <div className={scrollRevealClass(isInView, 0)}>
+          <BlockLabel>In development</BlockLabel>
+          <p className="font-heading text-xl font-semibold leading-snug text-foreground">
+            {nowData.development.name}
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            {nowData.development.description}
+          </p>
+        </div>
+
+        {/* ON REPEAT + IN THE GYM — two column */}
+        <div
+          className={`${scrollRevealClass(isInView, 1)} mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2`}
+        >
+          <div>
+            <BlockLabel>On repeat</BlockLabel>
+            <iframe
+              title="Spotify track"
+              src={`${nowData.listening.spotifyEmbedUrl}?utm_source=generator&theme=0`}
+              width="100%"
+              height="80"
+              frameBorder={0}
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              className="rounded-xl max-w-xs"
+            />
+          </div>
+
+          <div>
+            <BlockLabel>In the gym</BlockLabel>
+            <div className="flex items-baseline gap-1">
+              <span className="font-heading text-5xl font-bold text-primary">
+                {nowData.training.prValue}
+              </span>
+              <span className="text-xl font-medium text-primary">
+                {nowData.training.prUnit}
+              </span>
+            </div>
+            <p className="mt-1 text-sm font-medium text-foreground">
+              {nowData.training.prLabel}
+            </p>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              {nowData.training.focus}
+            </p>
+          </div>
+        </div>
+
+        {/* CURRENTLY READING + BUILDING KNOWLEDGE — two column */}
+        <div
+          className={`${scrollRevealClass(isInView, 2)} mt-14 grid grid-cols-1 gap-10 lg:mt-24 sm:grid-cols-2`}
+        >
+          <div>
+            <BlockLabel>Currently reading</BlockLabel>
+            <div className="flex items-end gap-4">
+              <Image
+                src={images.bookCover}
+                alt={nowData.reading.title}
+                width={72}
+                height={108}
+                className="shrink-0 rounded-sm object-cover"
+              />
+              <div>
+                <p className="font-heading text-base font-semibold leading-snug text-foreground">
                   {nowData.reading.title}
                 </p>
-                <p className="mt-0.5 text-sm text-muted-foreground">
+                <p className="mt-1 text-sm text-muted-foreground">
                   {nowData.reading.author}
                 </p>
                 <p className="mt-2 text-sm italic text-muted-foreground">
@@ -55,90 +106,34 @@ export function Now() {
                 </p>
               </div>
             </div>
-            <div className="hidden flex-1 md:block" aria-hidden />
           </div>
 
-          {/* Card 2 — Listening (right-aligned) */}
-          <div
-            className={`${scrollRevealClass(isInView, 2)} ${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[var(--surface-elevated)] md:flex-row`}
-          >
-            <div className="hidden flex-1 md:block" aria-hidden />
-            <div className="flex w-full flex-col justify-center text-center md:ml-auto md:w-1/2 md:max-w-[50%] md:text-right">
-              <CardLabel>Currently listening</CardLabel>
-              <div className="mt-3 flex justify-center md:justify-end">
-                <iframe
-                  title="Spotify track"
-                  src={nowData.listening.spotifyEmbedUrl}
-                  width="100%"
-                  height="80"
-                  frameBorder={0}
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                  className="max-w-full rounded-md sm:max-w-md"
-                />
+          <div ref={learningRef}>
+            <BlockLabel>Building knowledge</BlockLabel>
+            <div className="grid grid-cols-1 gap-5">
+            {nowData.learning.items.map((item) => (
+              <div key={item.name}>
+                <div className="mb-1.5 flex items-center justify-between gap-2">
+                  <span className="text-sm text-muted-foreground">
+                    {item.name}
+                  </span>
+                  <span className="shrink-0 text-xs tabular-nums text-muted-foreground/70">
+                    {item.percent}%
+                  </span>
+                </div>
+                <div className="h-[3px] w-full overflow-hidden rounded-full bg-secondary">
+                  <div
+                    className="h-full w-full origin-left rounded-full bg-primary/70 transition-transform duration-700 ease-out will-change-transform"
+                    style={{
+                      transform: progressAnimated
+                        ? `scaleX(${item.percent / 100}) translateZ(0)`
+                        : "scaleX(0) translateZ(0)",
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            ))}
           </div>
-
-          {/* Card 3 — Training (left-aligned) */}
-          <div
-            className={`${scrollRevealClass(isInView, 4)} ${cardBase} ${edgeGlowLeft} ${edgeGlowLeftHover} bg-card md:flex-row`}
-          >
-            <div className="flex w-full flex-col justify-center text-center md:w-1/2 md:max-w-[50%] md:flex-row md:items-center md:justify-between md:text-left">
-              <div>
-                <CardLabel>In the gym</CardLabel>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  Focus: {nowData.training.focus}
-                </p>
-              </div>
-              <div className="mt-4 md:mt-0 md:text-right">
-                <span className="font-heading text-3xl font-bold text-primary">
-                  {nowData.training.prValue}
-                </span>
-                <span className="ml-0.5 text-base font-medium text-primary">
-                  {nowData.training.prUnit}
-                </span>
-                <p className="mt-0.5 text-sm font-medium text-card-foreground">
-                  {nowData.training.prLabel}
-                </p>
-              </div>
-            </div>
-            <div className="hidden flex-1 md:block" aria-hidden />
-          </div>
-
-          {/* Card 4 — Learning (right-aligned, two columns) */}
-          <div
-            ref={learningRef}
-            className={`${scrollRevealClass(isInView, 6)} ${cardBase} ${edgeGlowRight} ${edgeGlowRightHover} bg-[var(--surface-elevated)] md:flex-row`}
-          >
-            <div className="hidden flex-1 md:block" aria-hidden />
-            <div className="flex w-full flex-col justify-center text-center md:ml-auto md:w-1/2 md:max-w-[50%] md:text-right">
-              <CardLabel>Building knowledge</CardLabel>
-              <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 md:justify-items-end">
-                {nowData.learning.items.map((item) => (
-                  <div key={item.name}>
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm font-medium text-card-foreground">
-                        {item.name}
-                      </span>
-                      <span className="shrink-0 text-sm tabular-nums text-muted-foreground">
-                        {item.percent}%
-                      </span>
-                    </div>
-                    <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-secondary">
-                      <div
-                        className="progress-fill-animate h-full w-full rounded-full bg-primary origin-left transition-transform duration-700 ease-out will-change-transform"
-                        style={{
-                          transform: progressAnimated
-                            ? `scaleX(${item.percent / 100}) translateZ(0)`
-                            : "scaleX(0) translateZ(0)",
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>
