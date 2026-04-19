@@ -9,7 +9,11 @@ import usesDataRaw from "@/content/uses.json";
 
 type UseItem = { name: string; description?: string; url?: string };
 type UseSubsection = { label: string; items: UseItem[] };
-type UseCategory = { label: string; items?: UseItem[]; subsections?: UseSubsection[] };
+type UseCategory = {
+  label: string;
+  items?: UseItem[];
+  subsections?: UseSubsection[];
+};
 const usesData = usesDataRaw as UseCategory[];
 
 function ItemRow({ item }: { item: UseItem }) {
@@ -70,13 +74,14 @@ export default function UsesPage() {
                 className={`${scrollRevealClass(
                   isInView,
                   Math.min(categoryIndex, 6) as ScrollRevealDelay,
-                )} ${categoryIndex > 0 ? "border-t border-border/40" : ""} py-10`}
+                )} py-10`}
               >
                 <div className="flex flex-col gap-5 sm:flex-row sm:gap-12">
-                  <div className="w-full shrink-0 sm:w-[130px]">
+                  <div className="flex w-full shrink-0 items-center gap-3 sm:block sm:w-[130px]">
                     <span className="font-heading text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                       {category.label}
                     </span>
+                    <div className="h-px flex-1 bg-border/70 sm:hidden" />
                   </div>
 
                   <div className="flex-1">

@@ -62,18 +62,22 @@ const usesItemSchema = z.object({
 });
 
 export const usesSchema = z.array(
-  z.object({
-    label: z.string(),
-    items: z.array(usesItemSchema).optional(),
-    subsections: z
-      .array(
-        z.object({
-          label: z.string(),
-          items: z.array(usesItemSchema),
-        })
-      )
-      .optional(),
-  })
+  z
+    .object({
+      label: z.string(),
+      items: z.array(usesItemSchema).optional(),
+      subsections: z
+        .array(
+          z.object({
+            label: z.string(),
+            items: z.array(usesItemSchema),
+          })
+        )
+        .optional(),
+    })
+    .refine((c) => !(c.items && c.subsections), {
+      message: "A category cannot have both items and subsections",
+    })
 );
 
 export const gallerySchema = z.array(
