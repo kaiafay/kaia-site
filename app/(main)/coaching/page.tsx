@@ -45,7 +45,7 @@ export default function CoachingPage() {
         <div
           className={`${scrollRevealClass(isHeroInView)} mx-auto max-w-3xl px-6 text-center`}
         >
-          <SectionLabel as="h2">Coaching</SectionLabel>
+          <SectionLabel>Coaching</SectionLabel>
           <SectionHeading as="h1" className="mt-2">
             Work With Me
           </SectionHeading>

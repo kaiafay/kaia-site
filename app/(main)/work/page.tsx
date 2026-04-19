@@ -3,7 +3,7 @@ import { Projects } from "@/components/projects"
 export default function WorkPage() {
   return (
     <main>
-      <Projects />
+      <Projects headingAs="h1" />
     </main>
   )
 }

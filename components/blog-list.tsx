@@ -24,10 +24,10 @@ export function BlogList({ posts }: { posts: PostDisplay[] }) {
 
   return (
     <section ref={ref} className="relative py-24 lg:py-32">
-      <div className="mx-auto max-w-3xl px-6">
+      <div className="mx-auto max-w-5xl px-6">
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
-          <SectionLabel as="h2">Blog</SectionLabel>
-          <SectionHeading className="mt-2">Writing</SectionHeading>
+          <SectionLabel>Blog</SectionLabel>
+          <SectionHeading as="h1" className="mt-2">Writing</SectionHeading>
         </div>
 
         <div className="divide-y divide-border">
@@ -42,9 +42,9 @@ export function BlogList({ posts }: { posts: PostDisplay[] }) {
                 <span>·</span>
                 <Clock className="size-3 shrink-0" />
                 <span>{post.readTimeMinutes} min</span>
+                {post.pinned && <Pin className="size-3 shrink-0 rotate-45 fill-current ml-auto" role="img" aria-label="Pinned post" />}
               </p>
-              <h4 className="flex items-center gap-2 font-heading text-xl font-semibold text-foreground">
-                {post.pinned && <Pin className="size-3.5 shrink-0 rotate-45 text-primary/80" />}
+              <h4 className="font-heading text-xl font-semibold text-foreground">
                 {post.title}
               </h4>
               <p className="text-sm leading-relaxed text-muted-foreground">

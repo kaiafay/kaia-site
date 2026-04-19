@@ -45,10 +45,12 @@ export default function AboutPage() {
 
             {/* Right text */}
             <div className="flex flex-1 flex-col gap-6">
-              <SectionLabel as="h2">About</SectionLabel>
-              <SectionHeading as="h1">
-                I build things. I build people.
-              </SectionHeading>
+              <div>
+                <SectionLabel>About</SectionLabel>
+                <SectionHeading as="h1" className="mt-2">
+                  I build things. I build people.
+                </SectionHeading>
+              </div>
               <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
                 <p>
                   I&apos;m a full-stack engineer with a passion for building

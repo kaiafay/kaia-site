@@ -59,8 +59,8 @@ export default function UsesPage() {
       <section ref={ref} className="relative py-24 lg:py-32">
         <div className="mx-auto max-w-3xl px-6">
           <div className={`${scrollRevealClass(isInView)} mb-16`}>
-            <SectionLabel as="h2">Uses</SectionLabel>
-            <SectionHeading className="mt-2">Tools &amp; stack</SectionHeading>
+            <SectionLabel>Uses</SectionLabel>
+            <SectionHeading as="h1" className="mt-2">Tools &amp; stack</SectionHeading>
             <p className="mt-4 text-sm italic text-muted-foreground">
               Everything I actually use — no sponsorships, just genuine
               recommendations.

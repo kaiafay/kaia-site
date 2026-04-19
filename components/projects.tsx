@@ -42,9 +42,10 @@ const projects = projectsRaw as ProjectItem[];
 
 type ProjectsProps = {
   limit?: number;
+  headingAs?: "h1" | "h2";
 };
 
-export function Projects({ limit }: ProjectsProps) {
+export function Projects({ limit, headingAs = "h2" }: ProjectsProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
   const displayProjects = limit != null ? projects.slice(0, limit) : projects;
@@ -53,8 +54,8 @@ export function Projects({ limit }: ProjectsProps) {
     <section ref={ref} id="projects" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
-          <SectionLabel as="h2">Work</SectionLabel>
-          <SectionHeading className="mt-2">Selected Projects</SectionHeading>
+          <SectionLabel>Work</SectionLabel>
+          <SectionHeading as={headingAs} className="mt-2">Selected Projects</SectionHeading>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
