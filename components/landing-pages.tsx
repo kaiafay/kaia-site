@@ -123,7 +123,7 @@ export function LandingPages() {
                     className="landing-preview relative block overflow-hidden"
                   >
                     <div
-                      className="relative block md:hidden"
+                      className="relative block sm:hidden"
                       style={{ aspectRatio: MOBILE_RATIO }}
                     >
                       <Image
@@ -135,7 +135,7 @@ export function LandingPages() {
                       />
                     </div>
                     <div
-                      className="relative hidden md:block"
+                      className="relative hidden sm:block"
                       style={{ aspectRatio: DESKTOP_RATIO }}
                     >
                       <Image
@@ -146,7 +146,7 @@ export function LandingPages() {
                         className="object-cover object-top"
                       />
                     </div>
-                    <span className="block md:hidden absolute bottom-3 right-3 rounded bg-black/50 p-1.5">
+                    <span className="block sm:hidden absolute bottom-3 right-3 rounded bg-black/50 p-1.5">
                       <ExternalLink size={16} className="text-white" aria-hidden />
                     </span>
                   </a>
