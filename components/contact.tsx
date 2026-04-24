@@ -10,7 +10,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 function inputClass(hasError: boolean, extra = "") {
   return (
-    `${extra}rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)] disabled:opacity-60 ` +
+    `${extra}rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none disabled:opacity-60 ` +
     (hasError ? "border-primary/60" : "border-border focus:border-primary/50")
   );
 }
@@ -221,7 +221,7 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-[0_0_16px_rgba(143,56,72,0.3)] disabled:opacity-60 disabled:pointer-events-none"
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow disabled:opacity-60 disabled:pointer-events-none"
               >
                 {status === "loading" ? (
                   <>

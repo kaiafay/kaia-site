@@ -29,7 +29,7 @@ export function Freelance() {
         <div
           className={`${scrollRevealClass(isInView, 1)} mt-12 grid gap-10 md:grid-cols-2 md:gap-12`}
         >
-          <div className="relative pl-4 before:absolute before:top-0 before:bottom-0 before:left-0 before:w-[18px] before:bg-[linear-gradient(90deg,rgba(143,56,72,0.55)_0%,rgba(143,56,72,0.2)_35%,rgba(143,56,72,0)_100%)] before:content-[''] md:pl-0 md:before:hidden">
+          <div className="relative pl-4 before:absolute before:top-0 before:bottom-0 before:left-0 before:w-[18px] freelance-border before:content-[''] md:pl-0 md:before:hidden">
             <h3 className="font-heading text-2xl font-semibold text-foreground">
               Landing Page
             </h3>
@@ -41,7 +41,7 @@ export function Freelance() {
             </p>
           </div>
 
-          <div className="relative pl-4 before:absolute before:top-0 before:bottom-0 before:left-0 before:w-[18px] before:bg-[linear-gradient(90deg,rgba(143,56,72,0.55)_0%,rgba(143,56,72,0.2)_35%,rgba(143,56,72,0)_100%)] before:content-[''] md:border-l md:border-border md:pl-12 md:before:hidden">
+          <div className="relative pl-4 before:absolute before:top-0 before:bottom-0 before:left-0 before:w-[18px] freelance-border before:content-[''] md:border-l md:border-border md:pl-12 md:before:hidden">
             <h3 className="font-heading text-2xl font-semibold text-foreground">
               Custom Project
             </h3>
@@ -71,7 +71,7 @@ export function Freelance() {
         <div className={`${scrollRevealClass(isInView, 6)} mt-10`}>
           <Link
             href="/#contact"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-[0_0_16px_rgba(143,56,72,0.3)]"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow"
           >
             Start a project
           </Link>

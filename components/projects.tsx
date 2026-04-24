@@ -64,7 +64,7 @@ export function Projects({ limit, headingAs = "h2" }: ProjectsProps) {
             return (
               <div
                 key={project.name}
-                className={`${scrollRevealClass(isInView, Math.min(i, 6) as ScrollRevealDelay)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-secondary hover:shadow-[0_0_24px_rgba(143,56,72,0.4)]`}
+                className={`${scrollRevealClass(isInView, Math.min(i, 6) as ScrollRevealDelay)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-6 transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-secondary card-hover-glow-strong`}
               >
                 <div className="flex items-center gap-2">
                   <Icon

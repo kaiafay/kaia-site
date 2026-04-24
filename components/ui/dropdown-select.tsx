@@ -54,27 +54,30 @@ export function DropdownSelect({
     });
   }, [matchWidth]);
 
-  const openDropdown = React.useCallback(() => {
-    if (disabled) return;
-    updatePosition();
-    setOpen(true);
-    setHighlightedIndex(
-      value ? options.findIndex((o) => o.value === value) : 0,
-    );
-  }, [disabled, value, options, updatePosition]);
-
-  const closeDropdown = React.useCallback(() => {
-    setOpen(false);
-    setHighlightedIndex(-1);
-  }, []);
+  const setDropdownOpen = React.useCallback(
+    (next: boolean) => {
+      if (!next) {
+        setOpen(false);
+        setHighlightedIndex(-1);
+        return;
+      }
+      if (disabled) return;
+      updatePosition();
+      setOpen(true);
+      setHighlightedIndex(
+        value ? options.findIndex((o) => o.value === value) : 0,
+      );
+    },
+    [disabled, value, options, updatePosition],
+  );
 
   const selectOption = React.useCallback(
     (option: DropdownSelectOption) => {
       onValueChange(option.value);
-      closeDropdown();
+      setDropdownOpen(false);
       triggerRef.current?.focus();
     },
-    [onValueChange, closeDropdown],
+    [onValueChange, setDropdownOpen],
   );
 
   React.useEffect(() => {
@@ -86,11 +89,11 @@ export function DropdownSelect({
         panelRef.current?.contains(target)
       )
         return;
-      closeDropdown();
+      setDropdownOpen(false);
     };
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
-  }, [open, closeDropdown]);
+  }, [open, setDropdownOpen]);
 
   React.useEffect(() => {
     if (!open || highlightedIndex < 0) return;
@@ -114,14 +117,14 @@ export function DropdownSelect({
     if (!open) {
       if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
         e.preventDefault();
-        openDropdown();
+        setDropdownOpen(true);
       }
       return;
     }
     switch (e.key) {
       case "Escape":
         e.preventDefault();
-        closeDropdown();
+        setDropdownOpen(false);
         break;
       case "ArrowDown":
         e.preventDefault();
@@ -207,17 +210,23 @@ export function DropdownSelect({
         className={cn(
           "flex w-full items-center justify-between gap-2 rounded-lg border bg-input px-4 py-3 text-left text-sm text-foreground transition-all duration-200",
           hasError ? "border-primary/60" : "border-border",
-          "hover:bg-secondary focus:border-primary/50 focus:outline-none focus:shadow-[0_0_20px_rgba(143,56,72,0.25)]",
+          "hover:bg-secondary focus:border-primary/50 focus:outline-none dropdown-focus-glow",
           !selectedOption && "text-muted-foreground",
           "disabled:cursor-not-allowed disabled:opacity-50",
           className,
         )}
-        onClick={openDropdown}
+        onClick={() => {
+          if (disabled) return;
+          setDropdownOpen(!open);
+        }}
         onKeyDown={handleKeyDown}
       >
         <span className="truncate">{displayText}</span>
         <ChevronDown
-          className={cn("size-4 shrink-0 opacity-50", open && "rotate-180")}
+          className={cn(
+            "size-4 shrink-0 opacity-50 motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-out",
+            open && "rotate-180",
+          )}
           aria-hidden
         />
       </button>
