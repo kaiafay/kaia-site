@@ -18,33 +18,33 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.kaiafay.com"),
   title: {
-    default: "Kaia | Engineer & Coach",
+    default: "Kaia | Developer & Builder",
     template: "%s | Kaia",
   },
   description:
-    "Full-stack engineer and coach. Building clean software and stronger people.",
+    "Software developer building apps, taking on freelance projects, and shipping in public.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://www.kaiafay.com",
     siteName: "Kaia",
-    title: "Kaia | Engineer & Coach",
+    title: "Kaia | Developer & Builder",
     description:
-      "Full-stack engineer and coach. Building clean software and stronger people.",
+      "Software developer building apps, taking on freelance projects, and shipping in public.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Kaia — Engineer & Coach",
+        alt: "Kaia — Developer & Builder",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kaia | Engineer & Coach",
+    title: "Kaia | Developer & Builder",
     description:
-      "Full-stack engineer and coach. Building clean software and stronger people.",
+      "Software developer building apps, taking on freelance projects, and shipping in public.",
     images: ["/og-image.jpg"],
   },
   icons: {

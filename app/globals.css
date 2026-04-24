@@ -42,7 +42,6 @@
 
   /* Landing pages preview shadow (dark theme: warm glow) */
   --preview-shadow: 0 8px 40px rgba(245, 240, 235, 0.08);
-  --preview-shadow-hover: 0 16px 48px rgba(245, 240, 235, 0.13);
 
   /* Budget Buddy brand colors */
   --bb-ink: #1E1B4B;
@@ -115,9 +114,8 @@
   --card-glow-inset-right: inset -4px 0 24px -4px rgba(143,56,72,0.2);
   --card-glow-inset-right-hover: inset -4px 0 24px -4px rgba(143,56,72,0.28);
 
-  /* Landing pages preview shadow (light theme: dark shadow) */
-  --preview-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
-  --preview-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.6);
+  /* Landing pages preview shadow (light theme: subtle) */
+  --preview-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
 }
 
 html {
@@ -126,11 +124,12 @@ html {
 
 .landing-preview {
   box-shadow: var(--preview-shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.landing-preview:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--preview-shadow-hover);
+.landing-preview img {
+  transition: transform 0.4s ease;
+}
+.landing-preview:hover img {
+  transform: scale(1.015);
 }
 
 /* Non-scroll fade-in (e.g. form steps) — keep for components that don't use IntersectionObserver */

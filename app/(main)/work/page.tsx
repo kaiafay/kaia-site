@@ -6,6 +6,7 @@ export default function WorkPage() {
     <main>
       <Projects headingAs="h1" />
       <LandingPages />
+      <div id="hire" />
     </main>
   )
 }

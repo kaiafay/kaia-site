@@ -48,28 +48,39 @@ export default function AboutPage() {
               <div>
                 <SectionLabel>About</SectionLabel>
                 <SectionHeading as="h1" className="mt-2">
-                  I build things. I build people.
+                  Engineer. Athlete. Builder.
                 </SectionHeading>
               </div>
               <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
                 <p>
-                  I&apos;m a full-stack engineer with a passion for building
-                  clean, scalable systems and beautiful, intuitive interfaces.
-                  By day, I&apos;m shipping code, designing APIs, crafting
-                  thoughtful user interfaces, and solving problems that make
-                  real products better.
+                  I didn&apos;t come up through a CS program. I spent years in
+                  service jobs &mdash; waiting tables, working as a CNA &mdash;
+                  before I started teaching myself web development out of
+                  personal interest. Turns out I had a brain for it. I
+                  accelerated through a full-stack engineering program in 2022,
+                  graduated at the top of my cohort, and haven&apos;t stopped
+                  building since.
                 </p>
                 <p>
-                  But when the laptop closes, the weights come out. Strength
-                  training has been my anchor for years, teaching me discipline,
-                  patience, and the power of showing up consistently.
+                  A few years later I started competing in NPC bikini, stepping
+                  on stage for the first time in September 2025. Bodybuilding
+                  and software development look nothing alike on the surface,
+                  but they run on the same engine: obsessive attention to
+                  detail, showing up on days you don&apos;t feel like it, and
+                  trusting the process even when the results aren&apos;t visible
+                  yet.
                 </p>
                 <p>
-                  Now I&apos;m merging both worlds. As a coach, I bring the same
-                  systems-thinking mindset from engineering into program design:
-                  structured, evidence-based, and tailored to each individual.
-                  Whether it&apos;s a codebase or a training block, I believe in
-                  building with intention.
+                  I&apos;m a perfectionist who notices the small things. When I
+                  build something, I care about how it feels to use, not just
+                  whether it works. That&apos;s the kind of developer I am, and
+                  it&apos;s what I bring to every project I take on.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  You&apos;ve read enough about me.{" "}
+                  <Link href="/work" className="block sm:inline text-primary hover:text-primary/90 transition-colors">
+                    See what I actually build →
+                  </Link>
                 </p>
               </div>
             </div>

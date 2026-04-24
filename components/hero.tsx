@@ -26,9 +26,9 @@ export function Hero() {
             Kaia
           </h1>
           <p className="text-xl font-medium leading-relaxed text-muted-foreground sm:text-2xl">
-            Engineer by day.
+            Engineer by trade.
             <br />
-            <span className="text-primary">Coach by calling.</span>
+            <span className="text-primary">Builder by obsession.</span>
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
             <Link
@@ -38,10 +38,10 @@ export function Hero() {
               See My Work
             </Link>
             <Link
-              href="/coaching"
+              href="/work#hire"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-6 py-3 text-sm font-medium text-secondary-foreground transition-all duration-200 hover:bg-border"
             >
-              Train With Me
+              Work With Me
             </Link>
           </div>
         </div>
@@ -52,7 +52,7 @@ export function Hero() {
         >
           <Image
             src={images.hero}
-            alt="Kaia - Full Stack Engineer and Coach"
+            alt="Kaia - Software Developer and Builder"
             fill
             className="rounded-lg object-cover object-[50%_35%]"
             priority

@@ -2,13 +2,13 @@ import type { Metadata } from "next"
 import { Hero } from "@/components/hero"
 import { AboutTeaser } from "@/components/about-teaser"
 import { Projects } from "@/components/projects"
-import { Training } from "@/components/training"
+import { FreelanceServices } from "@/components/freelance-services"
 import { Now } from "@/components/now"
 import { Contact } from "@/components/contact"
 
 export const metadata: Metadata = {
   description:
-    "Full-stack engineer and coach. Building clean software and stronger people.",
+    "Software developer building apps, taking on freelance projects, and shipping in public.",
 }
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
       <Hero />
       <AboutTeaser />
       <Projects limit={3} />
-      <Training />
+      <FreelanceServices />
       <Now />
       <Contact />
     </main>
