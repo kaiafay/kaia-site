@@ -52,9 +52,9 @@ export function BlogPostContent({ title, date, readTimeMinutes, children }: Prop
           <div className={`${scrollRevealClass(isInView)} mb-10`}>
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors"
             >
-              ← Back to blog
+              <span className="inline-block transition-transform duration-200 group-hover:-translate-x-1 group-active:-translate-x-1">←</span>Back to blog
             </Link>
           </div>
 

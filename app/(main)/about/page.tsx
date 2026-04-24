@@ -22,9 +22,9 @@ export default function AboutPage() {
           <div className="mb-10">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors"
             >
-              ← Back to home
+              <span className="inline-block transition-transform duration-200 group-hover:-translate-x-1 group-active:-translate-x-1">←</span>Back to home
             </Link>
           </div>
 
@@ -78,8 +78,8 @@ export default function AboutPage() {
                 </p>
                 <p className="text-sm text-muted-foreground">
                   You&apos;ve read enough about me.{" "}
-                  <Link href="/work" className="block sm:inline text-primary hover:text-primary/90 transition-colors">
-                    See what I actually build →
+                  <Link href="/work" className="group block sm:inline text-primary transition-colors">
+                    See what I actually build <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1">→</span>
                   </Link>
                 </p>
               </div>

@@ -122,9 +122,9 @@ export function Projects({ limit, headingAs = "h2" }: ProjectsProps) {
           >
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/90"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors"
             >
-              View all work →
+              View all work <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1">→</span>
             </Link>
           </div>
         )}
