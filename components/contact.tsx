@@ -16,9 +16,9 @@ function inputClass(hasError: boolean, extra = "") {
 }
 
 const INTEREST_OPTIONS = [
-  { value: "software", label: "Software" },
-  { value: "training", label: "Training" },
-  { value: "both", label: "Both" },
+  { value: "Landing Page", label: "Landing Page" },
+  { value: "Custom Project", label: "Custom Project" },
+  { value: "Other", label: "Other" },
 ] as const;
 
 export function Contact() {
