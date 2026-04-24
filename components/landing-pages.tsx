@@ -66,18 +66,26 @@ export function LandingPages() {
   useEffect(() => {
     if (SITES.length <= 1) return;
     const id = setInterval(() => {
-      setActive((prev) => prev + 1);
+      setActive((prev) => (prev >= SITES.length ? 1 : prev + 1));
     }, ROTATE_MS);
     return () => clearInterval(id);
   }, []);
 
   // When we land on the clone at the end, instantly jump back to the real first slide.
   const handleTransitionEnd = () => {
-    if (active === SITES.length) {
+    if (active >= SITES.length) {
       setAnimated(false);
       setActive(0);
     }
   };
+
+  // Safety net: if browser throttling/background tab causes index drift, recover.
+  useEffect(() => {
+    if (active > SITES.length) {
+      setAnimated(false);
+      setActive(0);
+    }
+  }, [active]);
 
   // Re-enable the transition after the instant jump has been painted.
   useEffect(() => {
@@ -147,7 +155,11 @@ export function LandingPages() {
                       />
                     </div>
                     <span className="block sm:hidden absolute bottom-3 right-3 rounded bg-black/50 p-1.5">
-                      <ExternalLink size={16} className="text-white" aria-hidden />
+                      <ExternalLink
+                        size={16}
+                        className="text-white"
+                        aria-hidden
+                      />
                     </span>
                   </a>
 
