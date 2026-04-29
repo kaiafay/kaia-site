@@ -60,6 +60,9 @@
   --bb-ink-a10: rgba(30, 27, 75, 0.1);
   --bb-indigo-a22: rgba(91, 91, 214, 0.22);
   --bb-indigo-a55: rgba(91, 91, 214, 0.55);
+
+  /* Hero portrait: mask mid-stop ≈ Tailwind via position for from-bg/via-transparent/to-transparent */
+  --hero-portrait-fade-mid: 48%;
 }
 
 @theme inline {

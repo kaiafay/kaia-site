@@ -46,19 +46,19 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Right portrait */}
         <div
-          className={`${scrollRevealClass(isInView, 4)} relative h-[500px] w-full max-w-sm lg:h-[600px] lg:max-w-md`}
+          className={`${scrollRevealClass(isInView, 4)} w-full max-w-sm lg:max-w-md`}
         >
-          <Image
-            src={images.hero}
-            alt="Kaia - Software Developer and Builder"
-            fill
-            className="rounded-lg object-cover object-[50%_35%]"
-            priority
-            sizes="(max-width: 768px) 100vw, 400px"
-          />
-          <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background via-transparent to-transparent" />
+          <div className="relative isolate h-[500px] w-full overflow-hidden rounded-lg bg-background lg:h-[600px]">
+            <Image
+              src={images.hero}
+              alt="Kaia - Software Developer and Builder"
+              fill
+              className="object-cover object-[50%_35%] [mask-image:linear-gradient(to_top,transparent_0%,black_var(--hero-portrait-fade-mid),black_100%)] [mask-size:100%_100%] [-webkit-mask-image:linear-gradient(to_top,transparent_0%,black_var(--hero-portrait-fade-mid),black_100%)] [-webkit-mask-size:100%_100%]"
+              priority
+              sizes="(max-width: 768px) 100vw, 400px"
+            />
+          </div>
         </div>
       </div>
     </section>
