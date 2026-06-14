@@ -90,10 +90,7 @@ export default function CoachingPage() {
                   getting stronger, I&apos;ll meet you where you are and push
                   you past where you thought you could go.
                 </p>
-                <p>
-                  Evidence-based. Adaptive. Built for real results. I&apos;m
-                  currently working toward my NASM CPT certification.
-                </p>
+                <p>Evidence-based. Adaptive. Built for real results.</p>
               </div>
             </div>
           </div>
