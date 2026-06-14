@@ -1,7 +1,7 @@
 [
   {
     "name": "Budget Buddy",
-    "description": "A calendar-based budgeting app that shows your running balance every day. Shipped and live — track income, expenses, and daily balances in one clean interface.",
+    "description": "A calendar-based budgeting app that shows your running balance every day. Track income, expenses, and daily balances in one clean interface.",
     "tech": [
       "Next.js",
       "Tailwind CSS",
@@ -13,7 +13,7 @@
   },
   {
     "name": "Stackd",
-    "description": "A clean, design-forward link-in-bio tool. Live at stackdlink.com — custom profiles, link management, and a polished experience for creators and small businesses.",
+    "description": "A minimalist, design-forward link-in-bio tool. Custom profiles, link management, and a polished experience for creators and small businesses.",
     "tech": [
       "Next.js",
       "React/TypeScript",

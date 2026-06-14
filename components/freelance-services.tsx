@@ -15,6 +15,8 @@ const services = [
     description:
       "A clean, fast, one-page website for your business. Fixed scope, flat rate. Live in two weeks.",
     badge: "From $600",
+    interest: "Landing Page",
+    cta: "Start a landing page",
   },
   {
     icon: Code2,
@@ -22,6 +24,8 @@ const services = [
     description:
       "Full-stack builds scoped to your project. Next.js, Supabase, and clean code you can actually maintain.",
     badge: "Scoped per project",
+    interest: "Custom Project",
+    cta: "Scope an app",
   },
   {
     icon: Wrench,
@@ -29,8 +33,20 @@ const services = [
     description:
       "Post-launch updates, bug fixes, and ongoing changes. No retainer required.",
     badge: "$100/hr",
+    interest: "Dev Support",
+    cta: "Book support",
   },
 ];
+
+function contactHref(interest: string) {
+  return `/?interest=${encodeURIComponent(interest)}#contact`;
+}
+
+function setContactInterest(interest: string) {
+  window.dispatchEvent(
+    new CustomEvent("contact-interest-change", { detail: interest }),
+  );
+}
 
 export function FreelanceServices() {
   const ref = useRef<HTMLElement>(null);
@@ -67,10 +83,11 @@ export function FreelanceServices() {
                 {service.badge}
               </span>
               <Link
-                href="/#contact"
+                href={contactHref(service.interest)}
+                onClick={() => setContactInterest(service.interest)}
                 className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
               >
-                Get in touch →
+                {service.cta} →
               </Link>
             </div>
           ))}

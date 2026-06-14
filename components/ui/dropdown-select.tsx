@@ -176,7 +176,7 @@ export function DropdownSelect({
             role="option"
             aria-selected={value === option.value}
             className={cn(
-              "relative flex w-full cursor-pointer items-center rounded-sm px-3 py-2.5 text-sm outline-none transition-colors",
+              "relative flex w-full cursor-pointer items-center rounded-md px-3 py-2.5 text-sm outline-none transition-colors",
               value === option.value && "bg-primary/10 text-foreground",
               i === highlightedIndex && "bg-primary/15 text-foreground",
               i !== highlightedIndex &&
@@ -208,7 +208,7 @@ export function DropdownSelect({
         aria-expanded={open}
         aria-label={displayText}
         className={cn(
-          "flex w-full items-center justify-between gap-2 rounded-lg border bg-input px-4 py-3 text-left text-sm text-foreground transition-all duration-200",
+          "flex min-h-[46px] w-full items-center justify-between gap-3 rounded-lg border bg-input px-4 py-3 text-left text-sm leading-none text-foreground transition-all duration-200",
           hasError ? "border-primary/60" : "border-border",
           "hover:bg-secondary focus:border-primary/50 focus:outline-none dropdown-focus-glow",
           !selectedOption && "text-muted-foreground",
@@ -221,7 +221,7 @@ export function DropdownSelect({
         }}
         onKeyDown={handleKeyDown}
       >
-        <span className="truncate">{displayText}</span>
+        <span className="min-w-0 flex-1 truncate">{displayText}</span>
         <ChevronDown
           className={cn(
             "size-4 shrink-0 opacity-50 motion-safe:transition-transform motion-safe:duration-200 motion-safe:ease-out",
