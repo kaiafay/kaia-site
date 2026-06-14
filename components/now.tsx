@@ -82,7 +82,7 @@ export function Now() {
 
         {/* CURRENTLY READING + BUILDING KNOWLEDGE — two column */}
         <div
-          className={`${scrollRevealClass(isInView, 2)} mt-14 grid grid-cols-1 gap-10 lg:mt-24 sm:grid-cols-2`}
+          className={`${scrollRevealClass(isInView, 2)} mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2`}
         >
           <div>
             <BlockLabel>Currently reading</BlockLabel>

@@ -20,7 +20,9 @@ export function AboutTeaser() {
             jobs before I started teaching myself web development out of
             personal interest. Turns out I had a brain for it. I accelerated
             through a full-stack engineering program in 2022, graduated at the
-            top of my cohort, and haven&apos;t stopped building since.
+            top of my cohort, and haven&apos;t stopped building since. Today
+            I&apos;m taking on freelance client work and shipping my own
+            products.
           </p>
           <Link
             href="/about"

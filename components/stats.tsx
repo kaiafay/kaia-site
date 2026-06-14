@@ -164,7 +164,7 @@ export function PersonalStats() {
           <div
             className={`${scrollRevealClass(isInView, 0)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-card`}
           >
-            <div className="flex flex-nowrap items-baseline gap-x-1.5 whitespace-nowrap text-xl sm:text-2xl">
+            <div className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-0.5 text-base sm:gap-x-1.5 sm:text-xl md:flex-nowrap md:whitespace-nowrap md:text-2xl">
               <span className="font-heading font-bold tabular-nums text-primary">
                 {ageUnits.years}
               </span>
