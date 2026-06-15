@@ -29,7 +29,9 @@ export function Now() {
         {/* Section header */}
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Now</SectionLabel>
-          <SectionHeading className="mt-2">What I&apos;m up to</SectionHeading>
+          <SectionHeading className="mt-2">
+            What I&apos;m Focused On
+          </SectionHeading>
         </div>
 
         {/* IN DEVELOPMENT — top statement */}

@@ -61,7 +61,7 @@ export function FreelanceServices() {
       <div className="mx-auto max-w-6xl px-6">
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Services</SectionLabel>
-          <SectionHeading className="mt-2">What I Build</SectionHeading>
+          <SectionHeading className="mt-2">How I Can Help</SectionHeading>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

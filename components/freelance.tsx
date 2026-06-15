@@ -15,7 +15,7 @@ export function Freelance() {
     <section ref={ref} id="hire" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div className={`${scrollRevealClass(isInView)} max-w-3xl`}>
-          <SectionLabel>HIRE</SectionLabel>
+          <SectionLabel>Work With Me</SectionLabel>
           <SectionHeading as="h2" className="mt-2">
             Let&apos;s build something.
           </SectionHeading>
