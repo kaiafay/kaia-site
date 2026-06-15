@@ -65,7 +65,7 @@ export function Projects({
           </SectionHeading>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {displayProjects.map((project, i) => {
             const Icon = ICON_MAP[project.icon] ?? Loader2;
             return (
