@@ -57,9 +57,10 @@ export function Now() {
               width="100%"
               height="80"
               frameBorder={0}
+              scrolling="no"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
-              className="rounded-xl max-w-xs"
+              className="max-w-xs overflow-hidden rounded-xl"
             />
           </div>
 
