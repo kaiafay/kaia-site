@@ -28,7 +28,19 @@ function isValidInterest(
   return INTEREST_OPTIONS.some((option) => option.value === value);
 }
 
-export function Contact() {
+interface ContactProps {
+  label?: string;
+  heading?: string;
+  description?: string;
+  showSocialLinks?: boolean;
+}
+
+export function Contact({
+  label = "Contact",
+  heading = "Let's Connect",
+  description,
+  showSocialLinks = true,
+}: ContactProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
   const [name, setName] = useState("");
@@ -120,8 +132,13 @@ export function Contact() {
           className={`${scrollRevealClass(isInView)} flex flex-col items-center gap-12`}
         >
           <div className="text-center">
-            <SectionLabel as="h2">Contact</SectionLabel>
-            <SectionHeading className="mt-2">{"Let's Connect"}</SectionHeading>
+            <SectionLabel as="h2">{label}</SectionLabel>
+            <SectionHeading className="mt-2">{heading}</SectionHeading>
+            {description && (
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                {description}
+              </p>
+            )}
           </div>
 
           {status === "success" ? (
@@ -262,35 +279,37 @@ export function Contact() {
             </form>
           )}
 
-          <div className="flex items-center gap-5">
-            <a
-              href="https://github.com/kaiafay"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-              aria-label="GitHub"
-            >
-              <Github size={20} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/kaia-scheirman/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} />
-            </a>
-            <a
-              href="https://www.instagram.com/kaia.builds"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-              aria-label="Instagram"
-            >
-              <Instagram size={20} />
-            </a>
-          </div>
+          {showSocialLinks && (
+            <div className="flex items-center gap-5">
+              <a
+                href="https://github.com/kaiafay"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                aria-label="GitHub"
+              >
+                <Github size={20} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/kaia-scheirman/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={20} />
+              </a>
+              <a
+                href="https://www.instagram.com/kaia.builds"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>

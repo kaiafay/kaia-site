@@ -39,13 +39,7 @@ const services = [
 ];
 
 function contactHref(interest: string) {
-  return `/?interest=${encodeURIComponent(interest)}#contact`;
-}
-
-function setContactInterest(interest: string) {
-  window.dispatchEvent(
-    new CustomEvent("contact-interest-change", { detail: interest }),
-  );
+  return `/work-with-me?interest=${encodeURIComponent(interest)}`;
 }
 
 export function FreelanceServices() {
@@ -84,7 +78,6 @@ export function FreelanceServices() {
               </span>
               <Link
                 href={contactHref(service.interest)}
-                onClick={() => setContactInterest(service.interest)}
                 className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
               >
                 {service.cta} →
