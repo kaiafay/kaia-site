@@ -5,8 +5,8 @@ import { Freelance } from "@/components/freelance";
 export default function WorkPage() {
   return (
     <main>
-      <Projects headingAs="h1" heading="What I've Built" />
-      <LandingPages />
+      <LandingPages headingAs="h1" />
+      <Projects label="Projects" heading="Apps & Tools" />
       <Freelance />
     </main>
   );

@@ -43,12 +43,14 @@ const projects = projectsRaw as ProjectItem[];
 type ProjectsProps = {
   limit?: number;
   headingAs?: "h1" | "h2";
+  label?: string;
   heading?: string;
 };
 
 export function Projects({
   limit,
   headingAs = "h2",
+  label = "Work",
   heading = "Selected Projects",
 }: ProjectsProps) {
   const ref = useRef<HTMLElement>(null);
@@ -59,7 +61,7 @@ export function Projects({
     <section ref={ref} id="projects" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
-          <SectionLabel>Work</SectionLabel>
+          <SectionLabel>{label}</SectionLabel>
           <SectionHeading as={headingAs} className="mt-2">
             {heading}
           </SectionHeading>

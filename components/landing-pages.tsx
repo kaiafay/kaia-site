@@ -60,7 +60,11 @@ const ROTATE_MS = 5000;
 /** Minimum horizontal travel (px) to count as a swipe vs tap. */
 const SWIPE_THRESHOLD_PX = 48;
 
-export function LandingPages() {
+type LandingPagesProps = {
+  headingAs?: "h1" | "h2";
+};
+
+export function LandingPages({ headingAs = "h2" }: LandingPagesProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef);
   const [active, setActive] = useState(0);
@@ -189,7 +193,7 @@ export function LandingPages() {
       <div className="mx-auto max-w-6xl px-6">
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel>Websites</SectionLabel>
-          <SectionHeading as="h2" className="mt-2">
+          <SectionHeading as={headingAs} className="mt-2">
             Landing Pages
           </SectionHeading>
         </div>
