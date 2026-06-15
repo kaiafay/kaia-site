@@ -24,28 +24,28 @@ const MOBILE_RATIO = "1206 / 1990";
 const SITES: SiteEntry[] = [
   {
     name: "Wedding RSVP",
-    description: "Personal project — built for my own wedding",
+    description: "Personal RSVP site built for my own wedding",
     url: "https://wedding-website-two-gray.vercel.app/",
     desktopImage: "/images/work/wedding-rsvp.webp",
     mobileImage: "/images/work/wedding-rsvp-mobile.webp",
   },
   {
     name: "Driftwood Coffee",
-    description: "Sample project — landing page for an independent coffee shop",
+    description: "Sample landing page for an independent coffee shop",
     url: "https://driftwood-coffee-nine.vercel.app/",
     desktopImage: "/images/work/driftwood-coffee.webp",
     mobileImage: "/images/work/driftwood-coffee-mobile.webp",
   },
   {
     name: "Drew Callahan",
-    description: "Sample project — landing page for a personal trainer",
+    description: "Sample landing page for a personal trainer",
     url: "https://drew-callahan.vercel.app/",
     desktopImage: "/images/work/drew-callahan.webp",
     mobileImage: "/images/work/drew-callahan-mobile.webp",
   },
   {
     name: "Dewy Club",
-    description: "Sample project — landing page for a skincare brand",
+    description: "Sample landing page for a skincare brand",
     url: "https://dewy-club.vercel.app/",
     desktopImage: "/images/work/dewy-club.webp",
     mobileImage: "/images/work/dewy-club-mobile.webp",
