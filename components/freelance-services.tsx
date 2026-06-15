@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { Layout, Code2, Wrench } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
@@ -14,6 +15,8 @@ const services = [
     description:
       "A clean, fast, one-page website for your business. Fixed scope, flat rate. Live in two weeks.",
     badge: "From $600",
+    interest: "Landing Page",
+    cta: "Start a landing page",
   },
   {
     icon: Code2,
@@ -21,6 +24,8 @@ const services = [
     description:
       "Full-stack builds scoped to your project. Next.js, Supabase, and clean code you can actually maintain.",
     badge: "Scoped per project",
+    interest: "Custom Project",
+    cta: "Scope an app",
   },
   {
     icon: Wrench,
@@ -28,8 +33,20 @@ const services = [
     description:
       "Post-launch updates, bug fixes, and ongoing changes. No retainer required.",
     badge: "$100/hr",
+    interest: "Dev Support",
+    cta: "Book support",
   },
 ];
+
+function contactHref(interest: string) {
+  return `/?interest=${encodeURIComponent(interest)}#contact`;
+}
+
+function setContactInterest(interest: string) {
+  window.dispatchEvent(
+    new CustomEvent("contact-interest-change", { detail: interest }),
+  );
+}
 
 export function FreelanceServices() {
   const ref = useRef<HTMLElement>(null);
@@ -44,14 +61,14 @@ export function FreelanceServices() {
       <div className="mx-auto max-w-6xl px-6">
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Services</SectionLabel>
-          <SectionHeading className="mt-2">What I Build</SectionHeading>
+          <SectionHeading className="mt-2">How I Can Help</SectionHeading>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {services.map((service, i) => (
             <div
               key={service.title}
-              className={`${scrollRevealClass(isInView, i === 0 ? 0 : i === 1 ? 3 : 6)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-8 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-primary/50 card-hover-glow`}
+              className={`${scrollRevealClass(isInView, i === 0 ? 0 : i === 1 ? 3 : 6)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-8 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-primary/50 md:p-6 lg:p-8 card-hover-glow`}
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-primary/30 bg-primary/10">
                 <service.icon size={24} className="text-primary" />
@@ -62,9 +79,16 @@ export function FreelanceServices() {
               <p className="text-sm leading-relaxed text-muted-foreground">
                 {service.description}
               </p>
-              <span className="mt-auto inline-block self-start rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              <span className="inline-block self-start rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                 {service.badge}
               </span>
+              <Link
+                href={contactHref(service.interest)}
+                onClick={() => setContactInterest(service.interest)}
+                className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+              >
+                {service.cta} →
+              </Link>
             </div>
           ))}
         </div>

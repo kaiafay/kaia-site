@@ -43,9 +43,16 @@ const projects = projectsRaw as ProjectItem[];
 type ProjectsProps = {
   limit?: number;
   headingAs?: "h1" | "h2";
+  label?: string;
+  heading?: string;
 };
 
-export function Projects({ limit, headingAs = "h2" }: ProjectsProps) {
+export function Projects({
+  limit,
+  headingAs = "h2",
+  label = "Work",
+  heading = "Selected Projects",
+}: ProjectsProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
   const displayProjects = limit != null ? projects.slice(0, limit) : projects;
@@ -54,11 +61,13 @@ export function Projects({ limit, headingAs = "h2" }: ProjectsProps) {
     <section ref={ref} id="projects" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
-          <SectionLabel>Work</SectionLabel>
-          <SectionHeading as={headingAs} className="mt-2">Selected Projects</SectionHeading>
+          <SectionLabel>{label}</SectionLabel>
+          <SectionHeading as={headingAs} className="mt-2">
+            {heading}
+          </SectionHeading>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {displayProjects.map((project, i) => {
             const Icon = ICON_MAP[project.icon] ?? Loader2;
             return (

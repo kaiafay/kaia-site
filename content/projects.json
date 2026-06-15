@@ -1,7 +1,7 @@
 [
   {
     "name": "Budget Buddy",
-    "description": "A calendar-based budgeting app that shows your running balance every day.",
+    "description": "A calendar-based budgeting app that shows your running balance every day. Track income, expenses, and daily balances in one clean interface.",
     "tech": [
       "Next.js",
       "Tailwind CSS",
@@ -13,7 +13,7 @@
   },
   {
     "name": "Stackd",
-    "description": "A clean, design-forward link in bio tool",
+    "description": "A minimalist, design-forward link-in-bio tool. Custom profiles, link management, and a polished experience for creators and small businesses.",
     "tech": [
       "Next.js",
       "React/TypeScript",
@@ -29,38 +29,8 @@
     "tech": [
       "In progress"
     ],
-    "github": "#",
-    "live": null,
-    "icon": "Coffee"
-  },
-  {
-    "name": "Next up on the bench",
-    "description": "Every program needs a next block. This is mine. Building something I'd actually want to use.",
-    "tech": [
-      "Coming soon"
-    ],
-    "github": "#",
-    "live": null,
-    "icon": "Dumbbell"
-  },
-  {
-    "name": "Loading...",
-    "description": "Not placeholder content — actual work happening behind the scenes. Stay tuned.",
-    "tech": [
-      "In progress"
-    ],
-    "github": "#",
-    "live": null,
-    "icon": "Zap"
-  },
-  {
-    "name": "Ask me what I'm building",
-    "description": "Reach out via the contact form or find me on GitHub. Happy to talk through what's in the pipeline.",
-    "tech": [
-      "Let's connect"
-    ],
     "github": "https://github.com/kaiafay",
     "live": null,
-    "icon": "MessageCircle"
+    "icon": "Coffee"
   }
 ]

@@ -29,7 +29,9 @@ export function Now() {
         {/* Section header */}
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Now</SectionLabel>
-          <SectionHeading className="mt-2">What I&apos;m up to</SectionHeading>
+          <SectionHeading className="mt-2">
+            What I&apos;m Focused On
+          </SectionHeading>
         </div>
 
         {/* IN DEVELOPMENT — top statement */}
@@ -55,9 +57,10 @@ export function Now() {
               width="100%"
               height="80"
               frameBorder={0}
+              scrolling="no"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
-              className="rounded-xl max-w-xs"
+              className="max-w-xs overflow-hidden rounded-xl"
             />
           </div>
 
@@ -82,7 +85,7 @@ export function Now() {
 
         {/* CURRENTLY READING + BUILDING KNOWLEDGE — two column */}
         <div
-          className={`${scrollRevealClass(isInView, 2)} mt-14 grid grid-cols-1 gap-10 lg:mt-24 sm:grid-cols-2`}
+          className={`${scrollRevealClass(isInView, 2)} mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2`}
         >
           <div>
             <BlockLabel>Currently reading</BlockLabel>

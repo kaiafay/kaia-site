@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Github, Linkedin, Instagram, Loader2 } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
@@ -18,8 +18,15 @@ function inputClass(hasError: boolean, extra = "") {
 const INTEREST_OPTIONS = [
   { value: "Landing Page", label: "Landing Page" },
   { value: "Custom Project", label: "Custom Project" },
+  { value: "Dev Support", label: "Dev Support" },
   { value: "Other", label: "Other" },
 ] as const;
+
+function isValidInterest(
+  value: string | null,
+): value is (typeof INTEREST_OPTIONS)[number]["value"] {
+  return INTEREST_OPTIONS.some((option) => option.value === value);
+}
 
 export function Contact() {
   const ref = useRef<HTMLElement>(null);
@@ -41,6 +48,26 @@ export function Contact() {
       return next;
     });
   };
+
+  useEffect(() => {
+    const setValidInterest = (value: string | null) => {
+      if (!isValidInterest(value)) return;
+      setInterest(value);
+      clearFieldError("interest");
+    };
+
+    setValidInterest(new URLSearchParams(window.location.search).get("interest"));
+
+    const handleInterestChange = (event: Event) => {
+      const { detail } = event as CustomEvent<string>;
+      setValidInterest(detail);
+    };
+
+    window.addEventListener("contact-interest-change", handleInterestChange);
+    return () => {
+      window.removeEventListener("contact-interest-change", handleInterestChange);
+    };
+  }, []);
 
   const validate = (): boolean => {
     const errors: Record<string, string> = {};

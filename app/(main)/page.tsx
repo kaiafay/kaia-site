@@ -16,7 +16,7 @@ export default function Home() {
     <main>
       <Hero />
       <AboutTeaser />
-      <Projects limit={3} />
+      <Projects limit={3} heading="What I've Built" />
       <FreelanceServices />
       <Now />
       <Contact />

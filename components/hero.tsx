@@ -17,7 +17,7 @@ export function Hero() {
       id="hero"
       className="noise-overlay relative flex min-h-screen items-center overflow-hidden"
     >
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-12 px-6 py-32 lg:flex-row lg:items-center lg:justify-between lg:py-0">
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-12 px-6 py-24 md:flex-row md:items-center md:justify-between lg:py-0">
         {/* Left content */}
         <div
           className={`${scrollRevealClass(isInView)} flex max-w-xl flex-col gap-6`}
@@ -27,6 +27,8 @@ export function Hero() {
           </h1>
           <p className="text-xl font-medium leading-relaxed text-muted-foreground sm:text-2xl">
             Engineer by trade.
+            <br />
+            <span className="text-foreground">Web developer by practice.</span>
             <br />
             <span className="text-primary">Builder by obsession.</span>
           </p>
@@ -49,7 +51,7 @@ export function Hero() {
         <div
           className={`${scrollRevealClass(isInView, 4)} w-full max-w-sm lg:max-w-md`}
         >
-          <div className="relative isolate h-[500px] w-full overflow-hidden rounded-lg bg-background lg:h-[600px]">
+          <div className="relative isolate h-[500px] w-full overflow-hidden rounded-lg bg-background md:h-[520px] lg:h-[600px]">
             <Image
               src={images.hero}
               alt="Kaia - Software Developer and Builder"
