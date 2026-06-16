@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, Moon, Sun, X } from "lucide-react";
+
+function isNavLinkActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 const navLinks = [
   { label: "About", href: "/about" },
@@ -13,6 +18,7 @@ const navLinks = [
 ];
 
 export function Nav() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -62,12 +68,18 @@ export function Nav() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-8 overflow-visible md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+                className="nav-link-flashlight text-sm tracking-wide"
+                aria-current={
+                  isNavLinkActive(pathname, link.href) ? "page" : undefined
+                }
+                data-active={
+                  isNavLinkActive(pathname, link.href) ? "true" : undefined
+                }
               >
                 {link.label}
               </Link>
