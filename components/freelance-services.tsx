@@ -39,7 +39,7 @@ const services = [
 ];
 
 function contactHref(interest: string) {
-  return `/work-with-me?interest=${encodeURIComponent(interest)}`;
+  return `/work-with-me?interest=${encodeURIComponent(interest)}#contact`;
 }
 
 export function FreelanceServices() {
