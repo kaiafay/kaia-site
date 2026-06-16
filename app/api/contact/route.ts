@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     )
   }
 
-  let body: { name?: string; email?: string; interest?: string; message?: string }
+  let body: { name?: string; email?: string; interest?: string; budget?: string; message?: string }
   try {
     body = await request.json()
   } catch {
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     )
   }
 
-  const { name, email, interest, message } = body
+  const { name, email, interest, budget, message } = body
   if (!name || !email || !message) {
     return NextResponse.json(
       { error: "Name, email, and message are required." },
@@ -44,6 +44,7 @@ export async function POST(request: Request) {
     `Name: ${name}`,
     `Email: ${email}`,
     `Interest: ${interestLine}`,
+    ...(budget ? [`Budget: ${budget}`] : []),
     "",
     "Message:",
     message,
@@ -81,6 +82,7 @@ export async function POST(request: Request) {
     row("Name", name) +
     row("Email", email) +
     row("Interest", interestLine) +
+    (budget ? row("Budget", budget) : "") +
     "</table>" +
     "<h2 style=\"font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #8f3848; margin: 20px 0 8px;\">Message</h2>" +
     "<div style=\"white-space: pre-wrap; word-break: break-word; padding: 12px 14px; background: #fafafa; border: 1px solid #eee; border-radius: 6px;\">" +

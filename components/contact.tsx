@@ -22,18 +22,41 @@ const INTEREST_OPTIONS = [
   { value: "Other", label: "Other" },
 ] as const;
 
+const BUDGET_OPTIONS = [
+  { value: "Under $1,000", label: "Under $1,000" },
+  { value: "$1,000–$3,000", label: "$1,000–$3,000" },
+  { value: "$3,000–$7,000", label: "$3,000–$7,000" },
+  { value: "$7,000+", label: "$7,000+" },
+  { value: "Not sure yet", label: "Not sure yet" },
+] as const;
+
 function isValidInterest(
   value: string | null,
 ): value is (typeof INTEREST_OPTIONS)[number]["value"] {
   return INTEREST_OPTIONS.some((option) => option.value === value);
 }
 
-export function Contact() {
+interface ContactProps {
+  label?: string;
+  heading?: string;
+  description?: string;
+  showSocialLinks?: boolean;
+  showBudget?: boolean;
+}
+
+export function Contact({
+  label = "Contact",
+  heading = "Let's Connect",
+  description,
+  showSocialLinks = true,
+  showBudget = false,
+}: ContactProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [interest, setInterest] = useState("");
+  const [budget, setBudget] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -50,23 +73,10 @@ export function Contact() {
   };
 
   useEffect(() => {
-    const setValidInterest = (value: string | null) => {
-      if (!isValidInterest(value)) return;
-      setInterest(value);
-      clearFieldError("interest");
-    };
-
-    setValidInterest(new URLSearchParams(window.location.search).get("interest"));
-
-    const handleInterestChange = (event: Event) => {
-      const { detail } = event as CustomEvent<string>;
-      setValidInterest(detail);
-    };
-
-    window.addEventListener("contact-interest-change", handleInterestChange);
-    return () => {
-      window.removeEventListener("contact-interest-change", handleInterestChange);
-    };
+    const value = new URLSearchParams(window.location.search).get("interest");
+    if (!isValidInterest(value)) return;
+    setInterest(value);
+    clearFieldError("interest");
   }, []);
 
   const validate = (): boolean => {
@@ -91,7 +101,7 @@ export function Contact() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, interest, message }),
+        body: JSON.stringify({ name, email, interest, budget: budget || undefined, message }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -105,6 +115,7 @@ export function Contact() {
       setName("");
       setEmail("");
       setInterest("");
+      setBudget("");
       setMessage("");
       setFieldErrors({});
     } catch {
@@ -120,8 +131,13 @@ export function Contact() {
           className={`${scrollRevealClass(isInView)} flex flex-col items-center gap-12`}
         >
           <div className="text-center">
-            <SectionLabel as="h2">Contact</SectionLabel>
-            <SectionHeading className="mt-2">{"Let's Connect"}</SectionHeading>
+            <SectionLabel as="h2">{label}</SectionLabel>
+            <SectionHeading className="mt-2">{heading}</SectionHeading>
+            {description && (
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                {description}
+              </p>
+            )}
           </div>
 
           {status === "success" ? (
@@ -219,6 +235,29 @@ export function Contact() {
                 )}
               </div>
 
+              {showBudget && (
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="budget"
+                    className="text-sm font-medium text-foreground"
+                  >
+                    Budget range{" "}
+                    <span className="text-muted-foreground font-normal">
+                      (optional)
+                    </span>
+                  </label>
+                  <DropdownSelect
+                    id="budget"
+                    value={budget}
+                    onValueChange={setBudget}
+                    options={[...BUDGET_OPTIONS]}
+                    placeholder="Select a range..."
+                    disabled={status === "loading"}
+                    hasError={false}
+                  />
+                </div>
+              )}
+
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="message"
@@ -262,35 +301,37 @@ export function Contact() {
             </form>
           )}
 
-          <div className="flex items-center gap-5">
-            <a
-              href="https://github.com/kaiafay"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-              aria-label="GitHub"
-            >
-              <Github size={20} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/kaia-scheirman/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} />
-            </a>
-            <a
-              href="https://www.instagram.com/kaia.builds"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-              aria-label="Instagram"
-            >
-              <Instagram size={20} />
-            </a>
-          </div>
+          {showSocialLinks && (
+            <div className="flex items-center gap-5">
+              <a
+                href="https://github.com/kaiafay"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                aria-label="GitHub"
+              >
+                <Github size={20} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/kaia-scheirman/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={20} />
+              </a>
+              <a
+                href="https://www.instagram.com/kaia.builds"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>

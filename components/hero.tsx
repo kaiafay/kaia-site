@@ -40,7 +40,7 @@ export function Hero() {
               See My Work
             </Link>
             <Link
-              href="/work#hire"
+              href="/work-with-me"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-6 py-3 text-sm font-medium text-secondary-foreground transition-all duration-200 hover:bg-border"
             >
               Work With Me
