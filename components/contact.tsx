@@ -73,23 +73,10 @@ export function Contact({
   };
 
   useEffect(() => {
-    const setValidInterest = (value: string | null) => {
-      if (!isValidInterest(value)) return;
-      setInterest(value);
-      clearFieldError("interest");
-    };
-
-    setValidInterest(new URLSearchParams(window.location.search).get("interest"));
-
-    const handleInterestChange = (event: Event) => {
-      const { detail } = event as CustomEvent<string>;
-      setValidInterest(detail);
-    };
-
-    window.addEventListener("contact-interest-change", handleInterestChange);
-    return () => {
-      window.removeEventListener("contact-interest-change", handleInterestChange);
-    };
+    const value = new URLSearchParams(window.location.search).get("interest");
+    if (!isValidInterest(value)) return;
+    setInterest(value);
+    clearFieldError("interest");
   }, []);
 
   const validate = (): boolean => {
