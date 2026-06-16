@@ -22,6 +22,14 @@ const INTEREST_OPTIONS = [
   { value: "Other", label: "Other" },
 ] as const;
 
+const BUDGET_OPTIONS = [
+  { value: "Under $1,000", label: "Under $1,000" },
+  { value: "$1,000–$3,000", label: "$1,000–$3,000" },
+  { value: "$3,000–$7,000", label: "$3,000–$7,000" },
+  { value: "$7,000+", label: "$7,000+" },
+  { value: "Not sure yet", label: "Not sure yet" },
+] as const;
+
 function isValidInterest(
   value: string | null,
 ): value is (typeof INTEREST_OPTIONS)[number]["value"] {
@@ -33,6 +41,7 @@ interface ContactProps {
   heading?: string;
   description?: string;
   showSocialLinks?: boolean;
+  showBudget?: boolean;
 }
 
 export function Contact({
@@ -40,12 +49,14 @@ export function Contact({
   heading = "Let's Connect",
   description,
   showSocialLinks = true,
+  showBudget = false,
 }: ContactProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [interest, setInterest] = useState("");
+  const [budget, setBudget] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -103,7 +114,7 @@ export function Contact({
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, interest, message }),
+        body: JSON.stringify({ name, email, interest, budget: budget || undefined, message }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -117,6 +128,7 @@ export function Contact({
       setName("");
       setEmail("");
       setInterest("");
+      setBudget("");
       setMessage("");
       setFieldErrors({});
     } catch {
@@ -235,6 +247,29 @@ export function Contact({
                   </p>
                 )}
               </div>
+
+              {showBudget && (
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="budget"
+                    className="text-sm font-medium text-foreground"
+                  >
+                    Budget range{" "}
+                    <span className="text-muted-foreground font-normal">
+                      (optional)
+                    </span>
+                  </label>
+                  <DropdownSelect
+                    id="budget"
+                    value={budget}
+                    onValueChange={setBudget}
+                    options={[...BUDGET_OPTIONS]}
+                    placeholder="Select a range..."
+                    disabled={status === "loading"}
+                    hasError={false}
+                  />
+                </div>
+              )}
 
               <div className="flex flex-col gap-2">
                 <label

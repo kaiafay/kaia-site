@@ -73,9 +73,6 @@ export function FreelanceServices() {
               <p className="text-sm leading-relaxed text-muted-foreground">
                 {service.description}
               </p>
-              <span className="inline-block self-start rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                {service.badge}
-              </span>
               <Link
                 href={contactHref(service.interest)}
                 className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
