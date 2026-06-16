@@ -18,7 +18,7 @@ const services = [
   {
     title: "Custom Web Apps",
     description: "Apps, tools, or anything more complex.",
-    price: "Scoped per project — reach out and let's talk through it.",
+    price: "Scoped per project.",
   },
   {
     title: "Dev Support",
@@ -31,16 +31,16 @@ const processSteps = [
   {
     title: "Scope",
     description:
-      "We talk through what you need, what matters most, and what the first version should include.",
+      "We define the goal, deliverables, and timeline upfront so there are no surprises.",
   },
   {
     title: "Build",
     description:
-      "I design and develop the project while keeping you updated throughout.",
+      "I keep you in the loop with regular updates as your project takes shape.",
   },
   {
     title: "Launch",
-    description: "You get something clean, usable, and ready to share.",
+    description: "You get something polished, purposeful, and ready to represent you.",
   },
 ];
 
@@ -82,14 +82,16 @@ export default function WorkWithMePage() {
 
       <section ref={servicesRef} className="relative py-16 lg:py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <div className={`${scrollRevealClass(isServicesInView)} mb-12 text-center`}>
+          <div
+            className={`${scrollRevealClass(isServicesInView)} mb-12 text-center`}
+          >
             <SectionLabel as="h2">Services</SectionLabel>
           </div>
           <div className="grid gap-10 md:grid-cols-3 md:gap-12">
             {services.map((service, i) => (
               <div
                 key={service.title}
-                className={`${scrollRevealClass(isServicesInView, Math.min(i * 2, 6) as ScrollRevealDelay)} relative pl-5 before:absolute before:top-0 before:bottom-0 before:left-0 before:w-[18px] freelance-border before:content-[''] md:pl-0 md:before:hidden ${i > 0 ? "md:border-l md:border-border md:pl-10" : ""}`}
+                className={`${scrollRevealClass(isServicesInView, Math.min(i * 2, 6) as ScrollRevealDelay)} relative flex flex-col pl-5 before:absolute before:top-0 before:bottom-0 before:left-0 before:w-[18px] freelance-border before:content-[''] md:pl-0 md:before:hidden ${i > 0 ? "md:border-l md:border-border md:pl-10" : ""}`}
               >
                 <h3 className="font-heading text-2xl font-semibold text-foreground">
                   {service.title}
@@ -97,7 +99,7 @@ export default function WorkWithMePage() {
                 <p className="mt-3 text-base leading-relaxed text-muted-foreground">
                   {service.description}
                 </p>
-                <p className="mt-4 text-sm font-medium text-foreground">
+                <p className="mt-auto pt-4 text-sm font-medium text-foreground">
                   {service.price}
                 </p>
               </div>
@@ -108,7 +110,9 @@ export default function WorkWithMePage() {
 
       <section ref={processRef} className="relative py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-6">
-          <div className={`${scrollRevealClass(isProcessInView)} mb-12 text-center`}>
+          <div
+            className={`${scrollRevealClass(isProcessInView)} mb-12 text-center`}
+          >
             <SectionLabel as="h2">Process</SectionLabel>
             <SectionHeading className="mt-2">How it works</SectionHeading>
           </div>
@@ -118,7 +122,7 @@ export default function WorkWithMePage() {
                 key={step.title}
                 className={`${scrollRevealClass(isProcessInView, Math.min(i * 2, 6) as ScrollRevealDelay)} flex gap-8 py-8`}
               >
-                <span className="shrink-0 pt-1 font-heading text-4xl font-bold leading-none tabular-nums text-primary/20">
+                <span className="shrink-0 pt-1 font-heading text-4xl font-bold leading-none tabular-nums text-primary/35">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
@@ -141,8 +145,7 @@ export default function WorkWithMePage() {
             <SectionLabel as="h2">Proof</SectionLabel>
             <SectionHeading className="mt-2">See the work</SectionHeading>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Browse landing page examples and apps I&apos;ve built — real
-              projects for real clients and my own products.
+              Browse landing pages and apps I&apos;ve built.
             </p>
             <Link
               href="/work"
