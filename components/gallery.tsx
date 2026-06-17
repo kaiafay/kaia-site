@@ -39,6 +39,7 @@ export function Gallery() {
               <Image
                 src={item.src}
                 alt=""
+                role="presentation"
                 fill
                 placeholder={item.blurDataURL ? "blur" : "empty"}
                 blurDataURL={item.blurDataURL}

@@ -54,7 +54,7 @@ export function Hero() {
           <div className="relative isolate h-[500px] w-full overflow-hidden rounded-lg bg-background md:h-[520px] lg:h-[600px]">
             <Image
               src={images.hero}
-              alt="Kaia - Software Developer and Builder"
+              alt="Kaia Fay, web developer and software engineer"
               fill
               className="object-cover object-[50%_35%] [mask-image:linear-gradient(to_top,transparent_0%,black_var(--hero-portrait-fade-mid),black_100%)] [mask-size:100%_100%] [-webkit-mask-image:linear-gradient(to_top,transparent_0%,black_var(--hero-portrait-fade-mid),black_100%)] [-webkit-mask-size:100%_100%]"
               priority

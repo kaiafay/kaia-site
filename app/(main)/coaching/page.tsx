@@ -68,7 +68,7 @@ export default function CoachingPage() {
             <div className="relative min-h-[280px] overflow-hidden rounded-lg sm:min-h-[360px] lg:min-h-0 lg:h-full">
               <Image
                 src={images.coaching}
-                alt=""
+                alt="Kaia Fay, fitness coach"
                 fill
                 className="object-cover object-[50%_65%]"
                 sizes="(max-width: 1024px) 100vw, 50vw"
