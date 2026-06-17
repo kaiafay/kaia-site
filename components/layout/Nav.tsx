@@ -15,6 +15,7 @@ const navLinks = [
   { label: "Blog", href: "/blog" },
   { label: "Uses", href: "/uses" },
   { label: "Work With Me", href: "/work-with-me" },
+  { label: "Book", href: "/book" },
 ];
 
 export function Nav() {
