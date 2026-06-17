@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Software developer, competitive bodybuilder, and coach. This is my story.",
+    "Web developer and software engineer. Self-taught, detail-obsessed, and building things clients are proud to put their name on.",
 };
 
 export default function AboutLayout({

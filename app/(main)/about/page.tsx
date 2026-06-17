@@ -73,7 +73,7 @@ export default function AboutPage() {
                 <p>
                   I&apos;m a perfectionist who notices the small things. When I
                   build something, I care about how it feels to use, not just
-                  whether it works. Whether I&apos;m shipping my own product or
+                  that it works. Whether I&apos;m shipping my own product or
                   building for a client, that level of care is the standard.
                 </p>
                 <p className="text-sm text-muted-foreground">
