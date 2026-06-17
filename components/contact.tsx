@@ -36,12 +36,19 @@ function isValidInterest(
   return INTEREST_OPTIONS.some((option) => option.value === value);
 }
 
+function normalizeWebsiteUrl(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
+
 interface ContactProps {
   label?: string;
   heading?: string;
   description?: string;
   showSocialLinks?: boolean;
   showBudget?: boolean;
+  showProjectFields?: boolean;
 }
 
 export function Contact({
@@ -50,6 +57,7 @@ export function Contact({
   description,
   showSocialLinks = true,
   showBudget = false,
+  showProjectFields = false,
 }: ContactProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
@@ -57,6 +65,10 @@ export function Contact({
   const [email, setEmail] = useState("");
   const [interest, setInterest] = useState("");
   const [budget, setBudget] = useState("");
+  const [businessName, setBusinessName] = useState("");
+  const [websiteUrl, setWebsiteUrl] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [notes, setNotes] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -87,7 +99,19 @@ export function Contact({
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
       errors.email = "Please enter a valid email.";
     if (!interest) errors.interest = "Please select an option.";
-    if (!message.trim()) errors.message = "Message is required.";
+    const normalizedWebsiteUrl = normalizeWebsiteUrl(websiteUrl);
+    if (
+      showProjectFields &&
+      normalizedWebsiteUrl &&
+      !/^https?:\/\/.+\..+/.test(normalizedWebsiteUrl)
+    ) {
+      errors.websiteUrl = "Please enter a valid website URL.";
+    }
+    if (showProjectFields) {
+      if (projectDescription.trim().length < 20) {
+        errors.projectDescription = "Share a little more about the project.";
+      }
+    } else if (!message.trim()) errors.message = "Message is required.";
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -101,7 +125,23 @@ export function Contact({
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, interest, budget: budget || undefined, message }),
+        body: JSON.stringify({
+          name,
+          email,
+          interest,
+          budget: budget || undefined,
+          businessName: showProjectFields
+            ? businessName.trim() || undefined
+            : undefined,
+          websiteUrl: showProjectFields
+            ? normalizeWebsiteUrl(websiteUrl) || undefined
+            : undefined,
+          projectDescription: showProjectFields
+            ? projectDescription.trim()
+            : undefined,
+          notes: showProjectFields ? notes.trim() || undefined : undefined,
+          message: showProjectFields ? undefined : message,
+        }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -116,6 +156,10 @@ export function Contact({
       setEmail("");
       setInterest("");
       setBudget("");
+      setBusinessName("");
+      setWebsiteUrl("");
+      setProjectDescription("");
+      setNotes("");
       setMessage("");
       setFieldErrors({});
     } catch {
@@ -126,7 +170,11 @@ export function Contact({
 
   return (
     <section ref={ref} id="contact" className="relative py-24 lg:py-32">
-      <div className="mx-auto max-w-2xl px-6">
+      <div
+        className={`mx-auto px-6 ${
+          showProjectFields ? "max-w-4xl" : "max-w-2xl"
+        }`}
+      >
         <div
           className={`${scrollRevealClass(isInView)} flex flex-col items-center gap-12`}
         >
@@ -150,150 +198,376 @@ export function Contact({
             <form
               onSubmit={handleSubmit}
               noValidate
-              className="flex w-full flex-col gap-5"
+              className={
+                showProjectFields
+                  ? "flex w-full flex-col gap-5 rounded-xl border border-border bg-card p-6 card-shadow sm:p-8"
+                  : "flex w-full flex-col gap-5"
+              }
             >
               {status === "error" && (
                 <div className="rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-foreground">
                   {errorMessage}
                 </div>
               )}
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="name"
-                  className="text-sm font-medium text-foreground"
-                >
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Your name"
-                  value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    clearFieldError("name");
-                  }}
-                  disabled={status === "loading"}
-                  className={inputClass(!!fieldErrors.name)}
-                />
-                {fieldErrors.name && (
-                  <p className="text-sm text-primary/90" role="alert">
-                    {fieldErrors.name}
-                  </p>
-                )}
-              </div>
 
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="email"
-                  className="text-sm font-medium text-foreground"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="you@email.com"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    clearFieldError("email");
-                  }}
-                  disabled={status === "loading"}
-                  className={inputClass(!!fieldErrors.email)}
-                />
-                {fieldErrors.email && (
-                  <p className="text-sm text-primary/90" role="alert">
-                    {fieldErrors.email}
-                  </p>
-                )}
-              </div>
+              {showProjectFields ? (
+                <div className="mx-auto flex w-full max-w-2xl flex-col gap-5">
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="flex flex-col gap-2">
+                      <label
+                        htmlFor="name"
+                        className="text-sm font-medium text-foreground"
+                      >
+                        Name
+                      </label>
+                      <input
+                        id="name"
+                        type="text"
+                        placeholder="Your name"
+                        value={name}
+                        onChange={(e) => {
+                          setName(e.target.value);
+                          clearFieldError("name");
+                        }}
+                        disabled={status === "loading"}
+                        className={inputClass(!!fieldErrors.name)}
+                      />
+                      {fieldErrors.name && (
+                        <p className="text-sm text-primary/90" role="alert">
+                          {fieldErrors.name}
+                        </p>
+                      )}
+                    </div>
 
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="interest"
-                  className="text-sm font-medium text-foreground"
-                >
-                  {"I'm interested in"}
-                </label>
-                <DropdownSelect
-                  id="interest"
-                  value={interest}
-                  onValueChange={(v) => {
-                    setInterest(v);
-                    clearFieldError("interest");
-                  }}
-                  options={[...INTEREST_OPTIONS]}
-                  placeholder="Select one..."
-                  disabled={status === "loading"}
-                  hasError={!!fieldErrors.interest}
-                />
-                {fieldErrors.interest && (
-                  <p className="text-sm text-primary/90" role="alert">
-                    {fieldErrors.interest}
-                  </p>
-                )}
-              </div>
+                    <div className="flex flex-col gap-2">
+                      <label
+                        htmlFor="email"
+                        className="text-sm font-medium text-foreground"
+                      >
+                        Email
+                      </label>
+                      <input
+                        id="email"
+                        type="email"
+                        placeholder="you@email.com"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          clearFieldError("email");
+                        }}
+                        disabled={status === "loading"}
+                        className={inputClass(!!fieldErrors.email)}
+                      />
+                      {fieldErrors.email && (
+                        <p className="text-sm text-primary/90" role="alert">
+                          {fieldErrors.email}
+                        </p>
+                      )}
+                    </div>
+                  </div>
 
-              {showBudget && (
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor="budget"
-                    className="text-sm font-medium text-foreground"
-                  >
-                    Budget range{" "}
-                    <span className="text-muted-foreground font-normal">
-                      (optional)
-                    </span>
-                  </label>
-                  <DropdownSelect
-                    id="budget"
-                    value={budget}
-                    onValueChange={setBudget}
-                    options={[...BUDGET_OPTIONS]}
-                    placeholder="Select a range..."
-                    disabled={status === "loading"}
-                    hasError={false}
-                  />
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="flex flex-col gap-2">
+                      <label
+                        htmlFor="interest"
+                        className="text-sm font-medium text-foreground"
+                      >
+                        {"I'm interested in"}
+                      </label>
+                      <DropdownSelect
+                        id="interest"
+                        value={interest}
+                        onValueChange={(v) => {
+                          setInterest(v);
+                          clearFieldError("interest");
+                        }}
+                        options={[...INTEREST_OPTIONS]}
+                        placeholder="Select one..."
+                        disabled={status === "loading"}
+                        hasError={!!fieldErrors.interest}
+                      />
+                      {fieldErrors.interest && (
+                        <p className="text-sm text-primary/90" role="alert">
+                          {fieldErrors.interest}
+                        </p>
+                      )}
+                    </div>
+
+                    {showBudget && (
+                      <div className="flex flex-col gap-2">
+                        <label
+                          htmlFor="budget"
+                          className="text-sm font-medium text-foreground"
+                        >
+                          Budget range{" "}
+                          <span className="text-muted-foreground font-normal">
+                            (optional)
+                          </span>
+                        </label>
+                        <DropdownSelect
+                          id="budget"
+                          value={budget}
+                          onValueChange={setBudget}
+                          options={[...BUDGET_OPTIONS]}
+                          placeholder="Select a range..."
+                          disabled={status === "loading"}
+                          hasError={false}
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="businessName"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Business or project name{" "}
+                      <span className="font-normal text-muted-foreground">
+                        (optional)
+                      </span>
+                    </label>
+                    <input
+                      id="businessName"
+                      type="text"
+                      placeholder="Project name"
+                      value={businessName}
+                      onChange={(e) => {
+                        setBusinessName(e.target.value);
+                        clearFieldError("businessName");
+                      }}
+                      disabled={status === "loading"}
+                      className={inputClass(!!fieldErrors.businessName)}
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="websiteUrl"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Website URL{" "}
+                      <span className="font-normal text-muted-foreground">
+                        (optional)
+                      </span>
+                    </label>
+                    <input
+                      id="websiteUrl"
+                      type="url"
+                      placeholder="example.com"
+                      value={websiteUrl}
+                      onChange={(e) => {
+                        setWebsiteUrl(e.target.value);
+                        clearFieldError("websiteUrl");
+                      }}
+                      disabled={status === "loading"}
+                      className={inputClass(!!fieldErrors.websiteUrl)}
+                    />
+                    {fieldErrors.websiteUrl && (
+                      <p className="text-sm text-primary/90" role="alert">
+                        {fieldErrors.websiteUrl}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="projectDescription"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Project description
+                    </label>
+                    <textarea
+                      id="projectDescription"
+                      rows={5}
+                      placeholder="Tell me what you want to build and what a good outcome looks like."
+                      value={projectDescription}
+                      onChange={(e) => {
+                        setProjectDescription(e.target.value);
+                        clearFieldError("projectDescription");
+                      }}
+                      disabled={status === "loading"}
+                      className={inputClass(
+                        !!fieldErrors.projectDescription,
+                        "resize-none ",
+                      )}
+                    />
+                    {fieldErrors.projectDescription && (
+                      <p className="text-sm text-primary/90" role="alert">
+                        {fieldErrors.projectDescription}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="notes"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Notes{" "}
+                      <span className="font-normal text-muted-foreground">
+                        (optional)
+                      </span>
+                    </label>
+                    <textarea
+                      id="notes"
+                      rows={3}
+                      placeholder="Anything else I should know before I follow up?"
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      disabled={status === "loading"}
+                      className={inputClass(false, "resize-none ")}
+                    />
+                  </div>
                 </div>
-              )}
+              ) : (
+                <>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="name"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Name
+                    </label>
+                    <input
+                      id="name"
+                      type="text"
+                      placeholder="Your name"
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        clearFieldError("name");
+                      }}
+                      disabled={status === "loading"}
+                      className={inputClass(!!fieldErrors.name)}
+                    />
+                    {fieldErrors.name && (
+                      <p className="text-sm text-primary/90" role="alert">
+                        {fieldErrors.name}
+                      </p>
+                    )}
+                  </div>
 
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="message"
-                  className="text-sm font-medium text-foreground"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  placeholder="Tell me what you're looking for..."
-                  value={message}
-                  onChange={(e) => {
-                    setMessage(e.target.value);
-                    clearFieldError("message");
-                  }}
-                  disabled={status === "loading"}
-                  className={inputClass(!!fieldErrors.message, "resize-none ")}
-                />
-                {fieldErrors.message && (
-                  <p className="text-sm text-primary/90" role="alert">
-                    {fieldErrors.message}
-                  </p>
-                )}
-              </div>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="email"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      placeholder="you@email.com"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        clearFieldError("email");
+                      }}
+                      disabled={status === "loading"}
+                      className={inputClass(!!fieldErrors.email)}
+                    />
+                    {fieldErrors.email && (
+                      <p className="text-sm text-primary/90" role="alert">
+                        {fieldErrors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="interest"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      {"I'm interested in"}
+                    </label>
+                    <DropdownSelect
+                      id="interest"
+                      value={interest}
+                      onValueChange={(v) => {
+                        setInterest(v);
+                        clearFieldError("interest");
+                      }}
+                      options={[...INTEREST_OPTIONS]}
+                      placeholder="Select one..."
+                      disabled={status === "loading"}
+                      hasError={!!fieldErrors.interest}
+                    />
+                    {fieldErrors.interest && (
+                      <p className="text-sm text-primary/90" role="alert">
+                        {fieldErrors.interest}
+                      </p>
+                    )}
+                  </div>
+
+                  {showBudget && (
+                    <div className="flex flex-col gap-2">
+                      <label
+                        htmlFor="budget"
+                        className="text-sm font-medium text-foreground"
+                      >
+                        Budget range{" "}
+                        <span className="text-muted-foreground font-normal">
+                          (optional)
+                        </span>
+                      </label>
+                      <DropdownSelect
+                        id="budget"
+                        value={budget}
+                        onValueChange={setBudget}
+                        options={[...BUDGET_OPTIONS]}
+                        placeholder="Select a range..."
+                        disabled={status === "loading"}
+                        hasError={false}
+                      />
+                    </div>
+                  )}
+
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="message"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      rows={4}
+                      placeholder="Tell me what you're looking for..."
+                      value={message}
+                      onChange={(e) => {
+                        setMessage(e.target.value);
+                        clearFieldError("message");
+                      }}
+                      disabled={status === "loading"}
+                      className={inputClass(
+                        !!fieldErrors.message,
+                        "resize-none ",
+                      )}
+                    />
+                    {fieldErrors.message && (
+                      <p className="text-sm text-primary/90" role="alert">
+                        {fieldErrors.message}
+                      </p>
+                    )}
+                  </div>
+                </>
+              )}
 
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow disabled:opacity-60 disabled:pointer-events-none"
+                className={`mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow disabled:opacity-60 disabled:pointer-events-none ${
+                  showProjectFields ? "mx-auto max-w-2xl" : ""
+                }`}
               >
                 {status === "loading" ? (
                   <>
                     <Loader2 size={18} className="animate-spin" />
                     Sending...
                   </>
+                ) : showProjectFields ? (
+                  "Send Project Inquiry"
                 ) : (
                   "Send Message"
                 )}

@@ -6,6 +6,26 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL
 const FROM_EMAIL = process.env.RESEND_FROM ?? "Contact Form <onboarding@resend.dev>"
 
+function optionalTrimmed(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined
+  const trimmed = value.trim()
+  return trimmed || undefined
+}
+
+function normalizeWebsiteUrl(value: unknown): string | undefined {
+  const trimmed = optionalTrimmed(value)
+  if (!trimmed) return undefined
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`
+}
+
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+}
+
+function isValidWebsiteUrl(value: string): boolean {
+  return /^https?:\/\/.+\..+/.test(value)
+}
+
 export async function POST(request: Request) {
   if (!process.env.RESEND_API_KEY) {
     return NextResponse.json(
@@ -20,7 +40,17 @@ export async function POST(request: Request) {
     )
   }
 
-  let body: { name?: string; email?: string; interest?: string; budget?: string; message?: string }
+  let body: {
+    name?: string
+    email?: string
+    interest?: string
+    budget?: string
+    businessName?: string
+    websiteUrl?: string
+    projectDescription?: string
+    notes?: string
+    message?: string
+  }
   try {
     body = await request.json()
   } catch {
@@ -30,8 +60,48 @@ export async function POST(request: Request) {
     )
   }
 
-  const { name, email, interest, budget, message } = body
-  if (!name || !email || !message) {
+  const name = optionalTrimmed(body.name)
+  const email = optionalTrimmed(body.email)
+  const interest = optionalTrimmed(body.interest)
+  const budget = optionalTrimmed(body.budget)
+  const businessName = optionalTrimmed(body.businessName)
+  const websiteUrl = normalizeWebsiteUrl(body.websiteUrl)
+  const projectDescription = optionalTrimmed(body.projectDescription)
+  const notes = optionalTrimmed(body.notes)
+  const message = optionalTrimmed(body.message)
+  const isProjectInquiry =
+    projectDescription !== undefined ||
+    businessName !== undefined ||
+    websiteUrl !== undefined ||
+    notes !== undefined
+  const primaryMessage = isProjectInquiry ? projectDescription : message
+
+  if (!name || !email) {
+    return NextResponse.json(
+      { error: "Name and email are required." },
+      { status: 400 }
+    )
+  }
+  if (!isValidEmail(email)) {
+    return NextResponse.json(
+      { error: "Please enter a valid email." },
+      { status: 400 }
+    )
+  }
+  if (websiteUrl && !isValidWebsiteUrl(websiteUrl)) {
+    return NextResponse.json(
+      { error: "Please enter a valid website URL." },
+      { status: 400 }
+    )
+  }
+  if (isProjectInquiry) {
+    if (!projectDescription || projectDescription.length < 20) {
+      return NextResponse.json(
+        { error: "Please share a little more about the project." },
+        { status: 400 }
+      )
+    }
+  } else if (!message) {
     return NextResponse.json(
       { error: "Name, email, and message are required." },
       { status: 400 }
@@ -40,14 +110,20 @@ export async function POST(request: Request) {
 
   const subject = `New message from ${name} via kaia.dev`
   const interestLine = interest ?? "(not selected)"
+  const projectLines = [
+    ...(businessName ? [`Business / project: ${businessName}`] : []),
+    ...(websiteUrl ? [`Website: ${websiteUrl}`] : []),
+  ]
   const text = [
     `Name: ${name}`,
     `Email: ${email}`,
     `Interest: ${interestLine}`,
     ...(budget ? [`Budget: ${budget}`] : []),
+    ...projectLines,
     "",
-    "Message:",
-    message,
+    projectDescription ? "Project description:" : "Message:",
+    primaryMessage,
+    ...(notes ? ["", "Notes:", notes] : []),
   ].join("\n")
 
   function escapeHtml(s: string | undefined): string {
@@ -83,11 +159,21 @@ export async function POST(request: Request) {
     row("Email", email) +
     row("Interest", interestLine) +
     (budget ? row("Budget", budget) : "") +
+    (businessName ? row("Business / project", businessName) : "") +
+    (websiteUrl ? row("Website", websiteUrl) : "") +
     "</table>" +
-    "<h2 style=\"font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #8f3848; margin: 20px 0 8px;\">Message</h2>" +
+    "<h2 style=\"font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #8f3848; margin: 20px 0 8px;\">" +
+    (projectDescription ? "Project description" : "Message") +
+    "</h2>" +
     "<div style=\"white-space: pre-wrap; word-break: break-word; padding: 12px 14px; background: #fafafa; border: 1px solid #eee; border-radius: 6px;\">" +
-    escapeHtml(message) +
+    escapeHtml(primaryMessage) +
     "</div>" +
+    (notes
+      ? "<h2 style=\"font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #8f3848; margin: 20px 0 8px;\">Notes</h2>" +
+        "<div style=\"white-space: pre-wrap; word-break: break-word; padding: 12px 14px; background: #fafafa; border: 1px solid #eee; border-radius: 6px;\">" +
+        escapeHtml(notes) +
+        "</div>"
+      : "") +
     "</body></html>"
 
   const { data, error } = await resend.emails.send({

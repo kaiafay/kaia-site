@@ -165,10 +165,12 @@ export default function WorkWithMePage() {
       </section>
 
       <Contact
-        heading="Ready to start?"
-        description="Tell me what you're building."
+        label="Project Inquiry"
+        heading="Tell me what you're building."
+        description="Share the project details and I'll follow up with next steps."
         showSocialLinks={false}
         showBudget={true}
+        showProjectFields={true}
       />
     </main>
   );
