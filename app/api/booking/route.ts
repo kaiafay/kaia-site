@@ -48,6 +48,19 @@ export async function POST(request: Request) {
   }
 
   const requestBody = parsed.data;
+  if (requestBody.honeypot?.trim()) {
+    return NextResponse.json({ success: true });
+  }
+
+  if (
+    requestBody.formStartedAt &&
+    Date.now() - requestBody.formStartedAt < 3000
+  ) {
+    return NextResponse.json(
+      { error: "Please wait a moment and try again." },
+      { status: 400 },
+    );
+  }
 
   try {
     const range = getBookingRange();
@@ -76,10 +89,14 @@ export async function POST(request: Request) {
 
     const emailResult = await sendBookingEmails(booking);
     if (emailResult.notificationId) {
-      await updateBookingNotificationId({
-        bookingId: booking.id,
-        resendNotificationId: emailResult.notificationId,
-      });
+      try {
+        await updateBookingNotificationId({
+          bookingId: booking.id,
+          resendNotificationId: emailResult.notificationId,
+        });
+      } catch (error) {
+        console.error("[booking] Failed to store Resend notification id:", error);
+      }
     }
 
     return NextResponse.json({

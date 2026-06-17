@@ -66,6 +66,7 @@ export function BookingForm() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedStartTime, setSelectedStartTime] = useState("");
   const [formData, setFormData] = useState<BookingFormState>(initialFormState);
+  const [formStartedAt] = useState(() => Date.now());
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -94,7 +95,7 @@ export function BookingForm() {
 
       if (!res.ok) {
         setAvailabilityStatus("error");
-        setAvailabilityError(data.error ?? "Failed to load available times.");
+        setAvailabilityError(getFriendlyAvailabilityError(data.error));
         return;
       }
 
@@ -182,6 +183,7 @@ export function BookingForm() {
           budgetRange: formData.budgetRange || undefined,
           selectedStartTime,
           honeypot: formData.honeypot,
+          formStartedAt,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -194,6 +196,9 @@ export function BookingForm() {
         }
         if (res.status === 409) {
           setSelectedStartTime("");
+          setErrorMessage(
+            data.error ?? "That time was just booked. Pick another time.",
+          );
           void fetchAvailability();
         }
         return;
@@ -261,6 +266,12 @@ export function BookingForm() {
       noValidate
       className="rounded-lg border border-border bg-card p-5 card-shadow sm:p-8"
     >
+      {availabilityStatus === "error" && (
+        <div className="mb-6 rounded-lg border border-border bg-background px-4 py-3 text-sm text-muted-foreground">
+          {availabilityError}
+        </div>
+      )}
+
       {status === "error" && (
         <div className="mb-6 rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-foreground">
           {errorMessage}
@@ -297,12 +308,6 @@ export function BookingForm() {
               />
             </button>
           </div>
-
-          {availabilityStatus === "error" && (
-            <div className="mt-5 rounded-lg border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-foreground">
-              {availabilityError}
-            </div>
-          )}
 
           {availabilityStatus === "loading" && (
             <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
@@ -575,6 +580,14 @@ function flattenFieldErrors(
       .filter(([, value]) => value?.[0])
       .map(([key, value]) => [key, value?.[0] ?? "Invalid value."]),
   );
+}
+
+function getFriendlyAvailabilityError(error: string | undefined): string {
+  if (error?.toLowerCase().includes("database")) {
+    return "Booking is not available yet. Send a message from the Work With Me page if you want to start a project.";
+  }
+
+  return error ?? "Failed to load available times.";
 }
 
 function formatDateTime(isoDate: string): string {
