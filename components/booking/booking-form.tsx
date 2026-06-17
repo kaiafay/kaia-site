@@ -141,11 +141,9 @@ export function BookingForm() {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       errors.email = "Please enter a valid email.";
     }
-    if (
-      formData.websiteUrl.trim() &&
-      !/^https?:\/\/.+\..+/.test(formData.websiteUrl.trim())
-    ) {
-      errors.websiteUrl = "Use a full URL starting with http:// or https://.";
+    const websiteUrl = normalizeWebsiteUrl(formData.websiteUrl);
+    if (websiteUrl && !/^https?:\/\/.+\..+/.test(websiteUrl)) {
+      errors.websiteUrl = "Please enter a valid website URL.";
     }
     if (formData.projectDescription.trim().length < 20) {
       errors.projectDescription = "Share a little more about the project.";
@@ -178,7 +176,7 @@ export function BookingForm() {
           name: formData.name.trim(),
           email: formData.email.trim(),
           businessName: formData.businessName.trim() || undefined,
-          websiteUrl: formData.websiteUrl.trim() || undefined,
+          websiteUrl: normalizeWebsiteUrl(formData.websiteUrl) || undefined,
           projectDescription: description,
           budgetRange: formData.budgetRange || undefined,
           selectedStartTime,
@@ -241,18 +239,23 @@ export function BookingForm() {
               </span>
               . Details were sent to {success.email}.
             </p>
-            {success.callUrl && (
-              <a
-                href={success.callUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow"
-              >
-                Open call link
-              </a>
-            )}
             {success.warning && (
-              <p className="mt-4 text-sm text-primary/90">{success.warning}</p>
+              <p className="mt-4 text-sm text-primary/90">
+                {success.warning}
+                {success.callUrl && (
+                  <>
+                    {" "}
+                    <a
+                      href={success.callUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-primary underline underline-offset-4 transition-colors hover:text-primary/80"
+                    >
+                      Open call link.
+                    </a>
+                  </>
+                )}
+              </p>
             )}
           </div>
         </div>
@@ -462,7 +465,7 @@ export function BookingForm() {
                 }
                 disabled={status === "loading"}
                 className={inputClass(!!fieldErrors.websiteUrl)}
-                placeholder="https://example.com"
+                placeholder="example.com"
               />
             </Field>
 
@@ -588,6 +591,12 @@ function getFriendlyAvailabilityError(error: string | undefined): string {
   }
 
   return error ?? "Failed to load available times.";
+}
+
+function normalizeWebsiteUrl(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
 }
 
 function formatDateTime(isoDate: string): string {

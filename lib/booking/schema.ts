@@ -14,14 +14,24 @@ const optionalTrimmedString = z
   .optional()
   .transform((value) => (value ? value : undefined));
 
+const optionalWebsiteUrl = z
+  .string()
+  .trim()
+  .optional()
+  .transform((value) => {
+    if (!value) return undefined;
+    return /^https?:\/\//i.test(value) ? value : `https://${value}`;
+  })
+  .refine(
+    (value) => !value || /^https?:\/\/.+\..+/.test(value),
+    "Please enter a valid website URL.",
+  );
+
 export const bookingRequestSchema = z.object({
   name: z.string().trim().min(1, "Name is required.").max(120),
   email: z.string().trim().email("Please enter a valid email.").max(254),
   businessName: optionalTrimmedString,
-  websiteUrl: optionalTrimmedString.refine(
-    (value) => !value || /^https?:\/\/.+\..+/.test(value),
-    "Please enter a valid URL starting with http:// or https://.",
-  ),
+  websiteUrl: optionalWebsiteUrl,
   projectDescription: z
     .string()
     .trim()
