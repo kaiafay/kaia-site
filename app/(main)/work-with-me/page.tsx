@@ -68,12 +68,18 @@ export default function WorkWithMePage() {
               I build clean, fast, intentional web experiences with clear scope,
               honest communication, and no mystery around what happens next.
             </p>
-            <div className="mt-8">
-              <a
-                href="#contact"
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link
+                href="/book"
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow"
               >
-                Start a project
+                Book a discovery call
+              </Link>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-6 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
+              >
+                Send a message
               </a>
             </div>
           </div>
