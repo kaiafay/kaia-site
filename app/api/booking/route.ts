@@ -80,10 +80,7 @@ export async function POST(request: Request) {
     const booking = await createBooking({
       name: requestBody.name,
       email: requestBody.email,
-      businessName: requestBody.businessName,
-      websiteUrl: requestBody.websiteUrl,
-      projectDescription: requestBody.projectDescription,
-      budgetRange: requestBody.budgetRange,
+      notes: requestBody.notes,
       startTime: slot.startTime,
     });
 
@@ -187,13 +184,11 @@ async function sendBookingEmails(
 
 function buildOwnerEmail(booking: Booking): { text: string; html: string } {
   const scheduledFor = formatBookingDateTime(booking.startTime);
+  const notes = booking.notes ?? "No notes provided.";
   const rows: [string, string | null][] = [
     ["Name", booking.name],
     ["Email", booking.email],
     ["Scheduled for", scheduledFor],
-    ["Business / project", booking.businessName],
-    ["Website", booking.websiteUrl],
-    ["Budget", booking.budgetRange],
     ["Booking ID", booking.id],
   ];
   const text = [
@@ -203,8 +198,8 @@ function buildOwnerEmail(booking: Booking): { text: string; html: string } {
       .filter(([, value]) => value)
       .map(([label, value]) => `${label}: ${value}`),
     "",
-    "Project description:",
-    booking.projectDescription,
+    "Notes:",
+    notes,
   ].join("\n");
 
   const html =
@@ -218,9 +213,9 @@ function buildOwnerEmail(booking: Booking): { text: string; html: string } {
       .map(([label, value]) => emailRow(label, value ?? ""))
       .join("") +
     "</table>" +
-    '<h2 style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #8f3848; margin: 20px 0 8px;">Project description</h2>' +
+    '<h2 style="font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; color: #8f3848; margin: 20px 0 8px;">Notes</h2>' +
     '<div style="white-space: pre-wrap; word-break: break-word; padding: 12px 14px; background: #fafafa; border: 1px solid #eee; border-radius: 6px;">' +
-    escapeHtml(booking.projectDescription) +
+    escapeHtml(notes) +
     "</div>" +
     "</body></html>";
 

@@ -35,10 +35,7 @@ export type Booking = {
   id: string;
   name: string;
   email: string;
-  businessName: string | null;
-  websiteUrl: string | null;
-  projectDescription: string;
-  budgetRange: string | null;
+  notes: string | null;
   startTime: string;
   endTime: string;
   timeZone: string;

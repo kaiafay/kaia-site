@@ -10,10 +10,7 @@ type BookingRow = {
   id: string;
   name: string;
   email: string;
-  business_name: string | null;
-  website_url: string | null;
-  project_description: string;
-  budget_range: string | null;
+  notes: string | null;
   start_time: Date | string;
   end_time: Date | string;
   time_zone: string;
@@ -27,10 +24,7 @@ type BookingRow = {
 export type CreateBookingInput = {
   name: string;
   email: string;
-  businessName?: string;
-  websiteUrl?: string;
-  projectDescription: string;
-  budgetRange?: string;
+  notes?: string;
   startTime: string;
   status?: BookingStatus;
   source?: BookingSource;
@@ -56,10 +50,7 @@ export async function listActiveBookingsBetween({
       id,
       name,
       email,
-      business_name,
-      website_url,
-      project_description,
-      budget_range,
+      notes,
       start_time,
       end_time,
       time_zone,
@@ -94,10 +85,7 @@ export async function createBooking(
         id,
         name,
         email,
-        business_name,
-        website_url,
-        project_description,
-        budget_range,
+        notes,
         start_time,
         end_time,
         time_zone,
@@ -108,10 +96,7 @@ export async function createBooking(
         ${id},
         ${input.name},
         ${input.email},
-        ${input.businessName ?? null},
-        ${input.websiteUrl ?? null},
-        ${input.projectDescription},
-        ${input.budgetRange ?? null},
+        ${input.notes ?? null},
         ${startTime.toISOString()},
         ${endTime.toISOString()},
         ${BOOKING_TIME_ZONE},
@@ -122,10 +107,7 @@ export async function createBooking(
         id,
         name,
         email,
-        business_name,
-        website_url,
-        project_description,
-        budget_range,
+        notes,
         start_time,
         end_time,
         time_zone,
@@ -166,10 +148,7 @@ function mapBookingRow(row: BookingRow): Booking {
     id: row.id,
     name: row.name,
     email: row.email,
-    businessName: row.business_name,
-    websiteUrl: row.website_url,
-    projectDescription: row.project_description,
-    budgetRange: row.budget_range,
+    notes: row.notes,
     startTime: toIsoString(row.start_time),
     endTime: toIsoString(row.end_time),
     timeZone: row.time_zone,

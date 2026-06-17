@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Check, Loader2, RefreshCw } from "lucide-react";
-import { DropdownSelect } from "@/components/ui/dropdown-select";
-import { BOOKING_BUDGET_OPTIONS } from "@/lib/booking/schema";
 import type {
   BookingAvailabilityResponse,
   BookingDay,
@@ -15,10 +13,6 @@ type FormStatus = "idle" | "loading" | "success" | "error";
 type BookingFormState = {
   name: string;
   email: string;
-  businessName: string;
-  websiteUrl: string;
-  projectDescription: string;
-  budgetRange: string;
   notes: string;
   honeypot: string;
 };
@@ -36,18 +30,9 @@ type BookingSuccess = {
 const initialFormState: BookingFormState = {
   name: "",
   email: "",
-  businessName: "",
-  websiteUrl: "",
-  projectDescription: "",
-  budgetRange: "",
   notes: "",
   honeypot: "",
 };
-
-const budgetOptions = BOOKING_BUDGET_OPTIONS.map((value) => ({
-  value,
-  label: value,
-}));
 
 function inputClass(hasError: boolean, extra = "") {
   return (
@@ -141,12 +126,8 @@ export function BookingForm() {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       errors.email = "Please enter a valid email.";
     }
-    const websiteUrl = normalizeWebsiteUrl(formData.websiteUrl);
-    if (websiteUrl && !/^https?:\/\/.+\..+/.test(websiteUrl)) {
-      errors.websiteUrl = "Please enter a valid website URL.";
-    }
-    if (formData.projectDescription.trim().length < 20) {
-      errors.projectDescription = "Share a little more about the project.";
+    if (formData.notes.trim().length > 3000) {
+      errors.notes = "Notes must be 3000 characters or less.";
     }
 
     setFieldErrors(errors);
@@ -162,23 +143,13 @@ export function BookingForm() {
     setSuccess(null);
 
     try {
-      const description = [
-        formData.projectDescription.trim(),
-        formData.notes.trim() ? `Additional notes: ${formData.notes.trim()}` : "",
-      ]
-        .filter(Boolean)
-        .join("\n\n");
-
       const res = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name.trim(),
           email: formData.email.trim(),
-          businessName: formData.businessName.trim() || undefined,
-          websiteUrl: normalizeWebsiteUrl(formData.websiteUrl) || undefined,
-          projectDescription: description,
-          budgetRange: formData.budgetRange || undefined,
+          notes: formData.notes.trim() || undefined,
           selectedStartTime,
           honeypot: formData.honeypot,
           formStartedAt,
@@ -396,7 +367,7 @@ export function BookingForm() {
             id="booking-details-heading"
             className="font-heading text-xl font-semibold text-foreground"
           >
-            Project details
+            Your details
           </h2>
           {selectedSlot && (
             <p className="mt-1 text-sm text-muted-foreground">
@@ -432,84 +403,19 @@ export function BookingForm() {
             </div>
 
             <Field
-              label="Business or project name"
+              label="Notes"
               optional
-              error={fieldErrors.businessName}
-              htmlFor="businessName"
+              error={fieldErrors.notes}
+              htmlFor="notes"
             >
-              <input
-                id="businessName"
-                type="text"
-                value={formData.businessName}
-                onChange={(event) =>
-                  updateField("businessName", event.target.value)
-                }
-                disabled={status === "loading"}
-                className={inputClass(!!fieldErrors.businessName)}
-                placeholder="Project name"
-              />
-            </Field>
-
-            <Field
-              label="Website URL"
-              optional
-              error={fieldErrors.websiteUrl}
-              htmlFor="websiteUrl"
-            >
-              <input
-                id="websiteUrl"
-                type="url"
-                value={formData.websiteUrl}
-                onChange={(event) =>
-                  updateField("websiteUrl", event.target.value)
-                }
-                disabled={status === "loading"}
-                className={inputClass(!!fieldErrors.websiteUrl)}
-                placeholder="example.com"
-              />
-            </Field>
-
-            <Field
-              label="Project description"
-              error={fieldErrors.projectDescription}
-              htmlFor="projectDescription"
-            >
-              <textarea
-                id="projectDescription"
-                rows={5}
-                value={formData.projectDescription}
-                onChange={(event) =>
-                  updateField("projectDescription", event.target.value)
-                }
-                disabled={status === "loading"}
-                className={inputClass(
-                  !!fieldErrors.projectDescription,
-                  "resize-none ",
-                )}
-                placeholder="Tell me what you want to build and what a good outcome looks like."
-              />
-            </Field>
-
-            <Field label="Budget range" optional htmlFor="budgetRange">
-              <DropdownSelect
-                id="budgetRange"
-                value={formData.budgetRange}
-                onValueChange={(value) => updateField("budgetRange", value)}
-                options={budgetOptions}
-                placeholder="Select a range..."
-                disabled={status === "loading"}
-              />
-            </Field>
-
-            <Field label="Notes" optional htmlFor="notes">
               <textarea
                 id="notes"
                 rows={3}
                 value={formData.notes}
                 onChange={(event) => updateField("notes", event.target.value)}
                 disabled={status === "loading"}
-                className={inputClass(false, "resize-none ")}
-                placeholder="Anything else I should know before the call?"
+                className={inputClass(!!fieldErrors.notes, "resize-none ")}
+                placeholder="Anything I should know before the call?"
               />
             </Field>
 
@@ -591,12 +497,6 @@ function getFriendlyAvailabilityError(error: string | undefined): string {
   }
 
   return error ?? "Failed to load available times.";
-}
-
-function normalizeWebsiteUrl(value: string): string {
-  const trimmed = value.trim();
-  if (!trimmed) return "";
-  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
 }
 
 function formatDateTime(isoDate: string): string {
