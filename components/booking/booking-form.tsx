@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Check, Loader2, RefreshCw } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react";
 import type {
   BookingAvailabilityResponse,
   BookingDay,
@@ -9,6 +9,7 @@ import type {
 } from "@/lib/booking/types";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
+type DatePageDirection = "none" | "previous" | "next";
 
 type BookingFormState = {
   name: string;
@@ -34,6 +35,9 @@ const initialFormState: BookingFormState = {
   honeypot: "",
 };
 
+const MOBILE_VISIBLE_DAY_COUNT = 4;
+const DESKTOP_VISIBLE_DAY_COUNT = 6;
+
 function inputClass(hasError: boolean, extra = "") {
   return (
     `${extra}rounded-lg border bg-input px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all duration-200 focus:outline-none disabled:opacity-60 ` +
@@ -50,12 +54,20 @@ export function BookingForm() {
     useState<BookingAvailabilityResponse | null>(null);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedStartTime, setSelectedStartTime] = useState("");
+  const [datePageIndex, setDatePageIndex] = useState(0);
+  const [datePageDirection, setDatePageDirection] =
+    useState<DatePageDirection>("none");
+  const [visibleDayCount, setVisibleDayCount] = useState(
+    MOBILE_VISIBLE_DAY_COUNT,
+  );
+  const [isDesktopLayout, setIsDesktopLayout] = useState(false);
   const [formData, setFormData] = useState<BookingFormState>(initialFormState);
   const [formStartedAt] = useState(() => Date.now());
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState<BookingSuccess | null>(null);
+  const detailsSectionRef = useRef<HTMLElement>(null);
 
   const selectedDay = useMemo(
     () => availability?.days.find((day) => day.date === selectedDate) ?? null,
@@ -68,6 +80,20 @@ export function BookingForm() {
       null,
     [selectedDay, selectedStartTime],
   );
+
+  const visibleDays = useMemo(() => {
+    const days = availability?.days ?? [];
+    const startIndex = datePageIndex * visibleDayCount;
+    return days.slice(startIndex, startIndex + visibleDayCount);
+  }, [availability, datePageIndex, visibleDayCount]);
+
+  const datePageCount = Math.ceil(
+    (availability?.days.length ?? 0) / visibleDayCount,
+  );
+  const canShowPreviousDates = datePageIndex > 0;
+  const canShowMoreDates = datePageIndex < datePageCount - 1;
+  const visibleDateRangeLabel =
+    visibleDays.length > 0 ? formatDateRange(visibleDays) : "";
 
   const fetchAvailability = useCallback(async () => {
     setAvailabilityStatus("loading");
@@ -109,6 +135,55 @@ export function BookingForm() {
     void fetchAvailability();
   }, [fetchAvailability]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
+    const updateVisibleDayCount = () => {
+      setIsDesktopLayout(mediaQuery.matches);
+      setVisibleDayCount(
+        mediaQuery.matches
+          ? DESKTOP_VISIBLE_DAY_COUNT
+          : MOBILE_VISIBLE_DAY_COUNT,
+      );
+    };
+
+    updateVisibleDayCount();
+    mediaQuery.addEventListener("change", updateVisibleDayCount);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateVisibleDayCount);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (datePageCount === 0) {
+      setDatePageIndex(0);
+      return;
+    }
+
+    if (datePageIndex > datePageCount - 1) {
+      setDatePageDirection("none");
+      setDatePageIndex(datePageCount - 1);
+    }
+  }, [datePageCount, datePageIndex]);
+
+  useEffect(() => {
+    if (!selectedDate || !availability?.days.length) return;
+
+    const selectedDateIndex = availability.days.findIndex(
+      (day) => day.date === selectedDate,
+    );
+    if (selectedDateIndex === -1) return;
+
+    const selectedDatePageIndex = Math.floor(
+      selectedDateIndex / visibleDayCount,
+    );
+    if (selectedDatePageIndex === datePageIndex) return;
+
+    setDatePageDirection("none");
+    setDatePageIndex(selectedDatePageIndex);
+  }, [availability, datePageIndex, selectedDate, visibleDayCount]);
+
   const updateField = (field: keyof BookingFormState, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setFieldErrors((prev) => {
@@ -132,6 +207,48 @@ export function BookingForm() {
 
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
+  };
+
+  const clearSelectedTimeError = () => {
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      delete next.selectedStartTime;
+      return next;
+    });
+  };
+
+  const selectDatePage = (pageIndex: number) => {
+    const days = availability?.days ?? [];
+    const nextPageIndex = Math.min(
+      Math.max(pageIndex, 0),
+      Math.max(datePageCount - 1, 0),
+    );
+    const nextDate = days[nextPageIndex * visibleDayCount]?.date ?? "";
+
+    setDatePageDirection(
+      nextPageIndex === datePageIndex
+        ? "none"
+        : nextPageIndex > datePageIndex
+          ? "next"
+          : "previous",
+    );
+    setDatePageIndex(nextPageIndex);
+    setSelectedDate(nextDate);
+    setSelectedStartTime("");
+    clearSelectedTimeError();
+  };
+
+  const selectStartTime = (startTime: string) => {
+    setSelectedStartTime(startTime);
+    clearSelectedTimeError();
+    if (isDesktopLayout) return;
+
+    window.setTimeout(() => {
+      detailsSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 0);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -254,33 +371,16 @@ export function BookingForm() {
 
       <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
         <section aria-labelledby="booking-time-heading">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <h2
-                id="booking-time-heading"
-                className="font-heading text-xl font-semibold text-foreground"
-              >
-                Choose a time
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                30-minute calls, shown in Mountain time.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => void fetchAvailability()}
-              disabled={availabilityStatus === "loading"}
-              className="inline-flex size-9 items-center justify-center rounded-md border border-border bg-background text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
-              aria-label="Refresh availability"
+          <div>
+            <h2
+              id="booking-time-heading"
+              className="font-heading text-xl font-semibold text-foreground"
             >
-              <RefreshCw
-                size={16}
-                className={
-                  availabilityStatus === "loading" ? "animate-spin" : ""
-                }
-                aria-hidden
-              />
-            </button>
+              Choose a time
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              30-minute calls, shown in Mountain time.
+            </p>
           </div>
 
           {availabilityStatus === "loading" && (
@@ -298,19 +398,48 @@ export function BookingForm() {
 
           {availabilityStatus === "ready" && availability?.days.length ? (
             <div className="mt-5 flex flex-col gap-5">
-              <div className="grid gap-2 sm:grid-cols-2">
-                {availability.days.map((day) => (
+              {datePageCount > 1 && (
+                <div className="flex min-h-9 items-center justify-between gap-3">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    {visibleDateRangeLabel}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => selectDatePage(datePageIndex - 1)}
+                      disabled={!canShowPreviousDates}
+                      className="inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-primary transition-colors hover:border-primary/50 hover:bg-primary/5 disabled:pointer-events-none disabled:text-muted-foreground/40 disabled:opacity-50"
+                      aria-label="Show earlier dates"
+                    >
+                      <ArrowLeft size={15} aria-hidden />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => selectDatePage(datePageIndex + 1)}
+                      disabled={!canShowMoreDates}
+                      className="inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-primary transition-colors hover:border-primary/50 hover:bg-primary/5 disabled:pointer-events-none disabled:text-muted-foreground/40 disabled:opacity-50"
+                      aria-label="Show later dates"
+                    >
+                      <ArrowRight size={15} aria-hidden />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div
+                key={datePageIndex}
+                className={`${getDatePageAnimationClass(
+                  datePageDirection,
+                )} grid gap-2 sm:grid-cols-2`}
+              >
+                {visibleDays.map((day) => (
                   <button
                     key={day.date}
                     type="button"
                     onClick={() => {
                       setSelectedDate(day.date);
                       setSelectedStartTime("");
-                      setFieldErrors((prev) => {
-                        const next = { ...prev };
-                        delete next.selectedStartTime;
-                        return next;
-                      });
+                      clearSelectedTimeError();
                     }}
                     className={`rounded-lg border px-4 py-3 text-left text-sm transition-all ${
                       selectedDate === day.date
@@ -333,14 +462,7 @@ export function BookingForm() {
                       <button
                         key={slot.startTime}
                         type="button"
-                        onClick={() => {
-                          setSelectedStartTime(slot.startTime);
-                          setFieldErrors((prev) => {
-                            const next = { ...prev };
-                            delete next.selectedStartTime;
-                            return next;
-                          });
-                        }}
+                        onClick={() => selectStartTime(slot.startTime)}
                         className={`min-h-11 rounded-lg border px-3 text-sm font-medium transition-all ${
                           selectedStartTime === slot.startTime
                             ? "border-primary bg-primary text-primary-foreground"
@@ -362,7 +484,10 @@ export function BookingForm() {
           ) : null}
         </section>
 
-        <section aria-labelledby="booking-details-heading">
+        <section
+          ref={detailsSectionRef}
+          aria-labelledby="booking-details-heading"
+        >
           <h2
             id="booking-details-heading"
             className="font-heading text-xl font-semibold text-foreground"
@@ -497,6 +622,30 @@ function getFriendlyAvailabilityError(error: string | undefined): string {
   }
 
   return error ?? "Failed to load available times.";
+}
+
+function getDatePageAnimationClass(direction: DatePageDirection): string {
+  if (direction === "previous") return "animate-booking-dates-previous";
+  if (direction === "next") return "animate-booking-dates-next";
+  return "animate-fade-in-up";
+}
+
+function formatDateRange(days: BookingDay[]): string {
+  const firstDate = days[0]?.date;
+  const lastDate = days.at(-1)?.date;
+  if (!firstDate) return "";
+  if (!lastDate || firstDate === lastDate) return formatShortDate(firstDate);
+
+  return `${formatShortDate(firstDate)} - ${formatShortDate(lastDate)}`;
+}
+
+function formatShortDate(date: string): string {
+  const [year, month, day] = date.split("-").map(Number);
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(Date.UTC(year, month - 1, day)));
 }
 
 function formatDateTime(isoDate: string): string {

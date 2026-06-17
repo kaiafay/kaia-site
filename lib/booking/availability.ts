@@ -12,13 +12,13 @@ export const BOOKING_WINDOW_DAYS = 21;
 export const BOOKING_MINIMUM_NOTICE_HOURS = 24;
 
 export const WEEKLY_AVAILABILITY: WeeklyAvailability = {
-  tuesday: [
-    { start: "10:00", end: "12:00" },
-    { start: "13:00", end: "15:00" },
+  monday: [
+    { start: "09:00", end: "11:30" },
+    { start: "13:00", end: "17:00" },
   ],
+  wednesday: [{ start: "09:00", end: "14:00" }],
   thursday: [
-    { start: "10:00", end: "12:00" },
-    { start: "13:00", end: "15:00" },
+    { start: "13:00", end: "17:00" },
   ],
 };
 

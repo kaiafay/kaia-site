@@ -202,6 +202,36 @@ html {
   animation: fade-in-up 0.5s ease-out forwards;
 }
 
+@keyframes booking-dates-slide-next {
+  from {
+    opacity: 0;
+    transform: translateX(28px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+  }
+}
+
+@keyframes booking-dates-slide-previous {
+  from {
+    opacity: 0;
+    transform: translateX(-28px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+  }
+}
+
+.animate-booking-dates-next {
+  animation: booking-dates-slide-next 0.32s ease-out both;
+}
+
+.animate-booking-dates-previous {
+  animation: booking-dates-slide-previous 0.32s ease-out both;
+}
+
 /* Scroll-triggered reveal: base state on mount, visible state when in view */
 .scroll-animate-in {
   will-change: transform, opacity;
@@ -248,7 +278,9 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-in-up {
+  .animate-fade-in-up,
+  .animate-booking-dates-next,
+  .animate-booking-dates-previous {
     animation: none !important;
   }
   .scroll-animate-in,
