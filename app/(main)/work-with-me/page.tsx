@@ -70,10 +70,10 @@ export default function WorkWithMePage() {
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
-                href="/book"
+                href="#contact"
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow"
               >
-                Book a discovery call
+                Start a project inquiry
               </Link>
               <a
                 href="#contact"

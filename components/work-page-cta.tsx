@@ -20,10 +20,10 @@ export function WorkPageCta() {
           Let&apos;s talk about your project.
         </p>
         <Link
-          href="/book"
+          href="/work-with-me#contact"
           className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow"
         >
-          Book a discovery call
+          Start a project inquiry
         </Link>
       </div>
     </section>
