@@ -18,33 +18,33 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.kaiafay.com"),
   title: {
-    default: "Kaia | Developer & Builder",
-    template: "%s | Kaia",
+    default: "Kaia Fay | Web Developer & Engineer",
+    template: "%s | Kaia Fay",
   },
   description:
-    "Software developer building apps, taking on freelance projects, and shipping in public.",
+    "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://www.kaiafay.com",
-    siteName: "Kaia",
-    title: "Kaia | Developer & Builder",
+    siteName: "Kaia Fay",
+    title: "Kaia Fay | Web Developer & Engineer",
     description:
-      "Software developer building apps, taking on freelance projects, and shipping in public.",
+      "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Kaia — Developer & Builder",
+        alt: "Kaia Fay — Web Developer & Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kaia | Developer & Builder",
+    title: "Kaia Fay | Web Developer & Engineer",
     description:
-      "Software developer building apps, taking on freelance projects, and shipping in public.",
+      "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details.",
     images: ["/og-image.jpg"],
   },
   icons: {
