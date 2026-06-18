@@ -9,8 +9,10 @@ export default function MainLayout({
   return (
     <>
       <Nav />
-      {children}
-      <Footer />
+      <div className="flex min-h-dvh flex-col">
+        <div className="flex-1">{children}</div>
+        <Footer />
+      </div>
     </>
   );
 }
