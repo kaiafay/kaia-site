@@ -76,7 +76,7 @@ export default function WorkWithMePage() {
                 Start a project inquiry
               </Link>
               <a
-                href="#contact"
+                href="/#contact"
                 className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-6 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
               >
                 Send a message

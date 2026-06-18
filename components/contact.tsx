@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Github, Linkedin, Instagram, Loader2 } from "lucide-react";
+import {
+  Github,
+  Instagram,
+  Linkedin,
+  Loader2,
+  Mail,
+  Phone,
+} from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { DropdownSelect } from "@/components/ui/dropdown-select";
@@ -30,6 +37,64 @@ const BUDGET_OPTIONS = [
   { value: "Not sure yet", label: "Not sure yet" },
 ] as const;
 
+const SOCIAL_LINKS = [
+  {
+    href: "https://github.com/kaiafay",
+    label: "GitHub",
+    text: "kaiafay",
+    icon: Github,
+  },
+  {
+    href: "https://www.linkedin.com/in/kaia-scheirman/",
+    label: "LinkedIn",
+    text: "Kaia Fay",
+    icon: Linkedin,
+  },
+  {
+    href: "https://www.instagram.com/kaia.builds",
+    label: "Instagram",
+    text: "kaia.builds",
+    icon: Instagram,
+  },
+] as const;
+
+const DEFAULT_CONTACT_EMAIL = "kaia@kaiafay.com";
+const DEFAULT_CONTACT_PHONE = "(541) 248-1982";
+
+function IconLinks({ compact = false }: { compact?: boolean }) {
+  return (
+    <div
+      className={compact ? "flex items-center gap-5" : "flex flex-col gap-3"}
+    >
+      {SOCIAL_LINKS.map(({ href, label, text, icon: Icon }) => (
+        <a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={
+            compact
+              ? "text-muted-foreground transition-colors duration-200 hover:text-foreground"
+              : "group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
+          }
+          aria-label={label}
+        >
+          <Icon
+            size={compact ? 20 : 18}
+            className={
+              compact
+                ? undefined
+                : "shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary"
+            }
+            aria-hidden
+          />
+          {!compact && <span>{text}</span>}
+        </a>
+      ))}
+    </div>
+  );
+}
+
 function isValidInterest(
   value: string | null,
 ): value is (typeof INTEREST_OPTIONS)[number]["value"] {
@@ -49,6 +114,9 @@ interface ContactProps {
   showSocialLinks?: boolean;
   showBudget?: boolean;
   showProjectFields?: boolean;
+  showDirectContact?: boolean;
+  contactEmail?: string;
+  contactPhone?: string;
 }
 
 export function Contact({
@@ -58,6 +126,9 @@ export function Contact({
   showSocialLinks = true,
   showBudget = false,
   showProjectFields = false,
+  showDirectContact = false,
+  contactEmail = DEFAULT_CONTACT_EMAIL,
+  contactPhone = DEFAULT_CONTACT_PHONE,
 }: ContactProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
@@ -75,6 +146,47 @@ export function Contact({
   >("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [directContactOpen, setDirectContactOpen] = useState(false);
+  const hasDirectContact = showDirectContact && !showProjectFields;
+  const primaryContactLinks = [
+    {
+      href: `mailto:${contactEmail}`,
+      label: "Email",
+      text: contactEmail,
+      icon: Mail,
+    },
+    {
+      href: `tel:+1${contactPhone.replace(/\D/g, "")}`,
+      label: "Phone",
+      text: contactPhone,
+      icon: Phone,
+    },
+  ];
+  const directContactLinks = showSocialLinks
+    ? [...primaryContactLinks, ...SOCIAL_LINKS]
+    : primaryContactLinks;
+  const renderDirectContactList = (linkTabIndex?: 0 | -1) => (
+    <div className="flex flex-col gap-3">
+      {directContactLinks.map(({ href, label, text, icon: Icon }) => (
+        <a
+          key={label}
+          href={href}
+          tabIndex={linkTabIndex}
+          target={href.startsWith("http") ? "_blank" : undefined}
+          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+          className="group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
+          aria-label={label}
+        >
+          <Icon
+            size={18}
+            className="shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary"
+            aria-hidden
+          />
+          <span className="break-all">{text}</span>
+        </a>
+      ))}
+    </div>
+  );
 
   const clearFieldError = (field: string) => {
     setFieldErrors((prev) => {
@@ -172,7 +284,11 @@ export function Contact({
     <section ref={ref} id="contact" className="relative py-24 lg:py-32">
       <div
         className={`mx-auto px-6 ${
-          showProjectFields ? "max-w-4xl" : "max-w-2xl"
+          showProjectFields
+            ? "max-w-4xl"
+            : hasDirectContact
+              ? "max-w-lg lg:max-w-4xl"
+              : "max-w-2xl"
         }`}
       >
         <div
@@ -188,7 +304,26 @@ export function Contact({
             )}
           </div>
 
-          {status === "success" ? (
+          <div
+            className={
+              hasDirectContact
+                ? "grid w-full overflow-hidden rounded-xl border border-border bg-card card-shadow lg:grid-cols-[0.75fr_1.25fr]"
+                : "w-full"
+            }
+          >
+            {hasDirectContact && (
+              <aside className="relative hidden p-6 sm:p-8 lg:block lg:pt-10 lg:after:absolute lg:after:inset-y-8 lg:after:right-0 lg:after:w-px lg:after:bg-border lg:after:content-['']">
+                <div className="flex flex-col gap-5">
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    Prefer to reach out directly?
+                  </p>
+
+                  {renderDirectContactList()}
+                </div>
+              </aside>
+            )}
+
+            {status === "success" ? (
             <div className="w-full rounded-lg border border-primary/30 bg-primary/5 p-8 text-center">
               <p className="text-lg font-medium text-foreground">
                 Thanks! I&apos;ll be in touch soon.
@@ -201,7 +336,9 @@ export function Contact({
               className={
                 showProjectFields
                   ? "flex w-full flex-col gap-5 rounded-xl border border-border bg-card p-6 card-shadow sm:p-8"
-                  : "flex w-full flex-col gap-5"
+                  : hasDirectContact
+                    ? "mx-auto flex w-full max-w-md flex-col gap-5 p-6 py-8 sm:p-8 sm:py-10"
+                    : "flex w-full flex-col gap-5"
               }
             >
               {status === "error" && (
@@ -572,40 +709,41 @@ export function Contact({
                   "Send Message"
                 )}
               </button>
-            </form>
-          )}
 
-          {showSocialLinks && (
-            <div className="flex items-center gap-5">
-              <a
-                href="https://github.com/kaiafay"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                aria-label="GitHub"
-              >
-                <Github size={20} />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/kaia-scheirman/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="https://www.instagram.com/kaia.builds"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                aria-label="Instagram"
-              >
-                <Instagram size={20} />
-              </a>
-            </div>
-          )}
+              {hasDirectContact && (
+                <div className="flex flex-col items-center lg:hidden">
+                  <button
+                    type="button"
+                    aria-expanded={directContactOpen}
+                    aria-controls="direct-contact-links"
+                    onClick={() => setDirectContactOpen((open) => !open)}
+                    className="mt-1 text-center text-sm font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+                  >
+                    Prefer to reach out directly?
+                  </button>
+
+                  <div
+                    id="direct-contact-links"
+                    aria-hidden={!directContactOpen}
+                    className={`grid w-full transition-[grid-template-rows,opacity,margin-top] duration-300 ease-out ${
+                      directContactOpen
+                        ? "mt-5 grid-rows-[1fr] opacity-100"
+                        : "mt-0 grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      {renderDirectContactList(
+                        directContactOpen ? 0 : -1,
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </form>
+            )}
+          </div>
+
+          {showSocialLinks && !hasDirectContact && <IconLinks compact />}
         </div>
       </div>
     </section>

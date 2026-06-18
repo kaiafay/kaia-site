@@ -13,7 +13,7 @@ export default function Home() {
       <Projects limit={3} heading="What I've Built" />
       <FreelanceServices />
       <Now />
-      <Contact />
+      <Contact showDirectContact contactEmail="kaia@kaiafay.com" />
     </main>
   )
 }
