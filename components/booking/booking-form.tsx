@@ -37,7 +37,9 @@ const initialFormState: BookingFormState = {
 
 const MOBILE_VISIBLE_DAY_COUNT = 4;
 const DESKTOP_VISIBLE_DAY_COUNT = 6;
-const MOBILE_SCROLL_GAP_PX = 16;
+const COMPACT_SCROLL_GAP_PX = 16;
+// Keeps the selected time and details heading in view on compact layouts.
+const COMPACT_SCROLL_VIEWPORT_OFFSET_RATIO = 0.18;
 
 function inputClass(hasError: boolean, extra = "") {
   return (
@@ -253,7 +255,7 @@ export function BookingForm() {
         top:
           detailsSection.getBoundingClientRect().top +
           window.scrollY -
-          getFixedNavOffset(),
+          getCompactScrollOffset(),
       });
     });
   };
@@ -637,9 +639,13 @@ function getDatePageAnimationClass(direction: DatePageDirection): string {
   return "animate-fade-in-up";
 }
 
-function getFixedNavOffset(): number {
+function getCompactScrollOffset(): number {
   const nav = document.querySelector("nav");
-  return (nav?.getBoundingClientRect().height ?? 0) + MOBILE_SCROLL_GAP_PX;
+  return (
+    (nav?.getBoundingClientRect().height ?? 0) +
+    COMPACT_SCROLL_GAP_PX +
+    window.innerHeight * COMPACT_SCROLL_VIEWPORT_OFFSET_RATIO
+  );
 }
 
 function formatDateRange(days: BookingDay[]): string {
