@@ -37,6 +37,7 @@ const initialFormState: BookingFormState = {
 
 const MOBILE_VISIBLE_DAY_COUNT = 4;
 const DESKTOP_VISIBLE_DAY_COUNT = 6;
+const MOBILE_SCROLL_GAP_PX = 16;
 
 function inputClass(hasError: boolean, extra = "") {
   return (
@@ -243,12 +244,18 @@ export function BookingForm() {
     clearSelectedTimeError();
     if (isDesktopLayout) return;
 
-    window.setTimeout(() => {
-      detailsSectionRef.current?.scrollIntoView({
+    window.requestAnimationFrame(() => {
+      const detailsSection = detailsSectionRef.current;
+      if (!detailsSection) return;
+
+      window.scrollTo({
         behavior: "smooth",
-        block: "start",
+        top:
+          detailsSection.getBoundingClientRect().top +
+          window.scrollY -
+          getFixedNavOffset(),
       });
-    }, 0);
+    });
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -628,6 +635,11 @@ function getDatePageAnimationClass(direction: DatePageDirection): string {
   if (direction === "previous") return "animate-booking-dates-previous";
   if (direction === "next") return "animate-booking-dates-next";
   return "animate-fade-in-up";
+}
+
+function getFixedNavOffset(): number {
+  const nav = document.querySelector("nav");
+  return (nav?.getBoundingClientRect().height ?? 0) + MOBILE_SCROLL_GAP_PX;
 }
 
 function formatDateRange(days: BookingDay[]): string {
