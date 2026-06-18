@@ -165,7 +165,7 @@ async function sendBookingEmails(
     const visitorResult = await resend.emails.send({
       from: FROM_EMAIL,
       to: [booking.email],
-      replyTo: CONTACT_EMAIL,
+      replyTo: FROM_EMAIL,
       subject: "Your discovery call is booked",
       text: visitorEmail.text,
       html: visitorEmail.html,
