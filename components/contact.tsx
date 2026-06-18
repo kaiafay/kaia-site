@@ -11,6 +11,11 @@ import {
 } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
+import {
+  DIRECT_CONTACT_LINKS,
+  SOCIAL_LINKS,
+  type ContactLinkKind,
+} from "@/lib/contact-links";
 import { DropdownSelect } from "@/components/ui/dropdown-select";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -37,60 +42,48 @@ const BUDGET_OPTIONS = [
   { value: "Not sure yet", label: "Not sure yet" },
 ] as const;
 
-const SOCIAL_LINKS = [
-  {
-    href: "https://github.com/kaiafay",
-    label: "GitHub",
-    text: "kaiafay",
-    icon: Github,
-  },
-  {
-    href: "https://www.linkedin.com/in/kaia-scheirman/",
-    label: "LinkedIn",
-    text: "Kaia Fay",
-    icon: Linkedin,
-  },
-  {
-    href: "https://www.instagram.com/kaia.builds",
-    label: "Instagram",
-    text: "kaia.builds",
-    icon: Instagram,
-  },
-] as const;
-
-const DEFAULT_CONTACT_EMAIL = "kaia@kaiafay.com";
-const DEFAULT_CONTACT_PHONE = "(541) 248-1982";
+const LINK_ICONS = {
+  email: Mail,
+  phone: Phone,
+  github: Github,
+  linkedin: Linkedin,
+  instagram: Instagram,
+} satisfies Record<ContactLinkKind, typeof Mail>;
 
 function IconLinks({ compact = false }: { compact?: boolean }) {
   return (
     <div
       className={compact ? "flex items-center gap-5" : "flex flex-col gap-3"}
     >
-      {SOCIAL_LINKS.map(({ href, label, text, icon: Icon }) => (
-        <a
-          key={label}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={
-            compact
-              ? "text-muted-foreground transition-colors duration-200 hover:text-foreground"
-              : "group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
-          }
-          aria-label={label}
-        >
-          <Icon
-            size={compact ? 20 : 18}
+      {SOCIAL_LINKS.map(({ href, label, text, kind }) => {
+        const Icon = LINK_ICONS[kind];
+
+        return (
+          <a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
             className={
               compact
-                ? undefined
-                : "shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary"
+                ? "text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                : "group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
             }
-            aria-hidden
-          />
-          {!compact && <span>{text}</span>}
-        </a>
-      ))}
+            aria-label={label}
+          >
+            <Icon
+              size={compact ? 20 : 18}
+              className={
+                compact
+                  ? undefined
+                  : "shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary"
+              }
+              aria-hidden
+            />
+            {!compact && <span>{text}</span>}
+          </a>
+        );
+      })}
     </div>
   );
 }
@@ -115,8 +108,6 @@ interface ContactProps {
   showBudget?: boolean;
   showProjectFields?: boolean;
   showDirectContact?: boolean;
-  contactEmail?: string;
-  contactPhone?: string;
 }
 
 export function Contact({
@@ -127,8 +118,6 @@ export function Contact({
   showBudget = false,
   showProjectFields = false,
   showDirectContact = false,
-  contactEmail = DEFAULT_CONTACT_EMAIL,
-  contactPhone = DEFAULT_CONTACT_PHONE,
 }: ContactProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
@@ -148,43 +137,35 @@ export function Contact({
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [directContactOpen, setDirectContactOpen] = useState(false);
   const hasDirectContact = showDirectContact && !showProjectFields;
-  const primaryContactLinks = [
-    {
-      href: `mailto:${contactEmail}`,
-      label: "Email",
-      text: contactEmail,
-      icon: Mail,
-    },
-    {
-      href: `tel:+1${contactPhone.replace(/\D/g, "")}`,
-      label: "Phone",
-      text: contactPhone,
-      icon: Phone,
-    },
-  ];
   const directContactLinks = showSocialLinks
-    ? [...primaryContactLinks, ...SOCIAL_LINKS]
-    : primaryContactLinks;
+    ? DIRECT_CONTACT_LINKS
+    : DIRECT_CONTACT_LINKS.filter(
+        (link) => link.kind === "email" || link.kind === "phone",
+      );
   const renderDirectContactList = (linkTabIndex?: 0 | -1) => (
     <div className="flex flex-col gap-3">
-      {directContactLinks.map(({ href, label, text, icon: Icon }) => (
-        <a
-          key={label}
-          href={href}
-          tabIndex={linkTabIndex}
-          target={href.startsWith("http") ? "_blank" : undefined}
-          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-          className="group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
-          aria-label={label}
-        >
-          <Icon
-            size={18}
-            className="shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary"
-            aria-hidden
-          />
-          <span className="break-all">{text}</span>
-        </a>
-      ))}
+      {directContactLinks.map(({ href, label, text, kind }) => {
+        const Icon = LINK_ICONS[kind];
+
+        return (
+          <a
+            key={label}
+            href={href}
+            tabIndex={linkTabIndex}
+            target={href.startsWith("http") ? "_blank" : undefined}
+            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+            className="group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
+            aria-label={label}
+          >
+            <Icon
+              size={18}
+              className="shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary"
+              aria-hidden
+            />
+            <span className="break-all">{text}</span>
+          </a>
+        );
+      })}
     </div>
   );
 
@@ -287,7 +268,9 @@ export function Contact({
           showProjectFields
             ? "max-w-4xl"
             : hasDirectContact
-              ? "max-w-lg lg:max-w-4xl"
+              ? status === "success"
+                ? "max-w-lg"
+                : "max-w-lg lg:max-w-4xl"
               : "max-w-2xl"
         }`}
       >
@@ -306,12 +289,12 @@ export function Contact({
 
           <div
             className={
-              hasDirectContact
+              hasDirectContact && status !== "success"
                 ? "grid w-full overflow-hidden rounded-xl border border-border bg-card card-shadow lg:grid-cols-[0.75fr_1.25fr]"
                 : "w-full"
             }
           >
-            {hasDirectContact && (
+            {hasDirectContact && status !== "success" && (
               <aside className="relative hidden p-6 sm:p-8 lg:block lg:pt-10 lg:after:absolute lg:after:inset-y-8 lg:after:right-0 lg:after:w-px lg:after:bg-border lg:after:content-['']">
                 <div className="flex flex-col gap-5">
                   <p className="text-sm leading-relaxed text-muted-foreground">
@@ -324,12 +307,12 @@ export function Contact({
             )}
 
             {status === "success" ? (
-            <div className="w-full rounded-lg border border-primary/30 bg-primary/5 p-8 text-center">
-              <p className="text-lg font-medium text-foreground">
-                Thanks! I&apos;ll be in touch soon.
-              </p>
-            </div>
-          ) : (
+              <div className="w-full rounded-lg border border-primary/30 bg-primary/5 p-8 text-center">
+                <p className="text-lg font-medium text-foreground">
+                  Thanks! I&apos;ll be in touch soon.
+                </p>
+              </div>
+            ) : (
             <form
               onSubmit={handleSubmit}
               noValidate
