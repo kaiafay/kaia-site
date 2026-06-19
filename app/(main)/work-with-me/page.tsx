@@ -61,23 +61,22 @@ export default function WorkWithMePage() {
           <div className={scrollRevealClass(isHeroInView)}>
             <SectionLabel>Work With Me</SectionLabel>
             <SectionHeading as="h1" className="mt-2">
-              Websites, apps, and dev support for people who care about the
-              details.
+              Web work built with care.
             </SectionHeading>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              I build clean, fast, intentional web experiences with clear scope,
-              honest communication, and no mystery around what happens next.
+              I build clean, fast, intentional web experiences that help your
+              business make a better first impression.
             </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-row flex-wrap items-center justify-center gap-3">
               <Link
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow"
+                className="inline-flex min-w-[10.25rem] items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow"
               >
                 Start a project inquiry
               </Link>
               <a
                 href="/#contact"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-6 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
+                className="inline-flex min-w-[10.25rem] items-center justify-center gap-2 rounded-lg border border-border bg-background px-5 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
               >
                 Send a message
               </a>
@@ -92,6 +91,7 @@ export default function WorkWithMePage() {
             className={`${scrollRevealClass(isServicesInView)} mb-12 text-center`}
           >
             <SectionLabel as="h2">Services</SectionLabel>
+            <SectionHeading className="mt-2">How I can help</SectionHeading>
           </div>
           <div className="grid gap-10 md:grid-cols-3 md:gap-12">
             {services.map((service, i) => (
