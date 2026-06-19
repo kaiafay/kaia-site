@@ -11,6 +11,10 @@ export const BOOKING_DURATION_MINUTES = 30;
 export const BOOKING_WINDOW_DAYS = 21;
 export const BOOKING_MINIMUM_NOTICE_HOURS = 24;
 
+export const BLOCKED_BOOKING_DATES = [
+  "2026-06-22",
+] as const;
+
 export const WEEKLY_AVAILABILITY: WeeklyAvailability = {
   monday: [
     { start: "09:00", end: "11:30" },
@@ -31,6 +35,8 @@ const WEEKDAYS: Weekday[] = [
   "friday",
   "saturday",
 ];
+
+const blockedBookingDateSet = new Set<string>(BLOCKED_BOOKING_DATES);
 
 type DateParts = {
   year: number;
@@ -91,6 +97,8 @@ export function generateBookingSlots(
 
   for (let offset = 0; offset < BOOKING_WINDOW_DAYS; offset += 1) {
     const date = addDaysToDateString(localToday, offset);
+    if (isBlockedBookingDate(date)) continue;
+
     const weekday = getWeekdayForDate(date);
     const windows = WEEKLY_AVAILABILITY[weekday] ?? [];
 
@@ -107,6 +115,10 @@ export function generateBookingSlots(
   }
 
   return slots.sort((a, b) => a.startTime.localeCompare(b.startTime));
+}
+
+export function isBlockedBookingDate(date: string): boolean {
+  return blockedBookingDateSet.has(date);
 }
 
 export function groupSlotsByDay(slots: BookingSlot[]): BookingDay[] {

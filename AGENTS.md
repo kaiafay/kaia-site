@@ -21,6 +21,11 @@ Booking routes also require:
 
 If these are missing, `/api/booking` will return a configuration error and booking submissions cannot complete.
 
+One-off full-day availability blocks are configured in
+`lib/booking/availability.ts` via `BLOCKED_BOOKING_DATES`. Add local booking
+dates as `YYYY-MM-DD` strings there to hide an otherwise recurring available
+day without changing the weekly schedule.
+
 ### Building
 
 ```bash
