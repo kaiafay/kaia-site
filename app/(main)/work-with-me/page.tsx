@@ -67,16 +67,16 @@ export default function WorkWithMePage() {
               I build clean, fast, intentional web experiences that help your
               business make a better first impression.
             </p>
-            <div className="mt-8 flex flex-row flex-wrap items-center justify-center gap-3">
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
               <Link
                 href="#contact"
-                className="inline-flex min-w-[10.25rem] items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 btn-primary-glow"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 sm:w-auto sm:min-w-[10.25rem] btn-primary-glow"
               >
                 Start a project inquiry
               </Link>
               <a
                 href="/#contact"
-                className="inline-flex min-w-[10.25rem] items-center justify-center gap-2 rounded-lg border border-border bg-background px-5 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
+                className="inline-flex items-center justify-center gap-2 px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:min-w-[10.25rem] sm:rounded-lg sm:border sm:border-border sm:bg-background sm:px-5 sm:py-3 sm:text-foreground sm:transition-all sm:duration-200 sm:hover:border-primary/50"
               >
                 Send a message
               </a>
