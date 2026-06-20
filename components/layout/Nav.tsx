@@ -45,10 +45,10 @@ export function Nav() {
 
   return (
     <>
-      {/* Invisible overlay — sits above page content but below nav/dropdown */}
+      {/* Dim layer — sits above page content but below nav/dropdown */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 md:hidden"
+          className="fixed inset-0 z-40 bg-background/40 md:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -152,12 +152,10 @@ export function Nav() {
 
         {/* Mobile menu — animated slide down */}
         <div
-          className={`absolute top-full left-0 right-0 z-50 md:hidden backdrop-blur-md overflow-hidden transition-all duration-500 ease-in-out ${
+          className={`absolute top-full left-0 right-0 z-50 overflow-hidden border-b border-border/20 bg-background/90 backdrop-blur-xl transition-all duration-500 ease-in-out md:hidden ${
             mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
           style={{
-            background:
-              "linear-gradient(to bottom, var(--nav-mobile-bg) 85%, transparent 100%)",
             paddingBottom: mobileOpen ? "0.5rem" : "0",
           }}
         >
