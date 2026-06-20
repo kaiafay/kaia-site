@@ -45,16 +45,15 @@ export function Nav() {
 
   return (
     <>
-      {/* Dim layer — sits above page content but below nav/dropdown */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-background/40 md:hidden"
+          className="fixed inset-0 z-40 md:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
+          scrolled || mobileOpen
             ? "bg-background/80 backdrop-blur-md border-b border-border/20"
             : "bg-transparent"
         }`}
@@ -152,24 +151,30 @@ export function Nav() {
 
         {/* Mobile menu — animated slide down */}
         <div
-          className={`absolute top-full left-0 right-0 z-50 overflow-hidden border-b border-border/20 bg-background/90 backdrop-blur-xl transition-all duration-500 ease-in-out md:hidden ${
+          className={`overflow-hidden transition-all duration-500 ease-in-out md:hidden ${
             mobileOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
-          style={{
-            paddingBottom: mobileOpen ? "0.5rem" : "0",
-          }}
         >
-          <div className="flex flex-col gap-4 px-6 py-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="text-base text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-6 pb-5 pt-2">
+            {navLinks.map((link) => {
+              const active = isNavLinkActive(pathname, link.href);
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`relative rounded-md px-4 py-3 text-base transition-colors ${
+                    active
+                      ? "bg-primary/10 text-foreground before:absolute before:left-2 before:top-1/2 before:h-5 before:w-0.5 before:-translate-y-1/2 before:rounded-full before:bg-primary before:content-['']"
+                      : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                  }`}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </nav>
