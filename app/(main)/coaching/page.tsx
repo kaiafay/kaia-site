@@ -47,7 +47,7 @@ export default function CoachingPage() {
         >
           <SectionLabel>Coaching</SectionLabel>
           <SectionHeading as="h1" className="mt-2">
-            Work With Me
+            Train With Me
           </SectionHeading>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Spots are limited. If you&apos;re serious about your goals,
