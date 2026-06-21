@@ -50,8 +50,8 @@ export default function CoachingPage() {
             Train With Me
           </SectionHeading>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Spots are limited. If you&apos;re serious about your goals,
-            let&apos;s talk.
+            Spots are limited so every client gets focused attention. Built for
+            people who want structure that turns into real progress.
           </p>
         </div>
       </section>
@@ -63,14 +63,14 @@ export default function CoachingPage() {
       >
         <div className="mx-auto max-w-6xl px-6">
           <div
-            className={`${scrollRevealClass(isApproachInView)} grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-12`}
+            className={`${scrollRevealClass(isApproachInView)} grid grid-cols-1 items-stretch gap-8 md:grid-cols-2 lg:gap-12`}
           >
-            <div className="relative min-h-[280px] overflow-hidden rounded-lg sm:min-h-[360px] lg:min-h-0 lg:h-full">
+            <div className="relative min-h-[280px] overflow-hidden rounded-lg sm:min-h-[360px] md:aspect-[4/5] md:min-h-0 lg:aspect-auto lg:h-full">
               <Image
                 src={images.coaching}
                 alt="Kaia Fay, fitness coach"
                 fill
-                className="object-cover object-[50%_65%]"
+                className="object-cover object-[50%_65%] md:object-[54%_55%] lg:object-[50%_65%]"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
               />
@@ -82,15 +82,18 @@ export default function CoachingPage() {
               </SectionHeading>
               <div className="mt-6 flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
                 <p>
-                  I build plans around your life, your schedule, and your body —
-                  not a template.
+                  Your program is built for you from the start, not pulled from
+                  a template.
                 </p>
                 <p>
                   Whether your goal is building muscle, losing fat, or simply
-                  getting stronger, I&apos;ll meet you where you are and push
-                  you past where you thought you could go.
+                  getting stronger, I&apos;ll meet you where you are and give
+                  you the structure to keep moving forward.
                 </p>
-                <p>Evidence-based. Adaptive. Built for real results.</p>
+                <p>
+                  You get clear direction, honest feedback, and a program that
+                  evolves as you do.
+                </p>
               </div>
             </div>
           </div>

@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -44,15 +44,50 @@ const processSteps = [
   },
 ];
 
+const faqs = [
+  {
+    question: "Who is this for?",
+    answer:
+      "Small businesses, founders, and independent professionals who want a thoughtful website, app, or web update without a bloated process.",
+  },
+  {
+    question: "What kind of work do you take on?",
+    answer:
+      "Landing pages, small business websites, custom web apps, and focused dev support for existing sites.",
+  },
+  {
+    question: "Can you help if I only have a rough idea?",
+    answer:
+      "Yes. We can start by tightening the goal, scope, and first version before anything gets built.",
+  },
+  {
+    question: "When does custom work make sense?",
+    answer:
+      "When the site needs to fit a specific workflow, connect tools, handle payments, or feel more considered than a template. If a simple no-code setup is the right answer, I'll say that.",
+  },
+  {
+    question: "What happens after launch?",
+    answer:
+      "I can hand things off cleanly, stay available for post-launch changes, or scope the next round of work if there is more to build.",
+  },
+];
+
 export default function WorkWithMePage() {
+  const [openFaq, setOpenFaq] = useState<string | null>(null);
   const heroRef = useRef<HTMLElement>(null);
   const servicesRef = useRef<HTMLElement>(null);
   const processRef = useRef<HTMLElement>(null);
+  const faqRef = useRef<HTMLElement>(null);
   const proofRef = useRef<HTMLElement>(null);
   const isHeroInView = useInView(heroRef);
   const isServicesInView = useInView(servicesRef);
   const isProcessInView = useInView(processRef);
+  const isFaqInView = useInView(faqRef);
   const isProofInView = useInView(proofRef);
+
+  function toggleFaq(question: string) {
+    setOpenFaq((current) => (current === question ? null : question));
+  }
 
   return (
     <main>
@@ -145,13 +180,70 @@ export default function WorkWithMePage() {
         </div>
       </section>
 
+      <section ref={faqRef} className="relative py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl px-6">
+          <div
+            className={`${scrollRevealClass(isFaqInView)} mb-12 text-center`}
+          >
+            <SectionLabel as="h2">FAQ</SectionLabel>
+            <SectionHeading className="mt-2">What to expect</SectionHeading>
+          </div>
+          <div className="divide-y divide-border">
+            {faqs.map((item, i) => (
+              <div
+                key={item.question}
+                className={`${scrollRevealClass(isFaqInView, Math.min(i * 2, 6) as ScrollRevealDelay)} group py-7`}
+              >
+                <h3 className="font-heading text-lg font-semibold text-foreground">
+                  <button
+                    type="button"
+                    id={`faq-trigger-${i}`}
+                    aria-expanded={openFaq === item.question}
+                    aria-controls={`faq-panel-${i}`}
+                    onClick={() => toggleFaq(item.question)}
+                    className="flex w-full cursor-pointer items-center justify-between gap-6 text-left"
+                  >
+                    <span>{item.question}</span>
+                    <ChevronDown
+                      size={18}
+                      className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
+                        openFaq === item.question ? "rotate-180" : ""
+                      }`}
+                      aria-hidden
+                    />
+                  </button>
+                </h3>
+                <div
+                  id={`faq-panel-${i}`}
+                  role="region"
+                  aria-labelledby={`faq-trigger-${i}`}
+                  aria-hidden={openFaq !== item.question}
+                  className={`grid transition-[grid-template-rows,opacity,margin-top] duration-300 ease-out ${
+                    openFaq === item.question
+                      ? "mt-3 grid-rows-[1fr] opacity-100"
+                      : "mt-0 grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="text-base leading-relaxed text-muted-foreground">
+                      {item.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section ref={proofRef} className="relative py-16 lg:py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <div className={scrollRevealClass(isProofInView)}>
             <SectionLabel as="h2">Proof</SectionLabel>
             <SectionHeading className="mt-2">See the work</SectionHeading>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Browse landing pages and apps I&apos;ve built.
+              Browse websites and apps I&apos;ve built. From polished first
+              impressions to custom web experiences.
             </p>
             <Link
               href="/work"

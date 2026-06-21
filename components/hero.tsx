@@ -28,9 +28,9 @@ export function Hero() {
           <p className="text-xl font-medium leading-relaxed text-muted-foreground sm:text-2xl">
             Engineer by trade.
             <br />
-            <span className="text-foreground">Web developer by practice.</span>
+            <span className="text-foreground">Web developer by craft.</span>
             <br />
-            <span className="text-primary">Builder by obsession.</span>
+            <span className="text-primary">Building with taste and intention.</span>
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
             <Link
