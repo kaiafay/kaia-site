@@ -9,6 +9,7 @@ import { images } from "@/lib/images";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Gallery } from "@/components/gallery";
+import { Now } from "@/components/now";
 import { PersonalStats } from "@/components/stats";
 
 export default function AboutPage() {
@@ -88,6 +89,7 @@ export default function AboutPage() {
         </div>
       </section>
       <PersonalStats />
+      <Now />
       <Gallery />
     </main>
   );

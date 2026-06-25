@@ -1,18 +1,16 @@
 import { Hero } from "@/components/hero"
 import { AboutTeaser } from "@/components/about-teaser"
-import { Projects } from "@/components/projects"
+import { FeaturedWork } from "@/components/featured-work"
 import { FreelanceServices } from "@/components/freelance-services"
-import { Now } from "@/components/now"
 import { Contact } from "@/components/contact"
 
 export default function Home() {
   return (
     <main>
       <Hero />
+      <FeaturedWork />
       <AboutTeaser />
-      <Projects limit={3} heading="What I've Built" />
       <FreelanceServices />
-      <Now />
       <Contact showDirectContact />
     </main>
   )

@@ -201,7 +201,7 @@ export function LandingPages({ headingAs = "h2" }: LandingPagesProps) {
 
         <div className={scrollRevealClass(isInView, 1)}>
           <div
-            className="max-w-[85%] mx-auto overflow-hidden"
+            className="mx-auto max-w-[19rem] overflow-hidden min-[480px]:max-w-xl min-[640px]:max-w-[85%]"
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
           >
@@ -225,30 +225,30 @@ export function LandingPages({ headingAs = "h2" }: LandingPagesProps) {
                     className="landing-preview relative block overflow-hidden"
                   >
                     <div
-                      className="relative block sm:hidden"
+                      className="relative block min-[480px]:hidden"
                       style={{ aspectRatio: MOBILE_RATIO }}
                     >
                       <Image
                         src={site.mobileImage}
                         alt={`${site.name} screenshot`}
                         fill
-                        sizes="85vw"
+                        sizes="304px"
                         className="object-cover object-top"
                       />
                     </div>
                     <div
-                      className="relative hidden sm:block"
+                      className="relative hidden min-[480px]:block"
                       style={{ aspectRatio: DESKTOP_RATIO }}
                     >
                       <Image
                         src={site.desktopImage}
                         alt={`${site.name} screenshot`}
                         fill
-                        sizes="(min-width: 1200px) 939px, 85vw"
+                        sizes="(min-width: 1200px) 939px, (min-width: 640px) 85vw, 576px"
                         className="object-cover object-top"
                       />
                     </div>
-                    <span className="block sm:hidden absolute bottom-3 right-3 rounded bg-black/50 p-1.5">
+                    <span className="absolute bottom-3 right-3 block rounded bg-black/50 p-1.5 min-[480px]:hidden">
                       <ExternalLink
                         size={16}
                         className="text-white"
