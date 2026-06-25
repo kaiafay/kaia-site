@@ -1,7 +1,7 @@
 [
   {
     "name": "Budget Buddy",
-    "description": "A calendar-based budgeting app that shows your running balance every day. Track income, expenses, and daily balances in one clean interface.",
+    "description": "A calendar-based budgeting app that shows your running balance every day. Track income, expenses, and daily cash flow at a glance.",
     "tech": [
       "Next.js",
       "Tailwind CSS",
@@ -24,13 +24,15 @@
     "icon": "LinkIcon"
   },
   {
-    "name": "Something's brewing",
-    "description": "Currently in the build phase. I'm not one for shipping half-baked work. Check back soon.",
+    "name": "Cairn",
+    "description": "A health and performance app for coaches, clients, and dedicated fitness enthusiasts. Manage check-ins, biometrics, routines, and AI insights in one focused dashboard.",
     "tech": [
-      "In progress"
+      "Lovable",
+      "Supabase",
+      "HealthKit"
     ],
     "github": "https://github.com/kaiafay",
-    "live": null,
-    "icon": "Coffee"
+    "live": "https://cairn-checkin.lovable.app",
+    "icon": "Dumbbell"
   }
 ]

@@ -23,8 +23,23 @@ const MOBILE_RATIO = "1206 / 1990";
 
 const SITES: SiteEntry[] = [
   {
+    name: "RichM Co.",
+    description:
+      "Coaching and consulting website with a guided intake flow for prospective clients",
+    url: "https://richm-website.vercel.app/",
+    desktopImage: "/images/work/richm.webp",
+    mobileImage: "/images/work/richm-mobile.webp",
+  },
+  {
+    name: "Dewy Club",
+    description: "E-commerce storefront for a skincare brand with Stripe integration",
+    url: "https://dewy-club.vercel.app/",
+    desktopImage: "/images/work/dewy-club.webp",
+    mobileImage: "/images/work/dewy-club-mobile.webp",
+  },
+  {
     name: "Wedding RSVP",
-    description: "Personal RSVP site built for my own wedding",
+    description: "Wedding RSVP site with an admin dashboard for guests and responses",
     url: "https://wedding-website-two-gray.vercel.app/",
     desktopImage: "/images/work/wedding-rsvp.webp",
     mobileImage: "/images/work/wedding-rsvp-mobile.webp",
@@ -35,20 +50,6 @@ const SITES: SiteEntry[] = [
     url: "https://driftwood-coffee-nine.vercel.app/",
     desktopImage: "/images/work/driftwood-coffee.webp",
     mobileImage: "/images/work/driftwood-coffee-mobile.webp",
-  },
-  {
-    name: "Drew Callahan",
-    description: "Website for a personal trainer",
-    url: "https://drew-callahan.vercel.app/",
-    desktopImage: "/images/work/drew-callahan.webp",
-    mobileImage: "/images/work/drew-callahan-mobile.webp",
-  },
-  {
-    name: "Dewy Club",
-    description: "E-commerce storefront for a skincare brand",
-    url: "https://dewy-club.vercel.app/",
-    desktopImage: "/images/work/dewy-club.webp",
-    mobileImage: "/images/work/dewy-club-mobile.webp",
   },
 ];
 
