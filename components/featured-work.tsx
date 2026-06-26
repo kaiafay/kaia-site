@@ -74,7 +74,7 @@ export function FeaturedWork() {
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Featured Work</SectionLabel>
           <SectionHeading className="mt-2">
-            Websites, apps, and custom builds
+            Websites & apps
           </SectionHeading>
         </div>
 

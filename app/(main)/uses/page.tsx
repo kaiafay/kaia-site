@@ -60,7 +60,7 @@ export default function UsesPage() {
         <div className="mx-auto max-w-3xl px-6">
           <div className={`${scrollRevealClass(isInView)} mb-16`}>
             <SectionLabel>Uses</SectionLabel>
-            <SectionHeading as="h1" className="mt-2">The Setup</SectionHeading>
+            <SectionHeading as="h1" className="mt-2">The setup</SectionHeading>
             <p className="mt-4 text-sm italic text-muted-foreground">
               Tools, gear, and apps that have earned a regular place in my day.
             </p>

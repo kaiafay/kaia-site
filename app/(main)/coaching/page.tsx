@@ -78,7 +78,7 @@ export default function CoachingPage() {
             <div className="flex flex-col justify-center py-4 lg:py-0">
               <SectionLabel>My Approach</SectionLabel>
               <SectionHeading as="h2" className="mt-2">
-                No cookie-cutter programs.
+                No cookie-cutter programs
               </SectionHeading>
               <div className="mt-6 flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
                 <p>

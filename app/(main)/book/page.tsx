@@ -9,7 +9,7 @@ export default function BookPage() {
         <div className="mx-auto max-w-3xl px-6 text-center">
           <SectionLabel>Discovery Call</SectionLabel>
           <SectionHeading as="h1" className="mt-2">
-            Book a 30-minute discovery call.
+            Book a 30-minute discovery call
           </SectionHeading>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Pick a time to talk through your website, app, or project inquiry.

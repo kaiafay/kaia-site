@@ -146,7 +146,10 @@ export default function WorkWithMePage() {
   const faqRef = useRef<HTMLElement>(null);
   const proofRef = useRef<HTMLElement>(null);
   const isHeroInView = useInView(heroRef);
-  const isServicesInView = useInView(servicesRef);
+  const isServicesInView = useInView(servicesRef, {
+    threshold: 0.01,
+    rootMargin: "0px 0px 80px 0px",
+  });
   const isProcessInView = useInView(processRef);
   const isFaqInView = useInView(faqRef);
   const isProofInView = useInView(proofRef);
@@ -162,7 +165,7 @@ export default function WorkWithMePage() {
           <div className={scrollRevealClass(isHeroInView)}>
             <SectionLabel>Work With Me</SectionLabel>
             <SectionHeading as="h1" className="mt-2">
-              Web work built with care.
+              Web work built with care
             </SectionHeading>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
               I build clean, fast, intentional web experiences that help your
@@ -376,7 +379,7 @@ export default function WorkWithMePage() {
 
       <Contact
         label="Project Inquiry"
-        heading="Tell me what you're building."
+        heading="Tell me what you're building"
         description="Share the project details and I'll follow up with next steps."
         showSocialLinks={false}
         showBudget={true}

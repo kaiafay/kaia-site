@@ -30,7 +30,7 @@ export function Now() {
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Now</SectionLabel>
           <SectionHeading className="mt-2">
-            What I&apos;m Focused On
+            What I&apos;m focused on
           </SectionHeading>
         </div>
 
