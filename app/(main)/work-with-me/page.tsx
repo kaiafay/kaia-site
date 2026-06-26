@@ -11,21 +11,87 @@ import { Contact } from "@/components/contact";
 
 const services = [
   {
-    title: "Landing Pages",
-    description: "One page. Clear message. Built to convert.",
-    price: "From $600, delivered in two weeks.",
+    category: "Websites",
+    description:
+      "For businesses and personal brands that need a polished web presence without an overbuilt process.",
+    offerings: [
+      {
+        title: "Single-Page Website",
+        description:
+          "A focused page for a clear offer, service, portfolio, or campaign.",
+        detail: "From $600",
+        interest: "Landing Page",
+      },
+      {
+        title: "Multi-Page Website",
+        description:
+          "A fuller site with the core pages your audience needs to understand and trust the business.",
+        detail: "From $1,200",
+        interest: "Custom Project",
+      },
+    ],
   },
   {
-    title: "Custom Web Apps",
-    description: "Apps, tools, or anything more complex.",
-    price: "Scoped per project.",
+    category: "Custom Builds",
+    description:
+      "For projects that need workflow, logic, or integrations beyond a standard website.",
+    offerings: [
+      {
+        title: "Forms & Intake Flows",
+        description:
+          "Guided forms, applications, onboarding flows, and lead capture experiences.",
+        detail: "From $800",
+        interest: "Custom Project",
+      },
+      {
+        title: "Dashboards & Admin Tools",
+        description:
+          "Private views for managing submissions, customers, content, or internal processes.",
+        detail: "From $2,000",
+        interest: "Custom Project",
+      },
+      {
+        title: "Payments & Integrations",
+        description:
+          "Checkout flows, booking tools, database-backed features, and third-party API connections.",
+        detail: "From $1,500",
+        interest: "Custom Project",
+      },
+    ],
   },
   {
-    title: "Dev Support",
-    description: "Post-launch updates, bug fixes, and ongoing changes.",
-    price: "$100/hr, no retainer.",
+    category: "Dev Support",
+    description:
+      "For existing sites that need steady technical attention, iteration, or a developer available after launch.",
+    offerings: [
+      {
+        title: "Hourly Support",
+        description:
+          "Focused updates, refinements, content changes, and technical improvements as needed.",
+        detail: "$100/hr",
+        interest: "Dev Support",
+      },
+      {
+        title: "Monthly Support",
+        description:
+          "A recurring support window for businesses that want ongoing changes and light maintenance.",
+        detail: "From $200/mo",
+        interest: "Dev Support",
+      },
+      {
+        title: "Post-Launch Iteration",
+        description:
+          "Continue improving a recently launched project without turning it into a full rebuild.",
+        detail: "From $500",
+        interest: "Dev Support",
+      },
+    ],
   },
 ];
+
+function contactHref(interest: string) {
+  return `/work-with-me?interest=${encodeURIComponent(interest)}#contact`;
+}
 
 const processSteps = [
   {
@@ -53,7 +119,7 @@ const faqs = [
   {
     question: "What kind of work do you take on?",
     answer:
-      "Landing pages, small business websites, custom web apps, and focused dev support for existing sites.",
+      "Single-page websites, multi-page sites, custom web builds, and focused dev support for existing sites.",
   },
   {
     question: "Can you help if I only have a rough idea?",
@@ -68,7 +134,7 @@ const faqs = [
   {
     question: "What happens after launch?",
     answer:
-      "I can hand things off cleanly, stay available for post-launch changes, or scope the next round of work if there is more to build.",
+      "I can hand things off cleanly, stay available for hourly or monthly support, or scope the next round of work if there is more to build.",
   },
 ];
 
@@ -125,26 +191,78 @@ export default function WorkWithMePage() {
           <div
             className={`${scrollRevealClass(isServicesInView)} mb-12 text-center`}
           >
-            <SectionLabel as="h2">Services</SectionLabel>
-            <SectionHeading className="mt-2">How I can help</SectionHeading>
+            <SectionLabel as="h2">What I Build</SectionLabel>
+            <SectionHeading className="mt-2">Services & Offerings</SectionHeading>
           </div>
-          <div className="grid gap-10 md:grid-cols-3 md:gap-12">
-            {services.map((service, i) => (
+          <div className="flex flex-col gap-14">
+            {services.map((group, groupIndex) => (
               <div
-                key={service.title}
-                className={`${scrollRevealClass(isServicesInView, Math.min(i * 2, 6) as ScrollRevealDelay)} relative flex flex-col pl-5 before:absolute before:top-0 before:bottom-0 before:left-0 before:w-[18px] freelance-border before:content-[''] md:pl-0 md:before:hidden ${i > 0 ? "md:border-l md:border-border md:pl-10" : ""}`}
+                key={group.category}
+                className={scrollRevealClass(
+                  isServicesInView,
+                  Math.min(groupIndex * 2, 6) as ScrollRevealDelay,
+                )}
               >
-                <h3 className="font-heading text-2xl font-semibold text-foreground">
-                  {service.title}
-                </h3>
-                <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                  {service.description}
-                </p>
-                <p className="mt-auto pt-4 text-sm font-medium text-foreground">
-                  {service.price}
-                </p>
+                <div className="grid gap-6 border-t border-border pt-8 lg:grid-cols-[0.55fr_1.45fr] lg:gap-12">
+                  <div>
+                    <h3 className="font-heading text-2xl font-semibold text-foreground">
+                      {group.category}
+                    </h3>
+                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                      {group.description}
+                    </p>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                    {group.offerings.map((offering) => (
+                      <Link
+                        key={offering.title}
+                        href={contactHref(offering.interest)}
+                        onClick={() => {
+                          window.dispatchEvent(
+                            new CustomEvent("contact-interest-change", {
+                              detail: offering.interest,
+                            }),
+                          );
+                        }}
+                        className="group flex min-h-[12.75rem] flex-col rounded-lg border border-border/70 bg-card/55 p-6 outline-none transition-all duration-200 ease-out hover:border-primary/35 hover:bg-secondary/70 focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+                      >
+                        <h4 className="font-heading text-lg font-semibold text-foreground">
+                          {offering.title === "Dashboards & Admin Tools" ? (
+                            <>
+                              Dashboards &<br className="hidden xl:block" />
+                              <span className="xl:hidden"> </span>Admin Tools
+                            </>
+                          ) : (
+                            offering.title
+                          )}
+                        </h4>
+                        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                          {offering.description}
+                        </p>
+                        <p className="mt-auto pt-6 text-sm font-medium text-foreground">
+                          {offering.detail}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               </div>
             ))}
+          </div>
+          <div
+            className={`${scrollRevealClass(isServicesInView, 6)} mt-12 border-t border-border pt-8 text-center`}
+          >
+            <Link
+              href="#contact"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+            >
+              Start a project inquiry
+              <ArrowRight
+                size={15}
+                className="transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1"
+              />
+            </Link>
           </div>
         </div>
       </section>

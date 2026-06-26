@@ -112,7 +112,7 @@ interface ContactProps {
 
 export function Contact({
   label = "Contact",
-  heading = "Let's Connect",
+  heading = "Have a question?",
   description,
   showSocialLinks = true,
   showBudget = false,
@@ -178,10 +178,27 @@ export function Contact({
   };
 
   useEffect(() => {
-    const value = new URLSearchParams(window.location.search).get("interest");
-    if (!isValidInterest(value)) return;
-    setInterest(value);
-    clearFieldError("interest");
+    function applyInterest(value: string | null) {
+      if (!isValidInterest(value)) return;
+      setInterest(value);
+      clearFieldError("interest");
+    }
+
+    applyInterest(new URLSearchParams(window.location.search).get("interest"));
+
+    function handleInterestChange(event: Event) {
+      if (!(event instanceof CustomEvent)) return;
+      applyInterest(event.detail);
+    }
+
+    window.addEventListener("contact-interest-change", handleInterestChange);
+
+    return () => {
+      window.removeEventListener(
+        "contact-interest-change",
+        handleInterestChange,
+      );
+    };
   }, []);
 
   const validate = (): boolean => {

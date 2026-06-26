@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <FeaturedWork />
       <AboutTeaser />
+      <FeaturedWork />
       <FreelanceServices />
       <Contact showDirectContact />
     </main>

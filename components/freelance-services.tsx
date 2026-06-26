@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { Layout, Code2, Wrench } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -10,37 +10,21 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 const services = [
   {
-    icon: Layout,
     title: "Landing Pages",
     description:
-      "A clean, fast, one-page website for your business. Fixed scope, flat rate. Live in two weeks.",
-    badge: "From $600",
-    interest: "Landing Page",
-    cta: "Start a landing page",
+      "Polished single-page websites for small businesses, personal brands, portfolios, services, and focused offers.",
   },
   {
-    icon: Code2,
-    title: "Custom Web Apps",
+    title: "Custom Web Builds",
     description:
-      "Full-stack builds scoped to your project. Next.js, Supabase, and clean code you can actually maintain.",
-    badge: "Scoped per project",
-    interest: "Custom Project",
-    cta: "Scope an app",
+      "More involved websites and app-like workflows with forms, payments, dashboards, or integrations.",
   },
   {
-    icon: Wrench,
     title: "Dev Support",
     description:
-      "Post-launch updates, bug fixes, and ongoing changes. No retainer required.",
-    badge: "$100/hr",
-    interest: "Dev Support",
-    cta: "Book support",
+      "Ongoing or hourly support for updates, refinements, and post-launch improvements.",
   },
 ];
-
-function contactHref(interest: string) {
-  return `/work-with-me?interest=${encodeURIComponent(interest)}#contact`;
-}
 
 export function FreelanceServices() {
   const ref = useRef<HTMLElement>(null);
@@ -58,29 +42,33 @@ export function FreelanceServices() {
           <SectionHeading className="mt-2">How I Can Help</SectionHeading>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-10 md:grid-cols-3 md:gap-12">
           {services.map((service, i) => (
             <div
               key={service.title}
-              className={`${scrollRevealClass(isInView, i === 0 ? 0 : i === 1 ? 3 : 6)} group flex flex-col gap-4 rounded-lg border border-border bg-card p-8 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-primary/50 md:p-6 lg:p-8 card-hover-glow`}
+              className={`${scrollRevealClass(isInView, i === 0 ? 0 : i === 1 ? 3 : 6)} relative flex flex-col pl-5 before:absolute before:top-0 before:bottom-0 before:left-0 before:w-[18px] freelance-border before:content-[''] md:pl-0 md:before:hidden ${i > 0 ? "md:border-l md:border-border md:pl-10" : ""}`}
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-primary/30 bg-primary/10">
-                <service.icon size={24} className="text-primary" />
-              </div>
-              <h4 className="font-heading text-xl font-semibold text-card-foreground">
+              <h3 className="font-heading text-2xl font-semibold text-foreground">
                 {service.title}
-              </h4>
-              <p className="text-sm leading-relaxed text-muted-foreground">
+              </h3>
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
                 {service.description}
               </p>
-              <Link
-                href={contactHref(service.interest)}
-                className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
-              >
-                {service.cta} →
-              </Link>
             </div>
           ))}
+        </div>
+
+        <div className={`${scrollRevealClass(isInView, 6)} mt-12 text-center`}>
+          <Link
+            href="/work-with-me#contact"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+          >
+            Start a project inquiry
+            <ArrowRight
+              size={16}
+              className="transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1"
+            />
+          </Link>
         </div>
       </div>
     </section>
