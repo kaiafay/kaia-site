@@ -61,9 +61,22 @@ export function Nav() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link
             href="/"
-            className="text-xl font-bold tracking-tight text-foreground transition-colors hover:text-primary font-heading"
+            className="flex items-center text-foreground transition-colors hover:text-primary"
+            aria-label="Kaia home"
           >
-            Kaia
+            {/* Display master path from public/images/logo-kf.svg (not the favicon optical variant). */}
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 438 352"
+              className="h-6 w-[30px] fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M68 158.949L208.5 0H437.368V60H242.376Q238.876 60 236.5445 62.6105L225 75.5361V147H428.868V207.5H284.868V351.5H216Q212.5 351.5 210.2629 348.8082L68 177.626V351.5H0V0H68V158.949ZM141.409 167.713L225 271.896V75.5361L141.409 167.713Z"
+              />
+            </svg>
           </Link>
 
           {/* Desktop nav */}

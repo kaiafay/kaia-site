@@ -1,0 +1,4 @@
+<!-- Display master (large rendering). Favicons use icon-*-scheme.svg — a separate optical-size variant. -->
+<svg width="438" height="352" viewBox="0 0 438 352" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M68 158.949L208.5 0H437.368V60H242.376Q238.876 60 236.5445 62.6105L225 75.5361V147H428.868V207.5H284.868V351.5H216Q212.5 351.5 210.2629 348.8082L68 177.626V351.5H0V0H68V158.949ZM141.409 167.713L225 271.896V75.5361L141.409 167.713Z" fill="#F5F0EB"/>
+</svg>

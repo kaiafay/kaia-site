@@ -1,4 +1,4 @@
-import { Github, Heart, Instagram, Linkedin, Mail, Phone } from "lucide-react";
+import { Github, Instagram, Linkedin, Mail, Phone } from "lucide-react";
 import {
   FOOTER_CONTACT_LINKS,
   type ContactLinkKind,
@@ -38,15 +38,6 @@ export function Footer() {
             })}
           </div>
           <p>© 2026 Kaia. All rights reserved.</p>
-          <p>
-            Built with love{" "}
-            <Heart
-              size={12}
-              fill="currentColor"
-              className="inline-block shrink-0 -translate-y-px align-middle text-muted-foreground"
-              aria-hidden
-            />
-          </p>
         </div>
       </div>
     </footer>

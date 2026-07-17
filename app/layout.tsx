@@ -34,7 +34,7 @@ export const metadata: Metadata = {
       "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image-v2.jpg",
         width: 1200,
         height: 630,
         alt: "Kaia Fay — Web Developer & Engineer",
@@ -46,10 +46,21 @@ export const metadata: Metadata = {
     title: "Kaia Fay | Web Developer & Engineer",
     description:
       "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image-v2.jpg"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      {
+        url: "/icon-light-scheme.svg",
+        type: "image/svg+xml",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-dark-scheme.svg",
+        type: "image/svg+xml",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
     apple: "/apple-icon.png",
   },
 };
