@@ -40,7 +40,7 @@ const SITES: SiteEntry[] = [
   {
     name: "Wedding RSVP",
     description: "Wedding RSVP site with an admin dashboard for guests and responses",
-    url: "https://wedding-website-two-gray.vercel.app/",
+    url: "https://kaiaandrichard.vercel.app/",
     desktopImage: "/images/work/wedding-rsvp.webp",
     mobileImage: "/images/work/wedding-rsvp-mobile.webp",
   },
