@@ -67,7 +67,7 @@ function IconLinks({ compact = false }: { compact?: boolean }) {
             className={
               compact
                 ? "text-muted-foreground transition-colors duration-200 hover:text-foreground"
-                : "group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary-soft"
+                : "group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
             }
             aria-label={label}
           >
@@ -76,7 +76,7 @@ function IconLinks({ compact = false }: { compact?: boolean }) {
               className={
                 compact
                   ? undefined
-                  : "shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary-soft"
+                  : "shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary"
               }
               aria-hidden
             />
@@ -154,12 +154,12 @@ export function Contact({
             tabIndex={linkTabIndex}
             target={href.startsWith("http") ? "_blank" : undefined}
             rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-            className="group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary-soft"
+            className="group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-all duration-200 hover:border-primary/50 hover:text-primary"
             aria-label={label}
           >
             <Icon
               size={18}
-              className="shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary-soft"
+              className="shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary"
               aria-hidden
             />
             <span className="break-all">{text}</span>
@@ -326,11 +326,7 @@ export function Contact({
             {status === "success" ? (
               <div className="w-full rounded-lg border border-primary/30 bg-primary/5 p-8 text-center">
                 <p className="text-lg font-medium text-foreground">
-                  Thanks! Your message is on its way.
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  I read every message myself and reply personally, usually
-                  within a business day.
+                  Thanks! I&apos;ll be in touch soon.
                 </p>
               </div>
             ) : (
@@ -374,7 +370,7 @@ export function Contact({
                         className={inputClass(!!fieldErrors.name)}
                       />
                       {fieldErrors.name && (
-                        <p className="text-sm text-primary-soft/90" role="alert">
+                        <p className="text-sm text-primary/90" role="alert">
                           {fieldErrors.name}
                         </p>
                       )}
@@ -400,7 +396,7 @@ export function Contact({
                         className={inputClass(!!fieldErrors.email)}
                       />
                       {fieldErrors.email && (
-                        <p className="text-sm text-primary-soft/90" role="alert">
+                        <p className="text-sm text-primary/90" role="alert">
                           {fieldErrors.email}
                         </p>
                       )}
@@ -428,7 +424,7 @@ export function Contact({
                         hasError={!!fieldErrors.interest}
                       />
                       {fieldErrors.interest && (
-                        <p className="text-sm text-primary-soft/90" role="alert">
+                        <p className="text-sm text-primary/90" role="alert">
                           {fieldErrors.interest}
                         </p>
                       )}
@@ -505,7 +501,7 @@ export function Contact({
                       className={inputClass(!!fieldErrors.websiteUrl)}
                     />
                     {fieldErrors.websiteUrl && (
-                      <p className="text-sm text-primary-soft/90" role="alert">
+                      <p className="text-sm text-primary/90" role="alert">
                         {fieldErrors.websiteUrl}
                       </p>
                     )}
@@ -534,7 +530,7 @@ export function Contact({
                       )}
                     />
                     {fieldErrors.projectDescription && (
-                      <p className="text-sm text-primary-soft/90" role="alert">
+                      <p className="text-sm text-primary/90" role="alert">
                         {fieldErrors.projectDescription}
                       </p>
                     )}
@@ -583,7 +579,7 @@ export function Contact({
                       className={inputClass(!!fieldErrors.name)}
                     />
                     {fieldErrors.name && (
-                      <p className="text-sm text-primary-soft/90" role="alert">
+                      <p className="text-sm text-primary/90" role="alert">
                         {fieldErrors.name}
                       </p>
                     )}
@@ -609,7 +605,7 @@ export function Contact({
                       className={inputClass(!!fieldErrors.email)}
                     />
                     {fieldErrors.email && (
-                      <p className="text-sm text-primary-soft/90" role="alert">
+                      <p className="text-sm text-primary/90" role="alert">
                         {fieldErrors.email}
                       </p>
                     )}
@@ -635,7 +631,7 @@ export function Contact({
                       hasError={!!fieldErrors.interest}
                     />
                     {fieldErrors.interest && (
-                      <p className="text-sm text-primary-soft/90" role="alert">
+                      <p className="text-sm text-primary/90" role="alert">
                         {fieldErrors.interest}
                       </p>
                     )}
@@ -687,7 +683,7 @@ export function Contact({
                       )}
                     />
                     {fieldErrors.message && (
-                      <p className="text-sm text-primary-soft/90" role="alert">
+                      <p className="text-sm text-primary/90" role="alert">
                         {fieldErrors.message}
                       </p>
                     )}
@@ -710,7 +706,7 @@ export function Contact({
                 ) : showProjectFields ? (
                   "Send project inquiry"
                 ) : (
-                  "Send Message"
+                  "Send message"
                 )}
               </button>
 

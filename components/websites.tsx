@@ -40,7 +40,7 @@ const SITES: SiteEntry[] = [
   {
     name: "Wedding RSVP",
     description:
-      "Built for my own wedding. RSVP flow plus an admin dashboard for guests and responses.",
+      "Wedding RSVP site with an admin dashboard for guests and responses.",
     url: "https://kaiaandrichard.vercel.app/",
     desktopImage: "/images/work/wedding-rsvp.webp",
     mobileImage: "/images/work/wedding-rsvp-mobile.webp",
@@ -82,12 +82,8 @@ export function Websites({ headingAs = "h2" }: WebsitesProps) {
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel>Websites</SectionLabel>
           <SectionHeading as={headingAs} className="mt-2">
-            Sites built from scratch
+            Custom sites
           </SectionHeading>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Every one of these is live. Click through and look around, on your
-            phone too.
-          </p>
         </div>
 
         <div className="grid gap-10 sm:grid-cols-2">
@@ -106,13 +102,13 @@ export function Websites({ headingAs = "h2" }: WebsitesProps) {
                 aria-label={`Visit the ${site.name} live site`}
                 className="landing-preview group relative block overflow-hidden rounded-lg border border-border bg-secondary"
               >
-                <div className="relative aspect-[16/10]">
+                <div className="relative aspect-[91/50]">
                   <Image
                     src={site.desktopImage}
                     alt={`${site.name} screenshot`}
                     fill
                     sizes="(min-width: 1200px) 560px, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover object-top"
+                    className="object-contain object-top"
                   />
                 </div>
                 <span className="absolute bottom-3 right-3 block rounded bg-black/50 p-1.5 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100">

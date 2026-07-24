@@ -24,13 +24,9 @@ export function AboutTeaser() {
             I build websites and web apps for clients, alongside my own
             products.
           </p>
-          <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
-            When you hire me, you work with me directly. No agency, no
-            hand-offs.
-          </p>
           <Link
             href="/about"
-            className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors"
           >
             Read my story <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1">→</span>
           </Link>

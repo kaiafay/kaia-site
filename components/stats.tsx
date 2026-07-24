@@ -165,23 +165,23 @@ export function PersonalStats() {
             className={`${scrollRevealClass(isInView, 0)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-card`}
           >
             <div className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-0.5 text-base sm:text-lg md:flex-nowrap md:whitespace-nowrap md:text-2xl">
-              <span className="font-heading font-bold tabular-nums text-primary-soft">
+              <span className="font-heading font-bold tabular-nums text-primary">
                 {ageUnits.years}
               </span>
               <span className="text-xs text-muted-foreground">y</span>
-              <span className="font-heading font-bold tabular-nums text-primary-soft">
+              <span className="font-heading font-bold tabular-nums text-primary">
                 {ageUnits.days}
               </span>
               <span className="text-xs text-muted-foreground">d</span>
-              <span className="font-heading font-bold tabular-nums text-primary-soft">
+              <span className="font-heading font-bold tabular-nums text-primary">
                 {ageUnits.hours}
               </span>
               <span className="text-xs text-muted-foreground">h</span>
-              <span className="font-heading font-bold tabular-nums text-primary-soft">
+              <span className="font-heading font-bold tabular-nums text-primary">
                 {ageUnits.minutes}
               </span>
               <span className="text-xs text-muted-foreground">m</span>
-              <span className="font-heading font-bold tabular-nums text-primary-soft">
+              <span className="font-heading font-bold tabular-nums text-primary">
                 {String(ageUnits.seconds).padStart(2, "0")}
               </span>
               <span className="text-xs text-muted-foreground">s</span>
@@ -192,7 +192,7 @@ export function PersonalStats() {
           <div
             className={`${scrollRevealClass(isInView, 2)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-card`}
           >
-            <span className="font-heading text-3xl font-bold tabular-nums text-primary-soft">
+            <span className="font-heading text-3xl font-bold tabular-nums text-primary">
               {booksRead}
             </span>
             <StatLabel>books read</StatLabel>
@@ -201,7 +201,7 @@ export function PersonalStats() {
           <div
             className={`${scrollRevealClass(isInView, 4)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[var(--surface-elevated)]`}
           >
-            <span className="font-heading text-3xl font-bold tabular-nums text-primary-soft">
+            <span className="font-heading text-3xl font-bold tabular-nums text-primary">
               {energyDrinks}
             </span>
             <StatLabel>energy drinks consumed</StatLabel>
@@ -210,7 +210,7 @@ export function PersonalStats() {
           <div
             className={`${scrollRevealClass(isInView, 6)} ${cardBase} ${edgeGlow} ${edgeGlowHover} bg-[var(--surface-elevated)]`}
           >
-            <span className="font-heading text-3xl font-bold tabular-nums text-primary-soft">
+            <span className="font-heading text-3xl font-bold tabular-nums text-primary">
               {hoursCoded}
             </span>
             <StatLabel>hours coded</StatLabel>

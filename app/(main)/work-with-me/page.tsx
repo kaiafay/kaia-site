@@ -15,7 +15,7 @@ const services = [
   {
     category: "Websites",
     description:
-      "For businesses and personal brands that need a professional web presence without an overbuilt process.",
+      "For businesses and personal brands that need a polished web presence without an overbuilt process.",
     offerings: [
       {
         title: "Single-Page Website",
@@ -36,7 +36,7 @@ const services = [
   {
     category: "Custom Builds",
     description:
-      "For businesses whose site has a job to do: bookings, payments, applications, or admin work.",
+      "For businesses that need bookings, payments, applications, or other functionality beyond a standard website.",
     offerings: [
       {
         title: "Forms & Intake Flows",
@@ -62,7 +62,7 @@ const services = [
     ],
   },
   {
-    category: "Dev Support",
+    category: "Ongoing Support",
     description:
       "For existing sites that need steady technical attention, iteration, or a developer available after launch.",
     offerings: [
@@ -108,54 +108,25 @@ const processSteps = [
   },
   {
     title: "Launch",
-    description:
-      "Your site goes live once we've reviewed it together. I don't ship anything I'm not proud of.",
-  },
-];
-
-const afterSteps = [
-  {
-    title: "I reply personally",
-    description:
-      "Every inquiry comes straight to me, usually within a business day.",
-  },
-  {
-    title: "We talk it through",
-    description:
-      "A short call or a few emails, whichever you prefer. No pressure and no jargon.",
-  },
-  {
-    title: "You get a written proposal",
-    description:
-      "Clear scope, a fixed price, and a timeline, so you know exactly what you're saying yes to.",
+    description: "You get something polished, purposeful, and ready to represent you.",
   },
 ];
 
 const faqs = [
   {
-    question: "Who is this for?",
-    answer:
-      "Small businesses and independent pros, mostly people who run the whole thing themselves: lash artists, contractors, photographers, coaches, studios, and small teams. Most of my work is in the Treasure Valley, and I work remotely too.",
-  },
-  {
-    question: "What kind of work do you take on?",
-    answer:
-      "Single-page websites, multi-page sites, custom web builds, and focused dev support for existing sites.",
-  },
-  {
     question: "Can you help if I only have a rough idea?",
     answer:
-      "Yes. We can start by tightening the goal, scope, and first version before anything gets built.",
+      "Yes. We can start by clarifying what the site needs to do and what belongs in the first version.",
   },
   {
     question: "When does custom work make sense?",
     answer:
-      "When the site needs to fit a specific workflow, connect tools, handle payments, or look like your business instead of a template. If a simple no-code setup is the right answer, I'll say that.",
+      "When your site needs to support bookings, payments, intake, or a process that off-the-shelf tools don't fit—or when you want something shaped around your business without having to piece it together yourself. If a simpler option would serve you better, I'll say so.",
   },
   {
     question: "What happens after launch?",
     answer:
-      "I can hand things off cleanly, stay available for hourly or monthly support, or scope the next round of work if there is more to build.",
+      "I can hand the project off cleanly or stay available for hourly or monthly support, depending on what you need.",
   },
 ];
 
@@ -165,9 +136,8 @@ export default function WorkWithMePage() {
   const servicesRef = useRef<HTMLElement>(null);
   const personRef = useRef<HTMLElement>(null);
   const processRef = useRef<HTMLElement>(null);
-  const customRef = useRef<HTMLElement>(null);
   const faqRef = useRef<HTMLElement>(null);
-  const afterRef = useRef<HTMLElement>(null);
+  const proofRef = useRef<HTMLElement>(null);
   const isHeroInView = useInView(heroRef);
   const isServicesInView = useInView(servicesRef, {
     threshold: 0.01,
@@ -175,9 +145,8 @@ export default function WorkWithMePage() {
   });
   const isPersonInView = useInView(personRef);
   const isProcessInView = useInView(processRef);
-  const isCustomInView = useInView(customRef);
   const isFaqInView = useInView(faqRef);
-  const isAfterInView = useInView(afterRef);
+  const isProofInView = useInView(proofRef);
 
   function toggleFaq(question: string) {
     setOpenFaq((current) => (current === question ? null : question));
@@ -193,10 +162,8 @@ export default function WorkWithMePage() {
               A website built around your business
             </SectionHeading>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              I design and build custom websites and web apps for small
-              businesses and independent pros in the Treasure Valley and
-              beyond. One project at a time, working directly with you from
-              first message to launch.
+              I build custom websites and web apps that help small businesses
+              make a better first impression.
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
               <Link
@@ -207,7 +174,7 @@ export default function WorkWithMePage() {
               </Link>
               <a
                 href="/#contact"
-                className="inline-flex items-center justify-center gap-2 px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary-soft sm:min-w-[10.25rem] sm:rounded-lg sm:border sm:border-border sm:bg-background sm:px-5 sm:py-3 sm:text-foreground sm:transition-all sm:duration-200 sm:hover:border-primary/50"
+                className="inline-flex items-center justify-center gap-2 px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:min-w-[10.25rem] sm:rounded-lg sm:border sm:border-border sm:bg-background sm:px-5 sm:py-3 sm:text-foreground sm:transition-all sm:duration-200 sm:hover:border-primary/50"
               >
                 Send a message
               </a>
@@ -285,7 +252,7 @@ export default function WorkWithMePage() {
           >
             <Link
               href="#contact"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
             >
               Start a project
               <ArrowRight
@@ -305,7 +272,7 @@ export default function WorkWithMePage() {
             <div className="relative h-56 w-44 shrink-0 overflow-hidden rounded-lg sm:h-64 sm:w-52">
               <Image
                 src={images.about}
-                alt="Kaia Fay, web developer in Boise, Idaho"
+                alt="Kaia Fay"
                 fill
                 className="object-cover object-top"
                 sizes="(max-width: 640px) 176px, 208px"
@@ -317,22 +284,22 @@ export default function WorkWithMePage() {
                   Who you&apos;re working with
                 </SectionLabel>
                 <SectionHeading className="mt-2">
-                  One developer, start to finish
+                  Hi, I&apos;m Kaia.
                 </SectionHeading>
               </div>
               <p className="text-base leading-relaxed text-muted-foreground">
-                I&apos;m Kaia. Software engineer by trade, and the only person
-                who touches your project. I spent years in service jobs before
-                teaching myself to code, so I know what it&apos;s like to be
-                the person doing everything. I build accordingly. Based in
-                Boise, working with businesses across the Treasure Valley and
-                remotely.
+                I&apos;m a software engineer and web developer. Before I
+                learned to code, I spent years in service jobs, so I know what
+                it&apos;s like to be the person handling everything. When we
+                work together, you&apos;ll work directly with me from the first
+                conversation through launch. I&apos;m based in Boise and work
+                with businesses locally and remotely.
               </p>
               <Link
-                href="/work"
-                className="group inline-flex items-center justify-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80 sm:justify-start"
+                href="/about"
+                className="group inline-flex items-center justify-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80 sm:justify-start"
               >
-                See the work
+                More about me
                 <ArrowRight
                   size={15}
                   className="transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1"
@@ -370,39 +337,6 @@ export default function WorkWithMePage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section ref={customRef} className="relative py-16 lg:py-24">
-        <div className="mx-auto max-w-3xl px-6">
-          <div className={scrollRevealClass(isCustomInView)}>
-            <div className="mb-8 text-center">
-              <SectionLabel as="h2">An honest note</SectionLabel>
-              <SectionHeading className="mt-2">
-                Do you actually need custom work?
-              </SectionHeading>
-            </div>
-            <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
-              <p>
-                Sometimes no. If you need one page with your hours, your
-                prices, and a phone number, Squarespace or Wix can be enough.
-                If that&apos;s your situation, I&apos;ll tell you.
-              </p>
-              <p>
-                Custom work earns its cost when the website has a job to do.
-                When clients should be able to book, pay, or fill out an intake
-                form without texting you first. When the template look
-                doesn&apos;t match work you&apos;ve spent years getting right.
-                Or when you&apos;d rather hand the whole thing to one person
-                than learn a website builder on your nights off.
-              </p>
-              <p>
-                You own everything I build, code included. Nothing is locked
-                inside a platform, and if we part ways after launch, it&apos;s
-                still yours.
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -463,42 +397,28 @@ export default function WorkWithMePage() {
         </div>
       </section>
 
-      <section ref={afterRef} className="relative py-16 lg:py-24">
-        <div className="mx-auto max-w-3xl px-6">
-          <div
-            className={`${scrollRevealClass(isAfterInView)} mb-12 text-center`}
-          >
-            <SectionLabel as="h2">After you reach out</SectionLabel>
-            <SectionHeading className="mt-2">What happens next</SectionHeading>
+      <section ref={proofRef} className="relative py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <div className={scrollRevealClass(isProofInView)}>
+            <SectionLabel as="h2">Proof</SectionLabel>
+            <SectionHeading className="mt-2">
+              See what I&apos;ve built
+            </SectionHeading>
+            <Link
+              href="/work"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+            >
+              Browse my work
+              <ArrowRight size={16} />
+            </Link>
           </div>
-          <div className="grid gap-8 sm:grid-cols-3">
-            {afterSteps.map((step, i) => (
-              <div
-                key={step.title}
-                className={`${scrollRevealClass(isAfterInView, Math.min(i * 2, 6) as ScrollRevealDelay)} flex flex-col gap-2 text-center sm:text-left`}
-              >
-                <h3 className="font-heading text-lg font-semibold text-foreground">
-                  {step.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
-          <p
-            className={`${scrollRevealClass(isAfterInView, 6)} mt-10 text-center text-sm leading-relaxed text-muted-foreground`}
-          >
-            And if I&apos;m not the right fit for the project, I&apos;ll say
-            so.
-          </p>
         </div>
       </section>
 
       <Contact
         label="Project Inquiry"
         heading="Tell me what you're building"
-        description="Share the project details and I'll follow up with next steps."
+        description="Share what you have in mind. I'll get back to you within one to two business days with any questions and the next step."
         showSocialLinks={false}
         showBudget={true}
         showProjectFields={true}

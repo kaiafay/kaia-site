@@ -6,7 +6,7 @@ export default function WorkPage() {
   return (
     <main>
       <Websites headingAs="h1" />
-      <Projects label="Products" heading="Apps I build and run" />
+      <Projects label="Products" heading="Apps & Tools" intro="" />
       <WorkPageCta />
     </main>
   );

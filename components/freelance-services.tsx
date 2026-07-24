@@ -12,20 +12,20 @@ const services = [
   {
     title: "Websites",
     description:
-      "A single focused page or a full site, designed around your services and the way clients actually find you.",
+      "Focused single-page and multi-page websites for businesses and personal brands.",
     detail: "From $600",
   },
   {
     title: "Custom Builds",
     description:
-      "Booking, payments, intake forms, dashboards. For businesses that need their site to do something, not just say something.",
-    detail: "From $800",
+      "Forms, bookings, payments, dashboards, and integrations for work that goes beyond a standard website.",
+    detail: "Scoped per project",
   },
   {
     title: "Ongoing Support",
     description:
-      "Updates, changes, and a developer you can actually reach after launch. Hourly or monthly.",
-    detail: "$100/hr · from $200/mo",
+      "Updates, refinements, maintenance, and post-launch improvements for existing sites.",
+    detail: "Hourly or monthly",
   },
 ];
 
@@ -69,7 +69,7 @@ export function FreelanceServices() {
         >
           <Link
             href="/work-with-me"
-            className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
             See details, pricing, and process
             <ArrowRight

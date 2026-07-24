@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 export type ProjectKind = "client" | "personal" | "concept" | "product";
 
 const KIND_LABELS: Record<ProjectKind, string> = {
-  client: "Client project",
+  client: "Client site",
   personal: "Personal project",
   concept: "Concept",
   product: "Personal product",

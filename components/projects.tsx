@@ -85,7 +85,7 @@ export function Projects({
                 <div className="flex items-center gap-2">
                   <Icon
                     size={20}
-                    className="shrink-0 text-primary-soft/80"
+                    className="shrink-0 text-primary/80"
                     aria-hidden
                   />
                   <h4 className="font-heading text-lg font-semibold text-card-foreground">
@@ -101,7 +101,7 @@ export function Projects({
                       key={tag}
                       className={`rounded-md px-2 py-1 text-xs ${
                         tag === "In progress"
-                          ? "bg-primary/20 text-primary-soft border border-primary/30"
+                          ? "bg-primary/20 text-primary border border-primary/30"
                           : "bg-secondary text-secondary-foreground"
                       }`}
                     >
@@ -138,7 +138,7 @@ export function Projects({
           >
             <Link
               href="/work"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors"
             >
               View all work <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1">→</span>
             </Link>

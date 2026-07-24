@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Kaia Fay",
   },
   description:
-    "Custom websites and web apps for small businesses and independent pros, built by a software engineer in Boise, Idaho who cares about the details.",
+    "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details. Based in Boise, Idaho.",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Kaia Fay",
     title: "Kaia Fay | Web Developer & Engineer",
     description:
-      "Custom websites and web apps for small businesses and independent pros, built by a software engineer in Boise, Idaho who cares about the details.",
+      "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details. Based in Boise, Idaho.",
     images: [
       {
         url: "/og-image-v2.jpg",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kaia Fay | Web Developer & Engineer",
     description:
-      "Custom websites and web apps for small businesses and independent pros, built by a software engineer in Boise, Idaho who cares about the details.",
+      "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details. Based in Boise, Idaho.",
     images: ["/og-image-v2.jpg"],
   },
   icons: {
@@ -65,29 +65,21 @@ export const metadata: Metadata = {
   },
 };
 
-// Service-area business (no street address) — claims here must stay factual:
-// name, contact, service area, and pricing floor only.
-const localBusinessJsonLd = {
+const personJsonLd = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": "Person",
   name: "Kaia Fay",
   url: "https://www.kaiafay.com",
-  email: "kaia@kaiafay.com",
-  telephone: "+1-541-248-1982",
-  description:
-    "Custom websites and web apps for small businesses and independent professionals.",
-  areaServed: [
-    { "@type": "City", name: "Boise" },
-    { "@type": "Place", name: "Treasure Valley" },
-    { "@type": "State", name: "Idaho" },
-  ],
-  founder: { "@type": "Person", name: "Kaia Fay" },
+  jobTitle: "Web Developer and Software Engineer",
+  homeLocation: {
+    "@type": "Place",
+    name: "Boise, Idaho",
+  },
   sameAs: [
     "https://github.com/kaiafay",
     "https://www.linkedin.com/in/kaia-scheirman/",
     "https://www.instagram.com/kaia.builds",
   ],
-  priceRange: "$600+",
 };
 
 export default function RootLayout({
@@ -102,7 +94,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessJsonLd),
+            __html: JSON.stringify(personJsonLd),
           }}
         />
         <Script

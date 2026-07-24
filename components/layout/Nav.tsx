@@ -9,14 +9,12 @@ function isNavLinkActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-// One label per destination: "/work-with-me" is "Work With Me" everywhere
-// (nav, page H1, buttons). Uses lives in the footer — it's developer-audience
-// content and shouldn't compete with the client path up here.
 const navLinks = [
   { label: "Work", href: "/work" },
-  { label: "Work With Me", href: "/work-with-me" },
+  { label: "Services", href: "/work-with-me" },
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Nav() {
@@ -63,7 +61,7 @@ export function Nav() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link
             href="/"
-            className="flex items-center text-foreground transition-colors hover:text-primary-soft"
+            className="flex items-center text-foreground transition-colors hover:text-primary"
             aria-label="Kaia home"
           >
             {/* Display master path from public/images/logo-kf.svg (not the favicon optical variant). */}
