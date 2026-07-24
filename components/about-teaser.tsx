@@ -26,7 +26,7 @@ export function AboutTeaser() {
           </p>
           <Link
             href="/about"
-            className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors"
           >
             Read my story <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1">→</span>
           </Link>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Github, Instagram, Linkedin, Mail, Phone } from "lucide-react";
 import {
   FOOTER_CONTACT_LINKS,
@@ -37,7 +38,22 @@ export function Footer() {
               );
             })}
           </div>
-          <p>© 2026 Kaia. All rights reserved.</p>
+          <p>Web developer in Boise, Idaho. Serving the Treasure Valley and beyond.</p>
+          <div className="flex items-center gap-4 text-xs">
+            <Link
+              href="/uses"
+              className="transition-colors duration-200 hover:text-foreground"
+            >
+              Uses
+            </Link>
+            <Link
+              href="/blog"
+              className="transition-colors duration-200 hover:text-foreground"
+            >
+              Blog
+            </Link>
+          </div>
+          <p>© 2026 Kaia Fay. All rights reserved.</p>
         </div>
       </div>
     </footer>

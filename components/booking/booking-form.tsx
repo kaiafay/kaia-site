@@ -323,7 +323,7 @@ export function BookingForm() {
       <div className="rounded-lg border border-primary/30 bg-primary/5 p-6 sm:p-8">
         <div className="flex items-start gap-4">
           <div className="flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
-            <Check size={22} className="text-primary" aria-hidden />
+            <Check size={22} className="text-primary-soft" aria-hidden />
           </div>
           <div>
             <h2 className="font-heading text-2xl font-semibold text-foreground">
@@ -337,7 +337,7 @@ export function BookingForm() {
               . Details were sent to {success.email}.
             </p>
             {success.warning && (
-              <p className="mt-4 text-sm text-primary/90">
+              <p className="mt-4 text-sm text-primary-soft/90">
                 {success.warning}
                 {success.callUrl && (
                   <>
@@ -346,7 +346,7 @@ export function BookingForm() {
                       href={success.callUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-medium text-primary underline underline-offset-4 transition-colors hover:text-primary/80"
+                      className="font-medium text-primary-soft underline underline-offset-4 transition-colors hover:text-primary-soft/80"
                     >
                       Open call link.
                     </a>
@@ -417,7 +417,7 @@ export function BookingForm() {
                       type="button"
                       onClick={() => selectDatePage(datePageIndex - 1)}
                       disabled={!canShowPreviousDates}
-                      className="inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-primary transition-colors hover:border-primary/50 hover:bg-primary/5 disabled:pointer-events-none disabled:text-muted-foreground/40 disabled:opacity-50"
+                      className="inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-primary-soft transition-colors hover:border-primary/50 hover:bg-primary/5 disabled:pointer-events-none disabled:text-muted-foreground/40 disabled:opacity-50"
                       aria-label="Show earlier dates"
                     >
                       <ArrowLeft size={15} aria-hidden />
@@ -426,7 +426,7 @@ export function BookingForm() {
                       type="button"
                       onClick={() => selectDatePage(datePageIndex + 1)}
                       disabled={!canShowMoreDates}
-                      className="inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-primary transition-colors hover:border-primary/50 hover:bg-primary/5 disabled:pointer-events-none disabled:text-muted-foreground/40 disabled:opacity-50"
+                      className="inline-flex size-8 items-center justify-center rounded-md border border-border bg-background text-primary-soft transition-colors hover:border-primary/50 hover:bg-primary/5 disabled:pointer-events-none disabled:text-muted-foreground/40 disabled:opacity-50"
                       aria-label="Show later dates"
                     >
                       <ArrowRight size={15} aria-hidden />
@@ -483,7 +483,7 @@ export function BookingForm() {
                     ))}
                   </div>
                   {fieldErrors.selectedStartTime && (
-                    <p className="mt-2 text-sm text-primary/90" role="alert">
+                    <p className="mt-2 text-sm text-primary-soft/90" role="alert">
                       {fieldErrors.selectedStartTime}
                     </p>
                   )}
@@ -607,7 +607,7 @@ function Field({
       </label>
       {children}
       {error && (
-        <p className="text-sm text-primary/90" role="alert">
+        <p className="text-sm text-primary-soft/90" role="alert">
           {error}
         </p>
       )}

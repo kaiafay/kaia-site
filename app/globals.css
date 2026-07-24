@@ -18,6 +18,9 @@
   --muted-foreground: #888888;
   --accent: #8f3848;
   --accent-foreground: #ffffff;
+  /* Accessible text tier of the brand accent for dark grounds (#8f3848 is only
+     2.7:1 on near-black — fills/buttons only). ~6.2:1 on --background. */
+  --primary-soft: #c97a87;
   --destructive: #8f3848;
   --destructive-foreground: #ffffff;
   --border: #222222;
@@ -89,6 +92,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -127,6 +131,8 @@
   --secondary-foreground: #1c1917;
   --muted: #ede8e3;
   --muted-foreground: #6b5f58;
+  /* On light grounds the core accent already passes AA (~7:1) — reuse it. */
+  --primary-soft: #8f3848;
   --border: #d9d2cb;
   --input: #ede8e3;
   --surface-elevated: #ebe5df;

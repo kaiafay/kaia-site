@@ -30,7 +30,7 @@ export function Hero() {
             <br />
             <span className="text-foreground">Web developer by craft.</span>
             <br />
-            <span className="text-primary">Building with taste and intention.</span>
+            <span className="text-primary-soft">Building with taste and intention.</span>
           </p>
           <div className="flex flex-wrap gap-4 pt-4 min-[660px]:gap-3 min-[700px]:gap-3 md:gap-4">
             <Link

@@ -61,7 +61,7 @@ export function FreelanceServices() {
         <div className={`${scrollRevealClass(isInView, 6)} mt-12 text-center`}>
           <Link
             href="/work-with-me#contact"
-            className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80"
           >
             Start a project inquiry
             <ArrowRight

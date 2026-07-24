@@ -158,7 +158,7 @@ export function FeaturedWork() {
         <div className={`${scrollRevealClass(isInView, 6)} mt-10 text-center`}>
           <Link
             href="/work"
-            className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors"
           >
             View all work
             <ArrowRight

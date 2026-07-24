@@ -180,7 +180,7 @@ export default function WorkWithMePage() {
               </Link>
               <a
                 href="/#contact"
-                className="inline-flex items-center justify-center gap-2 px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary sm:min-w-[10.25rem] sm:rounded-lg sm:border sm:border-border sm:bg-background sm:px-5 sm:py-3 sm:text-foreground sm:transition-all sm:duration-200 sm:hover:border-primary/50"
+                className="inline-flex items-center justify-center gap-2 px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary-soft sm:min-w-[10.25rem] sm:rounded-lg sm:border sm:border-border sm:bg-background sm:px-5 sm:py-3 sm:text-foreground sm:transition-all sm:duration-200 sm:hover:border-primary/50"
               >
                 Send a message
               </a>
@@ -258,7 +258,7 @@ export default function WorkWithMePage() {
           >
             <Link
               href="#contact"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80"
             >
               Start a project inquiry
               <ArrowRight
@@ -284,7 +284,7 @@ export default function WorkWithMePage() {
                 key={step.title}
                 className={`${scrollRevealClass(isProcessInView, Math.min(i * 2, 6) as ScrollRevealDelay)} flex gap-8 py-8`}
               >
-                <span className="shrink-0 pt-1 font-heading text-4xl font-bold leading-none tabular-nums text-primary/35">
+                <span className="shrink-0 pt-1 font-heading text-4xl font-bold leading-none tabular-nums text-primary-soft/35">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
@@ -368,7 +368,7 @@ export default function WorkWithMePage() {
             </p>
             <Link
               href="/work"
-              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80"
             >
               View portfolio
               <ArrowRight size={16} />

@@ -14,7 +14,7 @@ export function SectionLabel({
   return (
     <Tag
       className={cn(
-        "text-sm font-medium tracking-widest text-primary uppercase",
+        "text-sm font-medium tracking-widest text-primary-soft uppercase",
         className
       )}
     >

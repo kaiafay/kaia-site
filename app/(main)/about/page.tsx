@@ -79,7 +79,7 @@ export default function AboutPage() {
                 </p>
                 <p className="text-sm text-muted-foreground">
                   You&apos;ve read enough about me.{" "}
-                  <Link href="/work" className="group block sm:inline text-primary transition-colors">
+                  <Link href="/work" className="group block sm:inline text-primary-soft transition-colors">
                     See what I actually build <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1">→</span>
                   </Link>
                 </p>

@@ -22,7 +22,7 @@ function ItemRow({ item }: { item: UseItem }) {
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="font-semibold text-foreground transition-colors duration-150 hover:text-primary"
+      className="font-semibold text-foreground transition-colors duration-150 hover:text-primary-soft"
     >
       {item.name}
     </a>

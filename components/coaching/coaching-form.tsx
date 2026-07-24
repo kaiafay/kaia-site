@@ -240,7 +240,7 @@ export function CoachingForm() {
     return (
       <div className="flex w-full flex-col items-center rounded-xl border border-border bg-card p-8 card-shadow sm:p-12">
         <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-primary bg-primary/10">
-          <Check size={32} className="text-primary" strokeWidth={2.5} />
+          <Check size={32} className="text-primary-soft" strokeWidth={2.5} />
         </div>
         <h3 className="mt-6 font-heading text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           You&apos;re in!
@@ -257,7 +257,7 @@ export function CoachingForm() {
     <div className="w-full rounded-xl border border-border bg-card card-shadow">
       {/* Progress bar */}
       <div className="px-6 pt-6 sm:px-8 sm:pt-8">
-        <p className="mb-2 text-xs font-medium tracking-widest text-primary uppercase">
+        <p className="mb-2 text-xs font-medium tracking-widest text-primary-soft uppercase">
           Step {step} of {TOTAL_STEPS}
         </p>
         <div className="h-1.5 overflow-hidden rounded-full bg-secondary">
@@ -301,7 +301,7 @@ export function CoachingForm() {
                     placeholder="Your name"
                   />
                   {fieldErrors.fullName && (
-                    <p className="text-sm text-primary/90" role="alert">
+                    <p className="text-sm text-primary-soft/90" role="alert">
                       {fieldErrors.fullName}
                     </p>
                   )}
@@ -326,7 +326,7 @@ export function CoachingForm() {
                     placeholder="you@email.com"
                   />
                   {fieldErrors.email && (
-                    <p className="text-sm text-primary/90" role="alert">
+                    <p className="text-sm text-primary-soft/90" role="alert">
                       {fieldErrors.email}
                     </p>
                   )}
@@ -349,7 +349,7 @@ export function CoachingForm() {
                     placeholder="e.g. 28"
                   />
                   {fieldErrors.age && (
-                    <p className="text-sm text-primary/90" role="alert">
+                    <p className="text-sm text-primary-soft/90" role="alert">
                       {fieldErrors.age}
                     </p>
                   )}

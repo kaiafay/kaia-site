@@ -50,7 +50,7 @@ export function BlogList({ posts }: { posts: PostDisplay[] }) {
               <p className="text-sm leading-relaxed text-muted-foreground">
                 {post.excerpt}
               </p>
-              <span className="text-sm font-medium text-primary">
+              <span className="text-sm font-medium text-primary-soft">
                 Read more <span className="inline-block transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1">→</span>
               </span>
             </Link>

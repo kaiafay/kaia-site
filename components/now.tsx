@@ -11,7 +11,7 @@ import { images } from "@/lib/images";
 
 function BlockLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-3 text-xs font-medium tracking-widest text-primary uppercase">
+    <p className="mb-3 text-xs font-medium tracking-widest text-primary-soft uppercase">
       {children}
     </p>
   );
@@ -67,10 +67,10 @@ export function Now() {
           <div>
             <BlockLabel>In the gym</BlockLabel>
             <div className="flex items-baseline gap-1">
-              <span className="font-heading text-5xl font-bold text-primary">
+              <span className="font-heading text-5xl font-bold text-primary-soft">
                 {nowData.training.prValue}
               </span>
-              <span className="text-xl font-medium text-primary">
+              <span className="text-xl font-medium text-primary-soft">
                 {nowData.training.prUnit}
               </span>
             </div>
