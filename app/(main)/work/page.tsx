@@ -1,12 +1,12 @@
 import { Projects } from "@/components/projects";
-import { LandingPages } from "@/components/landing-pages";
+import { Websites } from "@/components/websites";
 import { WorkPageCta } from "@/components/work-page-cta";
 
 export default function WorkPage() {
   return (
     <main>
-      <LandingPages headingAs="h1" />
-      <Projects label="Projects" heading="Apps & Tools" />
+      <Websites headingAs="h1" />
+      <Projects label="Products" heading="Apps I build and run" />
       <WorkPageCta />
     </main>
   );
