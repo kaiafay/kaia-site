@@ -3,7 +3,7 @@ import { getAllPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://www.kaiafay.com";
-  const lastModified = new Date("2026-06-17");
+  const lastModified = new Date("2026-07-24");
   const posts = getAllPosts().map((post) => ({
     url: `${base}/blog/${post.slug}`,
     lastModified: new Date(post.date),

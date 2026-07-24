@@ -462,6 +462,11 @@ textarea:focus,
   opacity: 1;
   transform: scaleX(1);
 }
+.nav-link-flashlight:focus-visible {
+  outline: 2px solid var(--primary-soft);
+  outline-offset: 4px;
+  color: color-mix(in srgb, var(--foreground) 82%, var(--muted-foreground));
+}
 @media (prefers-reduced-motion: reduce) {
   .nav-link-flashlight,
   .nav-link-flashlight::before,
