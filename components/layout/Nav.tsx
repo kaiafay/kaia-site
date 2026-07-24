@@ -85,7 +85,7 @@ export function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="nav-link-flashlight text-sm tracking-wide"
+                className="nav-link-flashlight text-sm font-medium tracking-wide"
                 aria-current={
                   isNavLinkActive(pathname, link.href) ? "page" : undefined
                 }

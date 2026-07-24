@@ -16,20 +16,20 @@ const services = [
     category: "Websites",
     description:
       "For businesses and personal brands that need a polished web presence without an overbuilt process.",
+    summary: "Single-page and multi-page sites",
+    summaryDetail: "From $600",
     offerings: [
       {
         title: "Single-Page Website",
         description:
           "A focused page for a clear offer, service, portfolio, or campaign.",
         detail: "From $600",
-        interest: "Landing Page",
       },
       {
         title: "Multi-Page Website",
         description:
           "A fuller site with the core pages your audience needs to understand and trust the business.",
         detail: "From $1,200",
-        interest: "Custom Project",
       },
     ],
   },
@@ -37,27 +37,26 @@ const services = [
     category: "Custom Builds",
     description:
       "For businesses that need bookings, payments, applications, or other functionality beyond a standard website.",
+    summary: "Bookings, payments, forms, dashboards, and tailored functionality",
+    summaryDetail: "Scoped per project",
     offerings: [
       {
         title: "Forms & Intake Flows",
         description:
-          "Guided forms, applications, onboarding flows, and lead capture experiences.",
+          "Collect inquiries, applications, onboarding details, or leads through a guided process.",
         detail: "From $800",
-        interest: "Custom Project",
       },
       {
-        title: "Dashboards & Admin Tools",
+        title: "Dashboards",
         description:
-          "Private views for managing submissions, customers, content, or internal processes.",
+          "Keep submissions, customers, content, or internal tasks organized in one private place.",
         detail: "From $2,000",
-        interest: "Custom Project",
       },
       {
         title: "Payments & Integrations",
         description:
-          "Checkout flows, booking tools, database-backed features, and third-party API connections.",
+          "Let customers book or pay online, and connect the tools your business already uses.",
         detail: "From $1,500",
-        interest: "Custom Project",
       },
     ],
   },
@@ -65,35 +64,30 @@ const services = [
     category: "Ongoing Support",
     description:
       "For existing sites that need steady technical attention, iteration, or a developer available after launch.",
+    summary: "Updates, maintenance, and continued improvements",
+    summaryDetail: "Hourly or monthly",
     offerings: [
       {
         title: "Hourly Support",
         description:
           "Focused updates, refinements, content changes, and technical improvements as needed.",
         detail: "$100/hr",
-        interest: "Dev Support",
       },
       {
         title: "Monthly Support",
         description:
           "A recurring support window for businesses that want ongoing changes and light maintenance.",
         detail: "From $200/mo",
-        interest: "Dev Support",
       },
       {
         title: "Post-Launch Iteration",
         description:
           "Continue improving a recently launched project without turning it into a full rebuild.",
         detail: "From $500",
-        interest: "Dev Support",
       },
     ],
   },
 ];
-
-function contactHref(interest: string) {
-  return `/work-with-me?interest=${encodeURIComponent(interest)}#contact`;
-}
 
 const processSteps = [
   {
@@ -132,6 +126,7 @@ const faqs = [
 
 export default function WorkWithMePage() {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
+  const [openService, setOpenService] = useState<string | null>(null);
   const heroRef = useRef<HTMLElement>(null);
   const servicesRef = useRef<HTMLElement>(null);
   const personRef = useRef<HTMLElement>(null);
@@ -191,17 +186,55 @@ export default function WorkWithMePage() {
             <SectionLabel as="h2">What I Build</SectionLabel>
             <SectionHeading className="mt-2">Services & Pricing</SectionHeading>
           </div>
-          <div className="flex flex-col gap-14">
+          <div className="flex flex-col">
             {services.map((group, groupIndex) => (
               <div
                 key={group.category}
-                className={scrollRevealClass(
+                className={`${scrollRevealClass(
                   isServicesInView,
                   Math.min(groupIndex * 2, 6) as ScrollRevealDelay,
-                )}
+                )} border-t border-border`}
               >
-                <div className="grid gap-6 border-t border-border pt-8 lg:grid-cols-[0.55fr_1.45fr] lg:gap-12">
-                  <div>
+                <h3 className="md:hidden">
+                  <button
+                    type="button"
+                    aria-expanded={openService === group.category}
+                    aria-controls={`service-panel-${groupIndex}`}
+                    onClick={() =>
+                      setOpenService((current) =>
+                        current === group.category ? null : group.category,
+                      )
+                    }
+                    className="flex w-full items-start justify-between gap-6 rounded-sm py-7 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                  >
+                    <span>
+                      <span className="block font-heading text-2xl font-semibold text-foreground">
+                        {group.category}
+                      </span>
+                      <span className="mt-2 block text-sm font-normal leading-relaxed text-muted-foreground">
+                        {group.summary}
+                      </span>
+                      <span className="mt-2 block text-sm font-medium text-foreground">
+                        {group.summaryDetail}
+                      </span>
+                    </span>
+                    <ChevronDown
+                      size={19}
+                      className={`mt-1 shrink-0 text-muted-foreground transition-transform duration-200 ${
+                        openService === group.category ? "rotate-180" : ""
+                      }`}
+                      aria-hidden
+                    />
+                  </button>
+                </h3>
+
+                <div
+                  id={`service-panel-${groupIndex}`}
+                  className={`gap-8 pb-8 md:grid md:grid-cols-[0.55fr_1.45fr] md:gap-12 md:py-8 ${
+                    openService === group.category ? "grid" : "hidden"
+                  }`}
+                >
+                  <div className="hidden md:block">
                     <h3 className="font-heading text-2xl font-semibold text-foreground">
                       {group.category}
                     </h3>
@@ -210,38 +243,34 @@ export default function WorkWithMePage() {
                     </p>
                   </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                    {group.offerings.map((offering) => (
-                      <Link
-                        key={offering.title}
-                        href={contactHref(offering.interest)}
-                        onClick={() => {
-                          window.dispatchEvent(
-                            new CustomEvent("contact-interest-change", {
-                              detail: offering.interest,
-                            }),
-                          );
-                        }}
-                        className="group flex min-h-[12.75rem] flex-col rounded-lg border border-border/70 bg-card/55 p-6 outline-none transition-all duration-200 ease-out hover:border-primary/35 hover:bg-secondary/70 focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-                      >
-                        <h4 className="font-heading text-lg font-semibold text-foreground">
-                          {offering.title === "Dashboards & Admin Tools" ? (
-                            <>
-                              Dashboards &<br className="hidden xl:block" />
-                              <span className="xl:hidden"> </span>Admin Tools
-                            </>
-                          ) : (
-                            offering.title
-                          )}
-                        </h4>
-                        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                          {offering.description}
-                        </p>
-                        <p className="mt-auto pt-6 text-sm font-medium text-foreground">
-                          {offering.detail}
-                        </p>
-                      </Link>
-                    ))}
+                  <div>
+                    <p className="mb-5 text-sm leading-relaxed text-muted-foreground md:hidden">
+                      {group.description}
+                    </p>
+                    <div
+                      className={`grid gap-4 ${
+                        group.offerings.length === 2
+                          ? "md:grid-cols-2"
+                          : "sm:grid-cols-2 lg:grid-cols-3"
+                      }`}
+                    >
+                      {group.offerings.map((offering) => (
+                        <div
+                          key={offering.title}
+                          className="flex flex-col rounded-lg border border-border/70 bg-card/55 p-5"
+                        >
+                          <h4 className="font-heading text-lg font-semibold text-foreground">
+                            {offering.title}
+                          </h4>
+                          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                            {offering.description}
+                          </p>
+                          <p className="mt-auto pt-5 text-sm font-medium text-foreground">
+                            {offering.detail}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
