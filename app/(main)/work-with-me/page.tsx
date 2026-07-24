@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
+import { images } from "@/lib/images";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Contact } from "@/components/contact";
@@ -13,7 +15,7 @@ const services = [
   {
     category: "Websites",
     description:
-      "For businesses and personal brands that need a polished web presence without an overbuilt process.",
+      "For businesses and personal brands that need a professional web presence without an overbuilt process.",
     offerings: [
       {
         title: "Single-Page Website",
@@ -34,7 +36,7 @@ const services = [
   {
     category: "Custom Builds",
     description:
-      "For projects that need workflow, logic, or integrations beyond a standard website.",
+      "For businesses whose site has a job to do: bookings, payments, applications, or admin work.",
     offerings: [
       {
         title: "Forms & Intake Flows",
@@ -106,7 +108,26 @@ const processSteps = [
   },
   {
     title: "Launch",
-    description: "You get something polished, purposeful, and ready to represent you.",
+    description:
+      "Your site goes live once we've reviewed it together. I don't ship anything I'm not proud of.",
+  },
+];
+
+const afterSteps = [
+  {
+    title: "I reply personally",
+    description:
+      "Every inquiry comes straight to me, usually within a business day.",
+  },
+  {
+    title: "We talk it through",
+    description:
+      "A short call or a few emails, whichever you prefer. No pressure and no jargon.",
+  },
+  {
+    title: "You get a written proposal",
+    description:
+      "Clear scope, a fixed price, and a timeline, so you know exactly what you're saying yes to.",
   },
 ];
 
@@ -114,7 +135,7 @@ const faqs = [
   {
     question: "Who is this for?",
     answer:
-      "Small businesses, founders, and independent professionals who want a thoughtful website, app, or web update without a bloated process.",
+      "Small businesses and independent pros, mostly people who run the whole thing themselves: lash artists, contractors, photographers, coaches, studios, and small teams. Most of my work is in the Treasure Valley, and I work remotely too.",
   },
   {
     question: "What kind of work do you take on?",
@@ -129,7 +150,7 @@ const faqs = [
   {
     question: "When does custom work make sense?",
     answer:
-      "When the site needs to fit a specific workflow, connect tools, handle payments, or feel more considered than a template. If a simple no-code setup is the right answer, I'll say that.",
+      "When the site needs to fit a specific workflow, connect tools, handle payments, or look like your business instead of a template. If a simple no-code setup is the right answer, I'll say that.",
   },
   {
     question: "What happens after launch?",
@@ -142,17 +163,21 @@ export default function WorkWithMePage() {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
   const heroRef = useRef<HTMLElement>(null);
   const servicesRef = useRef<HTMLElement>(null);
+  const personRef = useRef<HTMLElement>(null);
   const processRef = useRef<HTMLElement>(null);
+  const customRef = useRef<HTMLElement>(null);
   const faqRef = useRef<HTMLElement>(null);
-  const proofRef = useRef<HTMLElement>(null);
+  const afterRef = useRef<HTMLElement>(null);
   const isHeroInView = useInView(heroRef);
   const isServicesInView = useInView(servicesRef, {
     threshold: 0.01,
     rootMargin: "0px 0px 80px 0px",
   });
+  const isPersonInView = useInView(personRef);
   const isProcessInView = useInView(processRef);
+  const isCustomInView = useInView(customRef);
   const isFaqInView = useInView(faqRef);
-  const isProofInView = useInView(proofRef);
+  const isAfterInView = useInView(afterRef);
 
   function toggleFaq(question: string) {
     setOpenFaq((current) => (current === question ? null : question));
@@ -165,18 +190,20 @@ export default function WorkWithMePage() {
           <div className={scrollRevealClass(isHeroInView)}>
             <SectionLabel>Work With Me</SectionLabel>
             <SectionHeading as="h1" className="mt-2">
-              Web work built with care
+              A website built around your business
             </SectionHeading>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              I build clean, fast, intentional web experiences that help your
-              business make a better first impression.
+              I design and build custom websites and web apps for small
+              businesses and independent pros in the Treasure Valley and
+              beyond. One project at a time, working directly with you from
+              first message to launch.
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
               <Link
                 href="#contact"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 sm:w-auto sm:min-w-[10.25rem] btn-primary-glow"
               >
-                Start a project inquiry
+                Start a project
               </Link>
               <a
                 href="/#contact"
@@ -195,7 +222,7 @@ export default function WorkWithMePage() {
             className={`${scrollRevealClass(isServicesInView)} mb-12 text-center`}
           >
             <SectionLabel as="h2">What I Build</SectionLabel>
-            <SectionHeading className="mt-2">Services & Offerings</SectionHeading>
+            <SectionHeading className="mt-2">Services & Pricing</SectionHeading>
           </div>
           <div className="flex flex-col gap-14">
             {services.map((group, groupIndex) => (
@@ -260,12 +287,58 @@ export default function WorkWithMePage() {
               href="#contact"
               className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80"
             >
-              Start a project inquiry
+              Start a project
               <ArrowRight
                 size={15}
                 className="transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1"
               />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section ref={personRef} className="relative py-16 lg:py-24">
+        <div className="mx-auto max-w-4xl px-6">
+          <div
+            className={`${scrollRevealClass(isPersonInView)} flex flex-col items-center gap-10 sm:flex-row sm:items-start sm:gap-12`}
+          >
+            <div className="relative h-56 w-44 shrink-0 overflow-hidden rounded-lg sm:h-64 sm:w-52">
+              <Image
+                src={images.about}
+                alt="Kaia Fay, web developer in Boise, Idaho"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 640px) 176px, 208px"
+              />
+            </div>
+            <div className="flex flex-col gap-4 text-center sm:text-left">
+              <div>
+                <SectionLabel as="h2">
+                  Who you&apos;re working with
+                </SectionLabel>
+                <SectionHeading className="mt-2">
+                  One developer, start to finish
+                </SectionHeading>
+              </div>
+              <p className="text-base leading-relaxed text-muted-foreground">
+                I&apos;m Kaia. Software engineer by trade, and the only person
+                who touches your project. I spent years in service jobs before
+                teaching myself to code, so I know what it&apos;s like to be
+                the person doing everything. I build accordingly. Based in
+                Boise, working with businesses across the Treasure Valley and
+                remotely.
+              </p>
+              <Link
+                href="/work"
+                className="group inline-flex items-center justify-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80 sm:justify-start"
+              >
+                See the work
+                <ArrowRight
+                  size={15}
+                  className="transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -284,7 +357,7 @@ export default function WorkWithMePage() {
                 key={step.title}
                 className={`${scrollRevealClass(isProcessInView, Math.min(i * 2, 6) as ScrollRevealDelay)} flex gap-8 py-8`}
               >
-                <span className="shrink-0 pt-1 font-heading text-4xl font-bold leading-none tabular-nums text-primary-soft/35">
+                <span className="shrink-0 pt-1 font-heading text-4xl font-bold leading-none tabular-nums text-primary/35">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
@@ -297,6 +370,39 @@ export default function WorkWithMePage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section ref={customRef} className="relative py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl px-6">
+          <div className={scrollRevealClass(isCustomInView)}>
+            <div className="mb-8 text-center">
+              <SectionLabel as="h2">An honest note</SectionLabel>
+              <SectionHeading className="mt-2">
+                Do you actually need custom work?
+              </SectionHeading>
+            </div>
+            <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
+              <p>
+                Sometimes no. If you need one page with your hours, your
+                prices, and a phone number, Squarespace or Wix can be enough.
+                If that&apos;s your situation, I&apos;ll tell you.
+              </p>
+              <p>
+                Custom work earns its cost when the website has a job to do.
+                When clients should be able to book, pay, or fill out an intake
+                form without texting you first. When the template look
+                doesn&apos;t match work you&apos;ve spent years getting right.
+                Or when you&apos;d rather hand the whole thing to one person
+                than learn a website builder on your nights off.
+              </p>
+              <p>
+                You own everything I build, code included. Nothing is locked
+                inside a platform, and if we part ways after launch, it&apos;s
+                still yours.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -357,23 +463,35 @@ export default function WorkWithMePage() {
         </div>
       </section>
 
-      <section ref={proofRef} className="relative py-16 lg:py-24">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <div className={scrollRevealClass(isProofInView)}>
-            <SectionLabel as="h2">Proof</SectionLabel>
-            <SectionHeading className="mt-2">See the work</SectionHeading>
-            <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Browse websites and apps I&apos;ve built. From polished first
-              impressions to custom web experiences.
-            </p>
-            <Link
-              href="/work"
-              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80"
-            >
-              View portfolio
-              <ArrowRight size={16} />
-            </Link>
+      <section ref={afterRef} className="relative py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl px-6">
+          <div
+            className={`${scrollRevealClass(isAfterInView)} mb-12 text-center`}
+          >
+            <SectionLabel as="h2">After you reach out</SectionLabel>
+            <SectionHeading className="mt-2">What happens next</SectionHeading>
           </div>
+          <div className="grid gap-8 sm:grid-cols-3">
+            {afterSteps.map((step, i) => (
+              <div
+                key={step.title}
+                className={`${scrollRevealClass(isAfterInView, Math.min(i * 2, 6) as ScrollRevealDelay)} flex flex-col gap-2 text-center sm:text-left`}
+              >
+                <h3 className="font-heading text-lg font-semibold text-foreground">
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {step.description}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p
+            className={`${scrollRevealClass(isAfterInView, 6)} mt-10 text-center text-sm leading-relaxed text-muted-foreground`}
+          >
+            And if I&apos;m not the right fit for the project, I&apos;ll say
+            so.
+          </p>
         </div>
       </section>
 

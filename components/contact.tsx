@@ -326,7 +326,11 @@ export function Contact({
             {status === "success" ? (
               <div className="w-full rounded-lg border border-primary/30 bg-primary/5 p-8 text-center">
                 <p className="text-lg font-medium text-foreground">
-                  Thanks! I&apos;ll be in touch soon.
+                  Thanks! Your message is on its way.
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  I read every message myself and reply personally, usually
+                  within a business day.
                 </p>
               </div>
             ) : (
@@ -704,7 +708,7 @@ export function Contact({
                     Sending...
                   </>
                 ) : showProjectFields ? (
-                  "Send Project Inquiry"
+                  "Send project inquiry"
                 ) : (
                   "Send Message"
                 )}
