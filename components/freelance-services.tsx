@@ -10,19 +10,22 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 const services = [
   {
-    title: "Landing Pages",
+    title: "Websites",
     description:
-      "Polished single-page websites for small businesses, personal brands, portfolios, services, and focused offers.",
+      "A single focused page or a full site, designed around your services and the way clients actually find you.",
+    detail: "From $600",
   },
   {
-    title: "Custom Web Builds",
+    title: "Custom Builds",
     description:
-      "More involved websites and app-like workflows with forms, payments, dashboards, or integrations.",
+      "Booking, payments, intake forms, dashboards. For businesses that need their site to do something, not just say something.",
+    detail: "From $800",
   },
   {
-    title: "Dev Support",
+    title: "Ongoing Support",
     description:
-      "Ongoing or hourly support for updates, refinements, and post-launch improvements.",
+      "Updates, changes, and a developer you can actually reach after launch. Hourly or monthly.",
+    detail: "$100/hr · from $200/mo",
   },
 ];
 
@@ -54,16 +57,21 @@ export function FreelanceServices() {
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">
                 {service.description}
               </p>
+              <p className="mt-4 text-sm font-medium text-foreground">
+                {service.detail}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className={`${scrollRevealClass(isInView, 6)} mt-12 text-center`}>
+        <div
+          className={`${scrollRevealClass(isInView, 6)} mt-12 text-center`}
+        >
           <Link
-            href="/work-with-me#contact"
+            href="/work-with-me"
             className="group inline-flex items-center gap-2 text-sm font-medium text-primary-soft transition-colors hover:text-primary-soft/80"
           >
-            Start a project inquiry
+            See details, pricing, and process
             <ArrowRight
               size={16}
               className="transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1"

@@ -32,18 +32,22 @@ export function Hero() {
             <br />
             <span className="text-primary-soft">Building with taste and intention.</span>
           </p>
+          <p className="text-base leading-relaxed text-muted-foreground min-[660px]:text-sm min-[700px]:text-base">
+            Custom websites and web apps for small businesses and independent
+            pros. Built in Boise, Idaho.
+          </p>
           <div className="flex flex-wrap gap-4 pt-4 min-[660px]:gap-3 min-[700px]:gap-3 md:gap-4">
             <Link
               href="/work"
               className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-[0_0_16px_rgba(143,56,72,0.3)] min-[660px]:px-4 min-[700px]:px-5 md:px-6"
             >
-              See My Work
+              See my work
             </Link>
             <Link
               href="/work-with-me"
               className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-6 py-3 text-sm font-medium text-secondary-foreground transition-all duration-200 hover:bg-border min-[660px]:px-4 min-[700px]:px-5 md:px-6"
             >
-              Work With Me
+              Start a project
             </Link>
           </div>
         </div>

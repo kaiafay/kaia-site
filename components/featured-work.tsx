@@ -8,6 +8,7 @@ import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass } from "@/lib/scroll-reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { ProjectBadge, type ProjectKind } from "@/components/ui/project-badge";
 
 function ScreenshotPreview({
   src,
@@ -48,18 +49,30 @@ function MobilePreview({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function CairnPhoneMockup() {
+function WorkCaption({
+  name,
+  kind,
+  description,
+  headingClass = "text-lg",
+}: {
+  name: string;
+  kind: ProjectKind;
+  description: string;
+  headingClass?: string;
+}) {
   return (
-    <div className="w-full overflow-hidden rounded-[1.25rem] border border-border bg-secondary shadow-lg sm:mx-auto sm:max-w-[8.75rem]">
-      <div className="relative aspect-[9/16] overflow-hidden bg-secondary">
-        <Image
-          src="/images/work/cairn.webp"
-          alt="Cairn health and performance app preview"
-          fill
-          className="object-cover object-top"
-          sizes="224px"
-        />
+    <div className="mt-5 px-1">
+      <div className="flex flex-wrap items-center gap-3">
+        <p
+          className={`font-heading font-semibold text-foreground ${headingClass}`}
+        >
+          {name}
+        </p>
+        <ProjectBadge kind={kind} />
       </div>
+      <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+        {description}
+      </p>
     </div>
   );
 }
@@ -73,9 +86,10 @@ export function FeaturedWork() {
       <div className="mx-auto max-w-6xl px-6">
         <div className={`${scrollRevealClass(isInView)} mb-16`}>
           <SectionLabel as="h2">Featured Work</SectionLabel>
-          <SectionHeading className="mt-2">
-            Websites & apps
-          </SectionHeading>
+          <SectionHeading className="mt-2">Websites & apps</SectionHeading>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
+            Every site here is live. Click through and look around.
+          </p>
         </div>
 
         <div className="grid items-start gap-8 md:grid-cols-[1.45fr_0.9fr]">
@@ -96,17 +110,12 @@ export function FeaturedWork() {
                 alt="RichM Co. mobile website preview"
               />
             </div>
-            <div className="mt-5 px-1">
-              <div>
-                <p className="font-heading text-xl font-semibold text-foreground">
-                  RichM Co.
-                </p>
-                <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                  Coaching and consulting website with a guided intake flow for
-                  prospective clients
-                </p>
-              </div>
-            </div>
+            <WorkCaption
+              name="RichM Co."
+              kind="client"
+              description="Coaching and consulting website with a guided intake flow for prospective clients"
+              headingClass="text-xl"
+            />
           </a>
 
           <div className="grid gap-6">
@@ -120,37 +129,28 @@ export function FeaturedWork() {
                 src="/images/work/dewy-club.webp"
                 alt="Dewy Club website preview"
               />
-              <div className="mt-5 px-1">
-                <div>
-                  <p className="font-heading text-lg font-semibold text-foreground">
-                    Dewy Club
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    E-commerce storefront for a skincare brand with Stripe
-                    integration
-                  </p>
-                </div>
-              </div>
+              <WorkCaption
+                name="Dewy Club"
+                kind="concept"
+                description="E-commerce storefront for a skincare brand with Stripe integration"
+              />
             </a>
 
             <a
-              href="https://cairn-checkin.lovable.app"
+              href="https://kaiaandrichard.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className={`${scrollRevealClass(isInView, 5)} group mx-auto grid w-full max-w-xl grid-cols-[5.75rem_1fr] items-center gap-4 transition-transform duration-200 ease-out hover:-translate-y-1 min-[375px]:grid-cols-[6.5rem_1fr] sm:grid-cols-[0.45fr_1fr] sm:gap-5 md:max-w-none`}
+              className={`${scrollRevealClass(isInView, 5)} group mx-auto block w-full max-w-xl transition-transform duration-200 ease-out hover:-translate-y-1 md:max-w-none`}
             >
-              <CairnPhoneMockup />
-              <div className="px-0">
-                <div>
-                  <p className="font-heading text-lg font-semibold text-foreground">
-                    Cairn
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    Health and performance app for check-ins, biometrics,
-                    routines, and AI insights
-                  </p>
-                </div>
-              </div>
+              <ScreenshotPreview
+                src="/images/work/wedding-rsvp.webp"
+                alt="Wedding RSVP website preview"
+              />
+              <WorkCaption
+                name="Wedding RSVP"
+                kind="personal"
+                description="Built for my own wedding. RSVP flow plus an admin dashboard for guests and responses."
+              />
             </a>
           </div>
         </div>

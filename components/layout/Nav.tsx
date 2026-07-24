@@ -9,12 +9,14 @@ function isNavLinkActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+// One label per destination: "/work-with-me" is "Work With Me" everywhere
+// (nav, page H1, buttons). Uses lives in the footer — it's developer-audience
+// content and shouldn't compete with the client path up here.
 const navLinks = [
-  { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
+  { label: "Work With Me", href: "/work-with-me" },
+  { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
-  { label: "Uses", href: "/uses" },
-  { label: "Services", href: "/work-with-me" },
 ];
 
 export function Nav() {
