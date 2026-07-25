@@ -32,10 +32,10 @@ export function Hero() {
           </div>
           <div className="flex flex-col gap-3">
             <p className="max-w-lg text-xl font-medium leading-relaxed text-foreground min-[660px]:text-lg min-[700px]:text-xl md:text-2xl">
-              Custom websites and web apps
+              Custom websites
               <br />
               <span className="text-muted-foreground">
-                for small businesses and founders.
+                designed around your business.
               </span>
             </p>
             <p className="text-xl font-medium leading-relaxed text-primary min-[660px]:text-lg min-[700px]:text-xl md:text-2xl">
