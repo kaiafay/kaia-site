@@ -358,28 +358,33 @@ function MobileFeaturedCarousel({ isInView }: { isInView: boolean }) {
           }}
           onTransitionEnd={handleTransitionEnd}
         >
-          {CAROUSEL_SLIDES.map((project, index) => (
-            <div
-              key={`${project.name}-${index}`}
-              className="w-full shrink-0"
-              aria-hidden={index === PROJECTS.length ? true : undefined}
-            >
-              <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              tabIndex={index === PROJECTS.length ? -1 : undefined}
-              className="group block transition-transform duration-200 ease-out"
+          {CAROUSEL_SLIDES.map((project, index) => {
+            const isActiveRealSlide =
+              index === active && index < PROJECTS.length;
+
+            return (
+              <div
+                key={`${project.name}-${index}`}
+                className="w-full shrink-0"
+                aria-hidden={!isActiveRealSlide}
               >
-                <ProjectPreview
-                  project={project}
-                  compactPhone
-                  priority={index === 0}
-                />
-                <WorkCaption project={project} />
-              </a>
-            </div>
-          ))}
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  tabIndex={isActiveRealSlide ? undefined : -1}
+                  className="group block transition-transform duration-200 ease-out"
+                >
+                  <ProjectPreview
+                    project={project}
+                    compactPhone
+                    priority={index === 0}
+                  />
+                  <WorkCaption project={project} />
+                </a>
+              </div>
+            );
+          })}
         </div>
       </div>
 

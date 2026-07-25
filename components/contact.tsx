@@ -28,9 +28,9 @@ function inputClass(hasError: boolean, extra = "") {
 }
 
 const INTEREST_OPTIONS = [
-  { value: "Landing Page", label: "Landing Page" },
-  { value: "Custom Project", label: "Custom Project" },
-  { value: "Dev Support", label: "Dev Support" },
+  { value: "Website", label: "Website" },
+  { value: "Custom Build", label: "Custom Build" },
+  { value: "Ongoing Support", label: "Ongoing Support" },
   { value: "Other", label: "Other" },
 ] as const;
 
