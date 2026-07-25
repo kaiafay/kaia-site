@@ -15,21 +15,18 @@ export function Hero() {
     <section
       ref={ref}
       id="hero"
-      className="noise-overlay relative flex min-h-screen items-center overflow-hidden"
+      className="noise-overlay relative flex min-h-screen items-center min-[660px]:overflow-hidden"
     >
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center gap-12 px-6 py-24 min-[660px]:flex-row min-[660px]:justify-between min-[660px]:gap-6 min-[660px]:py-20 min-[700px]:gap-8 md:items-center lg:py-0">
         {/* Left content */}
         <div
-          className={`${scrollRevealClass(isInView)} flex max-w-xl flex-col gap-6 min-[660px]:max-w-[18.5rem] min-[660px]:gap-5 min-[700px]:max-w-[20rem] min-[700px]:gap-6 min-[740px]:max-w-[19rem] md:max-w-xl`}
+          className={`${scrollRevealClass(isInView)} sticky top-24 z-10 flex max-w-xl flex-col gap-6 self-start min-[660px]:static min-[660px]:max-w-[18.5rem] min-[660px]:gap-5 min-[660px]:self-auto min-[700px]:max-w-[20rem] min-[700px]:gap-6 min-[740px]:max-w-[19rem] md:max-w-xl`}
         >
-          <div className="flex flex-col gap-3">
-            <p className="order-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground min-[660px]:order-1">
-              Web Developer · Boise, Idaho
-            </p>
-            <h1 className="order-1 font-heading text-7xl font-bold leading-none tracking-tighter text-foreground min-[660px]:order-2 min-[660px]:text-6xl min-[700px]:text-7xl md:text-8xl lg:text-9xl">
-              Kaia
-            </h1>
-          </div>
+          {/* Role and location live in the About teaser's heading, one section
+              down — the hero carries identity, offer, and point of view only. */}
+          <h1 className="font-heading text-7xl font-bold leading-none tracking-tighter text-foreground min-[660px]:text-6xl min-[700px]:text-7xl md:text-8xl lg:text-9xl">
+            Kaia
+          </h1>
           {/* One text object, three parallel fragments: lines are bound by
               line-height, not a flex gap, so the stanza holds together and the
               color steps map one-to-one onto the grammar. */}
@@ -62,7 +59,7 @@ export function Hero() {
         </div>
 
         <div
-          className={`${scrollRevealClass(isInView, 4)} w-full max-w-sm min-[660px]:max-w-[17rem] min-[700px]:max-w-[19rem] min-[740px]:max-w-[22rem] md:max-w-sm lg:max-w-md`}
+          className={`${scrollRevealClass(isInView, 4)} relative z-20 w-full max-w-sm min-[660px]:z-auto min-[660px]:max-w-[17rem] min-[700px]:max-w-[19rem] min-[740px]:max-w-[22rem] md:max-w-sm lg:max-w-md`}
         >
           <div className="relative isolate h-[500px] w-full overflow-hidden rounded-lg bg-background min-[660px]:h-[390px] min-[700px]:h-[430px] min-[740px]:h-[470px] md:h-[520px] lg:h-[600px]">
             <Image

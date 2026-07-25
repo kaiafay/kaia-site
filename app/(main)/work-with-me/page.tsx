@@ -184,7 +184,7 @@ export default function WorkWithMePage() {
             className={`${scrollRevealClass(isServicesInView)} mb-12 text-center`}
           >
             <SectionLabel as="h2">What I Build</SectionLabel>
-            <SectionHeading className="mt-2">Services & Pricing</SectionHeading>
+            <SectionHeading className="mt-2">Services & pricing</SectionHeading>
           </div>
           <div className="flex flex-col">
             {services.map((group, groupIndex) => (

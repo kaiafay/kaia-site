@@ -52,7 +52,7 @@ export function Projects({
   limit,
   headingAs = "h2",
   label = "Work",
-  heading = "Selected Projects",
+  heading = "Selected projects",
   intro = "My own products, built and maintained by me.",
 }: ProjectsProps) {
   const ref = useRef<HTMLElement>(null);
