@@ -211,11 +211,22 @@ export default function WorkWithMePage() {
                       <span className="block font-heading text-2xl font-semibold text-foreground">
                         {group.category}
                       </span>
-                      <span className="mt-2 block text-sm font-normal leading-relaxed text-muted-foreground">
-                        {group.summary}
-                      </span>
-                      <span className="mt-2 block text-sm font-medium text-foreground">
-                        {group.summaryDetail}
+                      <span
+                        aria-hidden={openService === group.category}
+                        className={`grid transition-[grid-template-rows,opacity,margin-top] duration-300 ease-out ${
+                          openService === group.category
+                            ? "mt-0 grid-rows-[0fr] opacity-0"
+                            : "mt-2 grid-rows-[1fr] opacity-100"
+                        }`}
+                      >
+                        <span className="overflow-hidden">
+                          <span className="block text-sm font-normal leading-relaxed text-muted-foreground">
+                            {group.summary}
+                          </span>
+                          <span className="mt-2 block text-sm font-medium text-foreground">
+                            {group.summaryDetail}
+                          </span>
+                        </span>
                       </span>
                     </span>
                     <ChevronDown
@@ -230,46 +241,58 @@ export default function WorkWithMePage() {
 
                 <div
                   id={`service-panel-${groupIndex}`}
-                  className={`gap-8 pb-8 md:grid md:grid-cols-[0.55fr_1.45fr] md:gap-12 md:py-8 ${
-                    openService === group.category ? "grid" : "hidden"
+                  className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out md:grid-rows-[1fr] md:opacity-100 ${
+                    openService === group.category
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
-                  <div className="hidden md:block">
-                    <h3 className="font-heading text-2xl font-semibold text-foreground">
-                      {group.category}
-                    </h3>
-                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                      {group.description}
-                    </p>
-                  </div>
+                  <div
+                    className={`overflow-hidden transition-[visibility] md:visible md:delay-0 ${
+                      openService === group.category
+                        ? "visible"
+                        : "invisible delay-300"
+                    }`}
+                  >
+                    <div className="grid gap-8 pb-8 md:grid-cols-[0.55fr_1.45fr] md:gap-12 md:py-8">
+                      <div className="hidden md:block">
+                        <h3 className="font-heading text-2xl font-semibold text-foreground">
+                          {group.category}
+                        </h3>
+                        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                          {group.description}
+                        </p>
+                      </div>
 
-                  <div>
-                    <p className="mb-5 text-sm leading-relaxed text-muted-foreground md:hidden">
-                      {group.description}
-                    </p>
-                    <div
-                      className={`grid gap-4 ${
-                        group.offerings.length === 2
-                          ? "md:grid-cols-2"
-                          : "sm:grid-cols-2 lg:grid-cols-3"
-                      }`}
-                    >
-                      {group.offerings.map((offering) => (
+                      <div>
+                        <p className="mb-5 text-sm leading-relaxed text-muted-foreground md:hidden">
+                          {group.description}
+                        </p>
                         <div
-                          key={offering.title}
-                          className="flex flex-col rounded-lg border border-border/70 bg-card/55 p-5"
+                          className={`grid gap-4 ${
+                            group.offerings.length === 2
+                              ? "md:grid-cols-2"
+                              : "sm:grid-cols-2 lg:grid-cols-3"
+                          }`}
                         >
-                          <h4 className="font-heading text-lg font-semibold text-foreground">
-                            {offering.title}
-                          </h4>
-                          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                            {offering.description}
-                          </p>
-                          <p className="mt-auto pt-5 text-sm font-medium text-foreground">
-                            {offering.detail}
-                          </p>
+                          {group.offerings.map((offering) => (
+                            <div
+                              key={offering.title}
+                              className="flex flex-col rounded-lg border border-border/70 bg-card/55 p-5"
+                            >
+                              <h4 className="font-heading text-lg font-semibold text-foreground">
+                                {offering.title}
+                              </h4>
+                              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                                {offering.description}
+                              </p>
+                              <p className="mt-auto pt-5 text-sm font-medium text-foreground">
+                                {offering.detail}
+                              </p>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
                   </div>
                 </div>
