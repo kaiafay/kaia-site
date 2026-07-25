@@ -45,13 +45,15 @@ type ProjectsProps = {
   headingAs?: "h1" | "h2";
   label?: string;
   heading?: string;
+  intro?: string;
 };
 
 export function Projects({
   limit,
   headingAs = "h2",
   label = "Work",
-  heading = "Selected Projects",
+  heading = "Selected projects",
+  intro = "My own products, built and maintained by me.",
 }: ProjectsProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref);
@@ -65,6 +67,11 @@ export function Projects({
           <SectionHeading as={headingAs} className="mt-2">
             {heading}
           </SectionHeading>
+          {intro && (
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
+              {intro}
+            </p>
+          )}
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">

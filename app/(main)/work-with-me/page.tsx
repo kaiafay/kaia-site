@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
+import { images } from "@/lib/images";
 import { SectionLabel } from "@/components/ui/section-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Contact } from "@/components/contact";
@@ -14,84 +16,78 @@ const services = [
     category: "Websites",
     description:
       "For businesses and personal brands that need a polished web presence without an overbuilt process.",
+    summary: "Single-page and multi-page sites",
+    summaryDetail: "From $600",
     offerings: [
       {
         title: "Single-Page Website",
         description:
           "A focused page for a clear offer, service, portfolio, or campaign.",
         detail: "From $600",
-        interest: "Landing Page",
       },
       {
         title: "Multi-Page Website",
         description:
           "A fuller site with the core pages your audience needs to understand and trust the business.",
         detail: "From $1,200",
-        interest: "Custom Project",
       },
     ],
   },
   {
     category: "Custom Builds",
     description:
-      "For projects that need workflow, logic, or integrations beyond a standard website.",
+      "For businesses that need bookings, payments, applications, or other functionality beyond a standard website.",
+    summary: "Bookings, payments, forms, dashboards, and tailored functionality",
+    summaryDetail: "Scoped per project",
     offerings: [
       {
         title: "Forms & Intake Flows",
         description:
-          "Guided forms, applications, onboarding flows, and lead capture experiences.",
+          "Collect inquiries, applications, onboarding details, or leads through a guided process.",
         detail: "From $800",
-        interest: "Custom Project",
       },
       {
-        title: "Dashboards & Admin Tools",
+        title: "Dashboards",
         description:
-          "Private views for managing submissions, customers, content, or internal processes.",
+          "Keep submissions, customers, content, or internal tasks organized in one private place.",
         detail: "From $2,000",
-        interest: "Custom Project",
       },
       {
         title: "Payments & Integrations",
         description:
-          "Checkout flows, booking tools, database-backed features, and third-party API connections.",
+          "Let customers book or pay online, and connect the tools your business already uses.",
         detail: "From $1,500",
-        interest: "Custom Project",
       },
     ],
   },
   {
-    category: "Dev Support",
+    category: "Ongoing Support",
     description:
       "For existing sites that need steady technical attention, iteration, or a developer available after launch.",
+    summary: "Updates, maintenance, and continued improvements",
+    summaryDetail: "Hourly or monthly",
     offerings: [
       {
         title: "Hourly Support",
         description:
           "Focused updates, refinements, content changes, and technical improvements as needed.",
         detail: "$100/hr",
-        interest: "Dev Support",
       },
       {
         title: "Monthly Support",
         description:
           "A recurring support window for businesses that want ongoing changes and light maintenance.",
         detail: "From $200/mo",
-        interest: "Dev Support",
       },
       {
         title: "Post-Launch Iteration",
         description:
           "Continue improving a recently launched project without turning it into a full rebuild.",
         detail: "From $500",
-        interest: "Dev Support",
       },
     ],
   },
 ];
-
-function contactHref(interest: string) {
-  return `/work-with-me?interest=${encodeURIComponent(interest)}#contact`;
-}
 
 const processSteps = [
   {
@@ -112,36 +108,28 @@ const processSteps = [
 
 const faqs = [
   {
-    question: "Who is this for?",
-    answer:
-      "Small businesses, founders, and independent professionals who want a thoughtful website, app, or web update without a bloated process.",
-  },
-  {
-    question: "What kind of work do you take on?",
-    answer:
-      "Single-page websites, multi-page sites, custom web builds, and focused dev support for existing sites.",
-  },
-  {
     question: "Can you help if I only have a rough idea?",
     answer:
-      "Yes. We can start by tightening the goal, scope, and first version before anything gets built.",
+      "Yes. We can start by clarifying what the site needs to do and what belongs in the first version.",
   },
   {
     question: "When does custom work make sense?",
     answer:
-      "When the site needs to fit a specific workflow, connect tools, handle payments, or feel more considered than a template. If a simple no-code setup is the right answer, I'll say that.",
+      "When your site needs to support bookings, payments, intake, or a process that off-the-shelf tools don't fit—or when you want something shaped around your business without having to piece it together yourself. If a simpler option would serve you better, I'll say so.",
   },
   {
     question: "What happens after launch?",
     answer:
-      "I can hand things off cleanly, stay available for hourly or monthly support, or scope the next round of work if there is more to build.",
+      "I can hand the project off cleanly or stay available for hourly or monthly support, depending on what you need.",
   },
 ];
 
 export default function WorkWithMePage() {
   const [openFaq, setOpenFaq] = useState<string | null>(null);
+  const [openService, setOpenService] = useState<string | null>(null);
   const heroRef = useRef<HTMLElement>(null);
   const servicesRef = useRef<HTMLElement>(null);
+  const personRef = useRef<HTMLElement>(null);
   const processRef = useRef<HTMLElement>(null);
   const faqRef = useRef<HTMLElement>(null);
   const proofRef = useRef<HTMLElement>(null);
@@ -150,6 +138,7 @@ export default function WorkWithMePage() {
     threshold: 0.01,
     rootMargin: "0px 0px 80px 0px",
   });
+  const isPersonInView = useInView(personRef);
   const isProcessInView = useInView(processRef);
   const isFaqInView = useInView(faqRef);
   const isProofInView = useInView(proofRef);
@@ -165,18 +154,18 @@ export default function WorkWithMePage() {
           <div className={scrollRevealClass(isHeroInView)}>
             <SectionLabel>Work With Me</SectionLabel>
             <SectionHeading as="h1" className="mt-2">
-              Web work built with care
+              A website built around your business
             </SectionHeading>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              I build clean, fast, intentional web experiences that help your
-              business make a better first impression.
+              I build custom websites and web apps that help small businesses
+              make a better first impression.
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
               <Link
                 href="#contact"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 sm:w-auto sm:min-w-[10.25rem] btn-primary-glow"
               >
-                Start a project inquiry
+                Start a project
               </Link>
               <a
                 href="/#contact"
@@ -195,59 +184,116 @@ export default function WorkWithMePage() {
             className={`${scrollRevealClass(isServicesInView)} mb-12 text-center`}
           >
             <SectionLabel as="h2">What I Build</SectionLabel>
-            <SectionHeading className="mt-2">Services & Offerings</SectionHeading>
+            <SectionHeading className="mt-2">Services & pricing</SectionHeading>
           </div>
-          <div className="flex flex-col gap-14">
+          <div className="flex flex-col">
             {services.map((group, groupIndex) => (
               <div
                 key={group.category}
-                className={scrollRevealClass(
+                className={`${scrollRevealClass(
                   isServicesInView,
                   Math.min(groupIndex * 2, 6) as ScrollRevealDelay,
-                )}
+                )} border-t border-border`}
               >
-                <div className="grid gap-6 border-t border-border pt-8 lg:grid-cols-[0.55fr_1.45fr] lg:gap-12">
-                  <div>
-                    <h3 className="font-heading text-2xl font-semibold text-foreground">
-                      {group.category}
-                    </h3>
-                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                      {group.description}
-                    </p>
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                    {group.offerings.map((offering) => (
-                      <Link
-                        key={offering.title}
-                        href={contactHref(offering.interest)}
-                        onClick={() => {
-                          window.dispatchEvent(
-                            new CustomEvent("contact-interest-change", {
-                              detail: offering.interest,
-                            }),
-                          );
-                        }}
-                        className="group flex min-h-[12.75rem] flex-col rounded-lg border border-border/70 bg-card/55 p-6 outline-none transition-all duration-200 ease-out hover:border-primary/35 hover:bg-secondary/70 focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+                <h3 className="md:hidden">
+                  <button
+                    type="button"
+                    aria-expanded={openService === group.category}
+                    aria-controls={`service-panel-${groupIndex}`}
+                    onClick={() =>
+                      setOpenService((current) =>
+                        current === group.category ? null : group.category,
+                      )
+                    }
+                    className="flex w-full items-start justify-between gap-6 rounded-sm py-7 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                  >
+                    <span>
+                      <span className="block font-heading text-2xl font-semibold text-foreground">
+                        {group.category}
+                      </span>
+                      <span
+                        aria-hidden={openService === group.category}
+                        className={`grid transition-[grid-template-rows,opacity,margin-top] duration-300 ease-out ${
+                          openService === group.category
+                            ? "mt-0 grid-rows-[0fr] opacity-0"
+                            : "mt-2 grid-rows-[1fr] opacity-100"
+                        }`}
                       >
-                        <h4 className="font-heading text-lg font-semibold text-foreground">
-                          {offering.title === "Dashboards & Admin Tools" ? (
-                            <>
-                              Dashboards &<br className="hidden xl:block" />
-                              <span className="xl:hidden"> </span>Admin Tools
-                            </>
-                          ) : (
-                            offering.title
-                          )}
-                        </h4>
-                        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                          {offering.description}
+                        <span className="overflow-hidden">
+                          <span className="block text-sm font-normal leading-relaxed text-muted-foreground">
+                            {group.summary}
+                          </span>
+                          <span className="mt-2 block text-sm font-medium text-foreground">
+                            {group.summaryDetail}
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                    <ChevronDown
+                      size={19}
+                      className={`mt-1 shrink-0 text-muted-foreground transition-transform duration-200 ${
+                        openService === group.category ? "rotate-180" : ""
+                      }`}
+                      aria-hidden
+                    />
+                  </button>
+                </h3>
+
+                <div
+                  id={`service-panel-${groupIndex}`}
+                  className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out md:grid-rows-[1fr] md:opacity-100 ${
+                    openService === group.category
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div
+                    className={`overflow-hidden transition-[visibility] md:visible md:delay-0 ${
+                      openService === group.category
+                        ? "visible"
+                        : "invisible delay-300"
+                    }`}
+                  >
+                    <div className="grid gap-8 pb-8 md:grid-cols-[0.55fr_1.45fr] md:gap-12 md:py-8">
+                      <div className="hidden md:block">
+                        <h3 className="font-heading text-2xl font-semibold text-foreground">
+                          {group.category}
+                        </h3>
+                        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                          {group.description}
                         </p>
-                        <p className="mt-auto pt-6 text-sm font-medium text-foreground">
-                          {offering.detail}
+                      </div>
+
+                      <div>
+                        <p className="mb-5 text-sm leading-relaxed text-muted-foreground md:hidden">
+                          {group.description}
                         </p>
-                      </Link>
-                    ))}
+                        <div
+                          className={`grid gap-4 ${
+                            group.offerings.length === 2
+                              ? "md:grid-cols-2"
+                              : "sm:grid-cols-2 lg:grid-cols-3"
+                          }`}
+                        >
+                          {group.offerings.map((offering) => (
+                            <div
+                              key={offering.title}
+                              className="flex flex-col rounded-lg border border-border/70 bg-card/55 p-5"
+                            >
+                              <h4 className="font-heading text-lg font-semibold text-foreground">
+                                {offering.title}
+                              </h4>
+                              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                                {offering.description}
+                              </p>
+                              <p className="mt-auto pt-5 text-sm font-medium text-foreground">
+                                {offering.detail}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -260,12 +306,58 @@ export default function WorkWithMePage() {
               href="#contact"
               className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
             >
-              Start a project inquiry
+              Start a project
               <ArrowRight
                 size={15}
                 className="transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1"
               />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section ref={personRef} className="relative py-16 lg:py-24">
+        <div className="mx-auto max-w-4xl px-6">
+          <div
+            className={`${scrollRevealClass(isPersonInView)} flex flex-col items-center gap-10 sm:flex-row sm:items-start sm:gap-12`}
+          >
+            <div className="relative h-56 w-44 shrink-0 overflow-hidden rounded-lg sm:h-64 sm:w-52">
+              <Image
+                src={images.about}
+                alt="Kaia Fay"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 640px) 176px, 208px"
+              />
+            </div>
+            <div className="flex flex-col gap-4 text-center sm:text-left">
+              <div>
+                <SectionLabel as="h2">
+                  Who you&apos;re working with
+                </SectionLabel>
+                <SectionHeading className="mt-2">
+                  Hi, I&apos;m Kaia.
+                </SectionHeading>
+              </div>
+              <p className="text-base leading-relaxed text-muted-foreground">
+                I&apos;m a software engineer and web developer. Before I
+                learned to code, I spent years in service jobs, so I know what
+                it&apos;s like to be the person handling everything. When we
+                work together, you&apos;ll work directly with me from the first
+                conversation through launch. I&apos;m based in Boise and work
+                with businesses locally and remotely.
+              </p>
+              <Link
+                href="/about"
+                className="group inline-flex items-center justify-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80 sm:justify-start"
+              >
+                More about me
+                <ArrowRight
+                  size={15}
+                  className="transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -361,16 +453,14 @@ export default function WorkWithMePage() {
         <div className="mx-auto max-w-3xl px-6 text-center">
           <div className={scrollRevealClass(isProofInView)}>
             <SectionLabel as="h2">Proof</SectionLabel>
-            <SectionHeading className="mt-2">See the work</SectionHeading>
-            <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Browse websites and apps I&apos;ve built. From polished first
-              impressions to custom web experiences.
-            </p>
+            <SectionHeading className="mt-2">
+              See what I&apos;ve built
+            </SectionHeading>
             <Link
               href="/work"
               className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
             >
-              View portfolio
+              Browse my work
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -380,7 +470,7 @@ export default function WorkWithMePage() {
       <Contact
         label="Project Inquiry"
         heading="Tell me what you're building"
-        description="Share the project details and I'll follow up with next steps."
+        description="Share what you have in mind. I'll get back to you within one to two business days with any questions and the next step."
         showSocialLinks={false}
         showBudget={true}
         showProjectFields={true}

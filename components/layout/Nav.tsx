@@ -10,11 +10,11 @@ function isNavLinkActive(pathname: string, href: string) {
 }
 
 const navLinks = [
-  { label: "About", href: "/about" },
   { label: "Work", href: "/work" },
-  { label: "Blog", href: "/blog" },
-  { label: "Uses", href: "/uses" },
   { label: "Services", href: "/work-with-me" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Nav() {
@@ -85,7 +85,7 @@ export function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="nav-link-flashlight text-sm tracking-wide"
+                className="nav-link-flashlight text-sm font-medium tracking-wide"
                 aria-current={
                   isNavLinkActive(pathname, link.href) ? "page" : undefined
                 }

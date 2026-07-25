@@ -4,6 +4,8 @@ import { FeaturedWork } from "@/components/featured-work"
 import { FreelanceServices } from "@/components/freelance-services"
 import { Contact } from "@/components/contact"
 
+// Section order is deliberate: identity and context → personal connection →
+// proof → fit/investment → action.
 export default function Home() {
   return (
     <main>
@@ -11,7 +13,11 @@ export default function Home() {
       <AboutTeaser />
       <FeaturedWork />
       <FreelanceServices />
-      <Contact showDirectContact />
+      <Contact
+        showDirectContact
+        heading="Tell me about your project"
+        description="Have a project in mind, or just a question? Reach out and I'll get back to you within one to two business days."
+      />
     </main>
   )
 }

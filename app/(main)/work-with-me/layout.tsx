@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Work With Me",
   description:
-    "Landing pages, custom web apps, and dev support for people who care about the details.",
+    "Custom websites, web apps, and ongoing support for small businesses and independent professionals who care about the details.",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     siteName: "Kaia Fay",
     title: "Work With Me | Kaia Fay",
     description:
-      "Landing pages, custom web apps, and dev support for people who care about the details.",
+      "Custom websites, web apps, and ongoing support for small businesses and independent professionals who care about the details.",
     images: [
       {
         url: "/og-image-work.jpg",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Work With Me | Kaia Fay",
     description:
-      "Landing pages, custom web apps, and dev support for people who care about the details.",
+      "Custom websites, web apps, and ongoing support for small businesses and independent professionals who care about the details.",
     images: ["/og-image-work.jpg"],
   },
 };

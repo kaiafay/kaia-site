@@ -10,19 +10,22 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 const services = [
   {
-    title: "Landing Pages",
+    title: "Websites",
     description:
-      "Polished single-page websites for small businesses, personal brands, portfolios, services, and focused offers.",
+      "Focused single-page and multi-page websites for businesses and personal brands.",
+    detail: "From $600",
   },
   {
-    title: "Custom Web Builds",
+    title: "Custom Builds",
     description:
-      "More involved websites and app-like workflows with forms, payments, dashboards, or integrations.",
+      "Forms, bookings, payments, dashboards, and integrations for work that goes beyond a standard website.",
+    detail: "Scoped per project",
   },
   {
-    title: "Dev Support",
+    title: "Ongoing Support",
     description:
-      "Ongoing or hourly support for updates, refinements, and post-launch improvements.",
+      "Updates, refinements, maintenance, and post-launch improvements for existing sites.",
+    detail: "Hourly or monthly",
   },
 ];
 
@@ -54,16 +57,21 @@ export function FreelanceServices() {
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">
                 {service.description}
               </p>
+              <p className="mt-4 text-sm font-medium text-foreground">
+                {service.detail}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className={`${scrollRevealClass(isInView, 6)} mt-12 text-center`}>
+        <div
+          className={`${scrollRevealClass(isInView, 6)} mt-12 text-center`}
+        >
           <Link
-            href="/work-with-me#contact"
+            href="/work-with-me"
             className="group inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
-            Start a project inquiry
+            See details, pricing, and process
             <ArrowRight
               size={16}
               className="transition-transform duration-200 group-hover:translate-x-1 group-active:translate-x-1"

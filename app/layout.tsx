@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Kaia Fay",
   },
   description:
-    "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details.",
+    "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details. Based in Boise, Idaho.",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Kaia Fay",
     title: "Kaia Fay | Web Developer & Engineer",
     description:
-      "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details.",
+      "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details. Based in Boise, Idaho.",
     images: [
       {
         url: "/og-image-v2.jpg",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kaia Fay | Web Developer & Engineer",
     description:
-      "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details.",
+      "Custom websites and web apps for small businesses and founders, built by a software engineer who cares about the details. Based in Boise, Idaho.",
     images: ["/og-image-v2.jpg"],
   },
   icons: {
@@ -65,6 +65,23 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Kaia Fay",
+  url: "https://www.kaiafay.com",
+  jobTitle: "Web Developer and Software Engineer",
+  homeLocation: {
+    "@type": "Place",
+    name: "Boise, Idaho",
+  },
+  sameAs: [
+    "https://github.com/kaiafay",
+    "https://www.linkedin.com/in/kaia-scheirman/",
+    "https://www.instagram.com/kaia.builds",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -74,6 +91,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preload" as="image" href="/images/hero-portrait.webp" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd),
+          }}
+        />
         <Script
           id="theme-init"
           strategy="beforeInteractive"

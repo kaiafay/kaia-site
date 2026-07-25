@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Landing pages, web apps, and client work. Built clean, built with care.",
+  description: "Client work and web apps built by Kaia Fay.",
 };
 
 export default function WorkLayout({
