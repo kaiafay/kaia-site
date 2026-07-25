@@ -23,25 +23,28 @@ export function Hero() {
           className={`${scrollRevealClass(isInView)} flex max-w-xl flex-col gap-6 min-[660px]:max-w-[18.5rem] min-[660px]:gap-5 min-[700px]:max-w-[20rem] min-[700px]:gap-6 min-[740px]:max-w-[19rem] md:max-w-xl`}
         >
           <div className="flex flex-col gap-3">
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <p className="order-2 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground min-[660px]:order-1">
               Web Developer · Boise, Idaho
             </p>
-            <h1 className="font-heading text-7xl font-bold leading-none tracking-tighter text-foreground min-[660px]:text-6xl min-[700px]:text-7xl md:text-8xl lg:text-9xl">
+            <h1 className="order-1 font-heading text-7xl font-bold leading-none tracking-tighter text-foreground min-[660px]:order-2 min-[660px]:text-6xl min-[700px]:text-7xl md:text-8xl lg:text-9xl">
               Kaia
             </h1>
           </div>
-          <div className="flex flex-col gap-3">
-            <p className="max-w-lg text-xl font-medium leading-relaxed text-foreground min-[660px]:text-lg min-[700px]:text-xl md:text-2xl">
-              Custom websites
-              <br />
-              <span className="text-muted-foreground">
-                designed around your business.
-              </span>
-            </p>
-            <p className="text-xl font-medium leading-relaxed text-primary min-[660px]:text-lg min-[700px]:text-xl md:text-2xl">
-              Built with taste and intention.
-            </p>
-          </div>
+          {/* One text object, three parallel fragments: lines are bound by
+              line-height, not a flex gap, so the stanza holds together and the
+              color steps map one-to-one onto the grammar. */}
+          {/* Type steps up only where the row can hold it. Between 660 and
+              ~835px the portrait squeezes this column below the 372px the
+              24px lines need, so 24px waits until 860. */}
+          <p className="max-w-lg text-xl font-medium leading-relaxed text-foreground min-[660px]:text-lg min-[860px]:text-2xl">
+            Custom websites and web apps.
+            <br />
+            <span className="text-muted-foreground">
+              Designed around your business.
+            </span>
+            <br />
+            <span className="text-primary">Built with taste and intention.</span>
+          </p>
           <div className="flex flex-wrap gap-4 pt-4 min-[660px]:gap-3 min-[700px]:gap-3 md:gap-4">
             <Link
               href="/work"
