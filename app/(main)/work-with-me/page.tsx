@@ -71,7 +71,7 @@ const services = [
         title: "Hourly Support",
         description:
           "Focused updates, refinements, content changes, and technical improvements as needed.",
-        detail: "$100/hr",
+        detail: "$120/hr",
       },
       {
         title: "Monthly Support",

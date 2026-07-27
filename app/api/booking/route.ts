@@ -205,7 +205,7 @@ function buildOwnerEmail(booking: Booking): { text: string; html: string } {
   const html =
     '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Discovery call booked</title></head><body style="font-family: system-ui, sans-serif; line-height: 1.6; color: #1a1a1a; max-width: 560px; margin: 0 auto; padding: 24px;">' +
     '<h1 style="font-size: 1.25rem; color: #8f3848;">Discovery call booked</h1>' +
-    '<p style="color: #666;">A new discovery call was reserved on kaia.dev.</p>' +
+    '<p style="color: #666;">A new discovery call was reserved on kaiafay.com.</p>' +
     '<hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />' +
     '<table style="width: 100%; border-collapse: collapse;">' +
     rows

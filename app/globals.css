@@ -34,8 +34,6 @@
   --card-drop-shadow-hover: 0 24px 56px rgba(0, 0, 0, 0.6);
   --card-glow-inset-left: inset 4px 0 24px -4px rgba(143, 56, 72, 0.45);
   --card-glow-inset-left-hover: inset 4px 0 24px -4px rgba(143, 56, 72, 0.5);
-  --card-glow-inset-right: inset -4px 0 24px -4px rgba(143, 56, 72, 0.45);
-  --card-glow-inset-right-hover: inset -4px 0 24px -4px rgba(143, 56, 72, 0.5);
 
   /* Landing pages preview shadow (dark theme: warm glow) */
   --preview-shadow: 0 8px 40px rgba(245, 240, 235, 0.08);
@@ -43,7 +41,6 @@
   /* Ambient glow tokens — theme-aware */
   --glow-focus: 0 0 20px rgba(143, 56, 72, 0.25);
   --glow-btn: 0 0 16px rgba(143, 56, 72, 0.3);
-  --glow-card: 0 0 20px rgba(143, 56, 72, 0.25);
   --glow-card-strong: 0 0 24px rgba(143, 56, 72, 0.4);
   --nav-flashlight-gradient: linear-gradient(
     to top,
@@ -135,8 +132,6 @@
   --card-drop-shadow-hover: 0 8px 24px rgba(28, 25, 23, 0.13);
   --card-glow-inset-left: inset 4px 0 24px -4px rgba(143, 56, 72, 0.2);
   --card-glow-inset-left-hover: inset 4px 0 24px -4px rgba(143, 56, 72, 0.28);
-  --card-glow-inset-right: inset -4px 0 24px -4px rgba(143, 56, 72, 0.2);
-  --card-glow-inset-right-hover: inset -4px 0 24px -4px rgba(143, 56, 72, 0.28);
 
   /* Landing pages preview shadow (light theme: subtle) */
   --preview-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
@@ -144,7 +139,6 @@
   /* Ambient glow tokens — light mode reduced opacities */
   --glow-focus: 0 0 16px rgba(143, 56, 72, 0.12);
   --glow-btn: 0 0 12px rgba(143, 56, 72, 0.15);
-  --glow-card: 0 0 16px rgba(143, 56, 72, 0.12);
   --glow-card-strong: 0 0 18px rgba(143, 56, 72, 0.18);
   --nav-flashlight-gradient: linear-gradient(
     to top,
@@ -360,20 +354,9 @@ textarea:focus,
 .card-glow-left:hover {
   box-shadow: var(--card-drop-shadow-hover), var(--card-glow-inset-left-hover);
 }
-.card-glow-right {
-  box-shadow:
-    var(--card-drop-shadow), var(--card-ring), var(--card-glow-inset-right);
-}
-.card-glow-right:hover {
-  box-shadow: var(--card-drop-shadow-hover), var(--card-glow-inset-right-hover);
-}
-
 /* Ambient glow classes — theme-aware via CSS variable tokens */
 .btn-primary-glow:hover {
   box-shadow: var(--glow-btn);
-}
-.card-hover-glow:hover {
-  box-shadow: var(--glow-card);
 }
 .card-hover-glow-strong:hover {
   box-shadow: var(--glow-card-strong);

@@ -11,9 +11,9 @@ export const BOOKING_DURATION_MINUTES = 30;
 export const BOOKING_WINDOW_DAYS = 21;
 export const BOOKING_MINIMUM_NOTICE_HOURS = 24;
 
-export const BLOCKED_BOOKING_DATES = [
-  "2026-06-22",
-] as const;
+// Add specific YYYY-MM-DD dates to block one-off days (travel, holidays).
+// Past dates have no effect and are removed once they've gone by.
+export const BLOCKED_BOOKING_DATES: readonly string[] = [];
 
 export const WEEKLY_AVAILABILITY: WeeklyAvailability = {
   monday: [

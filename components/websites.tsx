@@ -14,7 +14,6 @@ type SiteEntry = {
   description: string;
   url: string;
   desktopImage: string;
-  mobileImage: string;
   kind: ProjectKind;
 };
 
@@ -25,7 +24,14 @@ const SITES: SiteEntry[] = [
       "Coaching and consulting website with a guided intake flow for prospective clients",
     url: "https://richm-website.vercel.app/",
     desktopImage: "/images/work/richm.webp",
-    mobileImage: "/images/work/richm-mobile.webp",
+    kind: "client",
+  },
+  {
+    name: "Lovely Looks by Lexis",
+    description:
+      "Site for a Boise lash tech with services, portfolio, and booking through GlossGenius",
+    url: "https://lovelylooksbylexis.vercel.app/",
+    desktopImage: "/images/work/lovely-lexis.webp",
     kind: "client",
   },
   {
@@ -34,7 +40,6 @@ const SITES: SiteEntry[] = [
       "E-commerce storefront for a skincare brand with Stripe integration",
     url: "https://dewy-club.vercel.app/",
     desktopImage: "/images/work/dewy-club.webp",
-    mobileImage: "/images/work/dewy-club-mobile.webp",
     kind: "concept",
   },
   {
@@ -43,29 +48,8 @@ const SITES: SiteEntry[] = [
       "Wedding RSVP site with an admin dashboard for guests and responses",
     url: "https://kaiaandrichard.vercel.app/",
     desktopImage: "/images/work/wedding-rsvp.webp",
-    mobileImage: "/images/work/wedding-rsvp-mobile.webp",
     kind: "personal",
   },
-  {
-    name: "Driftwood Coffee",
-    description: "Landing page for an independent coffee shop",
-    url: "https://driftwood-coffee-nine.vercel.app/",
-    desktopImage: "/images/work/driftwood-coffee.webp",
-    mobileImage: "/images/work/driftwood-coffee-mobile.webp",
-    kind: "concept",
-  },
-  // DRAFT — Lovely Looks by Lexis (client site, shipped June 2026).
-  // Excluded until the live URL, screenshots, and portfolio permission are
-  // confirmed. When ready: add screenshots to public/images/work/ and move
-  // this entry to the top of the list.
-  // {
-  //   name: "Lovely Looks by Lexis",
-  //   description: "Booking-ready site for a Treasure Valley lash studio",
-  //   url: "<confirm live URL>",
-  //   desktopImage: "/images/work/lovely-looks.webp",
-  //   mobileImage: "/images/work/lovely-looks-mobile.webp",
-  //   kind: "client",
-  // },
 ];
 
 type WebsitesProps = {

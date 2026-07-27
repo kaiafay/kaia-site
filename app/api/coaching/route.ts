@@ -76,7 +76,7 @@ export async function POST(request: Request) {
   }
 
   const text = [
-    "New coaching application from kaia.dev",
+    "New coaching application from kaiafay.com",
     "—".repeat(40),
     formatSection("Contact & Basics", [
       ["Full name", fullName],
