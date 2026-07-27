@@ -323,10 +323,10 @@ export default function WorkWithMePage() {
           >
             <div className="relative h-56 w-44 shrink-0 overflow-hidden rounded-lg sm:h-64 sm:w-52">
               <Image
-                src={images.about}
+                src={images.workWithMe}
                 alt="Kaia Fay"
                 fill
-                className="object-cover object-top"
+                className="object-cover object-[52.5%_top]"
                 sizes="(max-width: 640px) 176px, 208px"
               />
             </div>

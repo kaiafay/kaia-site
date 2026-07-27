@@ -23,12 +23,10 @@ export function AboutTeaser() {
           </div>
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">
             I didn&apos;t come up through a CS program. I spent years in service
-            jobs before I started teaching myself web development out of
-            personal interest. Turns out I had a brain for it. I accelerated
-            through a full-stack engineering program in 2022, graduated at the
-            top of my cohort, and haven&apos;t stopped building since. Today
-            I build websites and web apps for clients, alongside my own
-            products.
+            jobs before teaching myself web development out of personal
+            interest. Turns out I had a brain for it. That background still
+            shapes how I build: paying attention to the person on the other
+            side, and making sure the details feel considered.
           </p>
           <Link
             href="/about"
