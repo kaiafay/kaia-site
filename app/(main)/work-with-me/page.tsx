@@ -15,8 +15,8 @@ const services = [
   {
     category: "Websites",
     description:
-      "For businesses and personal brands that need a polished web presence without an overbuilt process.",
-    summary: "Single-page and multi-page sites",
+      "For businesses and personal brands that need a polished website or focused improvements to the one they already have.",
+    summary: "Custom sites and targeted upgrades",
     summaryDetail: "From $600",
     offerings: [
       {
@@ -31,13 +31,19 @@ const services = [
           "A fuller site with the core pages your audience needs to understand and trust the business.",
         detail: "From $1,200",
       },
+      {
+        title: "Website Improvements",
+        description:
+          "Targeted upgrades to improve your site's usability, performance, or presentation without a full rebuild.",
+        detail: "From $400",
+      },
     ],
   },
   {
     category: "Custom Builds",
     description:
-      "For businesses that need bookings, payments, applications, or other functionality beyond a standard website.",
-    summary: "Bookings, payments, forms, dashboards, and tailored functionality",
+      "For businesses that need bookings, payments, dashboards, or other functionality beyond a standard website.",
+    summary: "Forms, payments, and tailored functionality",
     summaryDetail: "Scoped per project",
     offerings: [
       {
@@ -63,8 +69,8 @@ const services = [
   {
     category: "Ongoing Support",
     description:
-      "For existing sites that need steady technical attention, iteration, or a developer available after launch.",
-    summary: "Updates, maintenance, and continued improvements",
+      "For existing sites that need occasional updates, routine maintenance, or reliable technical help over time.",
+    summary: "Updates, maintenance, and technical support",
     summaryDetail: "Hourly or monthly",
     offerings: [
       {
@@ -74,16 +80,10 @@ const services = [
         detail: "$120/hr",
       },
       {
-        title: "Monthly Support",
+        title: "Website Care",
         description:
-          "A recurring support window for businesses that want ongoing changes and light maintenance.",
-        detail: "From $200/mo",
-      },
-      {
-        title: "Post-Launch Iteration",
-        description:
-          "Continue improving a recently launched project without turning it into a full rebuild.",
-        detail: "From $500",
+          "Routine maintenance and small updates to keep your site running smoothly.",
+        detail: "From $79/mo",
       },
     ],
   },
@@ -115,12 +115,12 @@ const faqs = [
   {
     question: "When does custom work make sense?",
     answer:
-      "When your site needs to support bookings, payments, intake, or a process that off-the-shelf tools don't fit—or when you want something shaped around your business without having to piece it together yourself. If a simpler option would serve you better, I'll say so.",
+      "When your site needs to support a process that off-the-shelf tools don't fit, or when you want something shaped around your business without having to piece it together yourself. If a simpler option would work better, I'll say so.",
   },
   {
     question: "What happens after launch?",
     answer:
-      "I can hand the project off cleanly or stay available for hourly or monthly support, depending on what you need.",
+      "I can hand the project off cleanly, stay available for hourly support, or provide ongoing care if you'd rather not maintain it yourself.",
   },
 ];
 
