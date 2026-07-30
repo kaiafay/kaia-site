@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, Minus, Plus } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { scrollRevealClass, type ScrollRevealDelay } from "@/lib/scroll-reveal";
 import { images } from "@/lib/images";
@@ -110,7 +110,7 @@ const faqs = [
   {
     question: "Can you help if I only have a rough idea?",
     answer:
-      "Yes. We can start by clarifying what the site needs to do and what belongs in the first version.",
+      "Yes. Bring what you have, even if it's just a goal or a few notes, and we'll figure out the scope from there.",
   },
   {
     question: "When does custom work make sense?",
@@ -229,13 +229,20 @@ export default function WorkWithMePage() {
                         </span>
                       </span>
                     </span>
-                    <ChevronDown
-                      size={19}
-                      className={`mt-1 shrink-0 text-muted-foreground transition-transform duration-200 ${
-                        openService === group.category ? "rotate-180" : ""
+                    <span
+                      className={`mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-md border transition-colors duration-200 ${
+                        openService === group.category
+                          ? "border-primary/40 bg-primary/10 text-primary"
+                          : "border-border text-muted-foreground"
                       }`}
                       aria-hidden
-                    />
+                    >
+                      {openService === group.category ? (
+                        <Minus size={16} />
+                      ) : (
+                        <Plus size={16} />
+                      )}
+                    </span>
                   </button>
                 </h3>
 

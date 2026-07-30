@@ -18,7 +18,7 @@ const services = [
   {
     title: "Custom Builds",
     description:
-      "Forms, bookings, payments, dashboards, and integrations for work that goes beyond a standard website.",
+      "Forms, bookings, payments, dashboards, and integrations for projects that go beyond a standard website.",
     detail: "Scoped per project",
   },
   {
